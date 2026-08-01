@@ -1,0 +1,29 @@
+% 4_1_Model.tex
+\subsection{Model}
+\label{sec:epidemic_model}
+
+To evaluate how network structures influence the spread of an infectious disease, we compare epidemic dynamics across four distinct contact networks, ordered by increasing structural resolution.
+Each network is simulated with a fixed population size of $N = 10,000$ individuals.
+
+\begin{enumerate}
+    \item \textbf{Mean Field (MF) Model}:
+    The Mean Field model serves as the homogeneous baseline for our stochastic simulations.
+    It relies on the traditional assumption of perfect homogeneous mixing, where every individual has an equal probability of contacting any other individual in the population.
+    Under this assumption, a single individual is effectively in contact with everyone else in the entire network.
+    Consequently, this makes it the most unrealistic model among the four, entirely disregarding localized network structures and individual-level heterogeneity.
+
+    \item \textbf{Erd\H{o}s-R\'enyi (ER) Model}:
+    The Erd\H{o}s-R\'enyi model is a random graph where edges are formed with a uniform probability $p$.
+    To ensure comparability, we calculated the probability $p$ such that the generated network matches the empirical mean degree ($\bar{k} \approx 13.5$) derived from the baseline POLYMOD data.
+    The presence or absence of an edge between any two nodes is determined by an independent Bernoulli trial using this constant probability $p$.
+
+    \item \textbf{Model 1 (Baseline Model)}:
+    Model 1 represents a network generated without specific environmental contexts such as schools or households.
+    It relies solely on basic age homophily and individual-level random effects for sociability.
+    The existence of an edge between any pair of individuals is determined via an independent Bernoulli trial, utilizing the specific contact probability $P_{ij}$ derived from the logistic regression framework in Equation \ref{eq:m1_logit}.
+
+    \item \textbf{Model 2 (Refined Model)}:
+    Model 2 represents the most structurally realistic network in this study, corresponding to the fully stratified Model 2B.
+    It incorporates strict age-bounded educational cohorts and intergenerational household mixing distributions.
+    Similar to Model 1, the formation of each edge is simulated through an independent Bernoulli trial, based on the refined contact probability $P_{ij}$ defined in Equation \ref{eq:m2b_full}.
+\end{enumerate}

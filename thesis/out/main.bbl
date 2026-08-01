@@ -1,0 +1,2473 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{apa/apasortcite//global/global/global}
+    \entry{alimohamadi2020estimate}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=86a81f15a49816e1406be7871db85d63}{%
+           family={Alimohamadi},
+           familyi={A\bibinitperiod},
+           given={Yousef},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad985e9ade9e8c69db2c87c8fa2b13b6}{%
+           family={Taghdir},
+           familyi={T\bibinitperiod},
+           given={Maryam},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=38188bfa28210bf525135c20765850cd}{%
+           family={Sepandi},
+           familyi={S\bibinitperiod},
+           given={Mojtaba},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6218470833837593dc62a1ca7c900b23}
+      \strng{fullhash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{fullhashraw}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{bibnamehash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authorbibnamehash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authornamehash}{6218470833837593dc62a1ca7c900b23}
+      \strng{authorfullhash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authorfullhashraw}{3d8185d98df3f3b0330a6e9a154c242f}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Objectives: The outbreak of coronavirus disease 2019 (COVID-19) is one of the main public health challenges currently facing the world. Because of its high transmissibility, COVID-19 has already caused extensive morbidity and mortality in many countries throughout the world. An accurate estimation of the basic reproduction number (R0) of COVID-19 would be beneficial for prevention programs. In light of discrepancies in original research on this issue, this systematic review and meta-analysis aimed to estimate the pooled R0 for COVID-19 in the current outbreak. Methods: International databases (including Google Scholar, Science Direct, PubMed, and Scopus) were searched to identify studies conducted regarding the R0 of COVID-19. Articles were searched using the following keywords: “COVID-19” and “basic reproduction number” or “R0.” The heterogeneity among studies was assessed using the I2 index, the Cochran Q test, and T2. A random-effects model was used to estimate R0 in this study. Results: The mean reported R0 in the identified articles was 3.38±1.40, with a range of 1.90 to 6.49. According to the results of the random-effects model, the pooled R0 for COVID-19 was estimated as 3.32 (95\% confidence interval, 2.81 to 3.82). According to the results of the meta-regression analysis, the type of model used to estimate R0 did not have a significant effect on heterogeneity among studies (p=0.81). Conclusions: Considering the estimated R0 for COVID-19, reducing the number of contacts within the population is a necessary step to control the epidemic. The estimated overall R0 was higher than the World Health Organization estimate.}
+      \field{day}{31}
+      \field{issn}{1975-8375, 2233-4521}
+      \field{journaltitle}{Journal of Preventive Medicine and Public Health}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{3}
+      \field{shortjournal}{J Prev Med Public Health}
+      \field{shorttitle}{Estimate of the {{Basic Reproduction Number}} for {{COVID-19}}}
+      \field{title}{Estimate of the {{Basic Reproduction Number}} for {{COVID-19}}: {{A Systematic Review}} and {{Meta-analysis}}}
+      \field{urlday}{6}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{53}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{151\bibrangedash 157}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.3961/jpmph.20.076
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/HB2XLCXM/Alimohamadi et al. - 2020 - Estimate of the Basic Reproduction Number for COVID-19 A Systematic Review and Meta-analysis.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://jpmph.org/journal/view.php?doi=10.3961/jpmph.20.076
+      \endverb
+      \verb{url}
+      \verb http://jpmph.org/journal/view.php?doi=10.3961/jpmph.20.076
+      \endverb
+    \endentry
+    \entry{billah2020reproductive}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=dc0d76fa564b827c8d817b4b88a583a3}{%
+           family={Billah},
+           familyi={B\bibinitperiod},
+           given={Md.\bibnamedelimi Arif},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dd3c3d5ac09cf0649114e177f2297d7d}{%
+           family={Miah},
+           familyi={M\bibinitperiod},
+           given={Md.\bibnamedelimi Mamun},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34254e3ec6317f939a1a279b60b9ac76}{%
+           family={Khan},
+           familyi={K\bibinitperiod},
+           given={Md.\bibnamedelimi Nuruzzaman},
+           giveni={M\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=07eca8bc5448ef1965653ca765b1b331}{%
+           family={Flacco},
+           familyi={F\bibinitperiod},
+           given={Maria\bibnamedelima Elena},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{1646ee54d638edb2394a644ae2c3008b}
+      \strng{fullhash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{fullhashraw}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{bibnamehash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authorbibnamehash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authornamehash}{1646ee54d638edb2394a644ae2c3008b}
+      \strng{authorfullhash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authorfullhashraw}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{editorbibnamehash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editornamehash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editorfullhash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editorfullhashraw}{07eca8bc5448ef1965653ca765b1b331}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Background The coronavirus (SARS-COV-2) is now a global concern because of its higher transmission capacity and associated adverse consequences including death. The reproductive number of coronavirus provides an estimate of the possible extent of the transmission. This study aims to provide a summary reproductive number of coronavirus based on available global level evidence.}
+      \field{day}{11}
+      \field{issn}{1932-6203}
+      \field{journaltitle}{PLOS ONE}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{11}
+      \field{shortjournal}{PLoS ONE}
+      \field{shorttitle}{Reproductive Number of Coronavirus}
+      \field{title}{Reproductive Number of Coronavirus: {{A}} Systematic Review and Meta-Analysis Based on Global Level Evidence}
+      \field{urlday}{6}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{15}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e0242128}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0242128
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/HNPKVUTY/Billah et al. - 2020 - Reproductive number of coronavirus A systematic review and meta-analysis based on global level evid.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pone.0242128
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pone.0242128
+      \endverb
+    \endentry
+    \entry{britton2025improving}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=31c1b2044c75ef0fb349df99eb15ed1a}{%
+           family={Britton},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1f8793596bcc73ac248234b6eb55d8a1}{%
+           family={Ball},
+           familyi={B\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4c5de871b2217184f740a994908ad356}
+      \strng{fullhash}{4c5de871b2217184f740a994908ad356}
+      \strng{fullhashraw}{4c5de871b2217184f740a994908ad356}
+      \strng{bibnamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorbibnamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authornamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorfullhash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorfullhashraw}{4c5de871b2217184f740a994908ad356}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Social contact studies are used in infectious disease epidemiology to infer a contact matrix M , having the mean number of contacts between individuals of different age groups as elements. However, M does not capture the (often large) variation in the number of contacts within each age group, information is also available in social contact studies. Here, we include such variation by separating each age group into two halves: the socially active (having many contacts) and the socially less active (having fewer contacts). The extended contact matrix and its associated epidemic model show that acknowledging variation in social activity within age groups has a substantial impact on the basic reproduction number, R0, and the final fraction getting infected if the epidemic takes off, τ . In fact, variation in social activity is more important for data fitting than allowing for different age groups. A difficulty with variation in social activity, however, is that social contact studies typically lack information on whether mixing with respect to social activity is assortative (when socially active mainly have contact with other socially active individuals) or not. Our analysis shows that accounting for variation in social activity improves model predictability, yielding more accurate expressions for R0 and τ irrespective of whether such mixing is assortative, but different assumptions on assortativity give rather different outputs. Future social contact studies should, therefore, also try to infer the degree of assortativity (with respect to social activity) between peers and their contacts.}
+      \field{issn}{1044-3983, 1531-5487}
+      \field{journaltitle}{Epidemiology}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{5}
+      \field{title}{Improving the {{Use}} of {{Social Contact Studies}} in {{Epidemic Modeling}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{36}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{660\bibrangedash 667}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1097/EDE.0000000000001876
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/5896Y9BW/Britton と Ball - 2025 - Improving the Use of Social Contact Studies in Epidemic Modeling.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://journals.lww.com/10.1097/EDE.0000000000001876
+      \endverb
+      \verb{url}
+      \verb https://journals.lww.com/10.1097/EDE.0000000000001876
+      \endverb
+    \endentry
+    \entry{bu2022likelihoodbased}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=df6e5cbc360ee9a45ca25de571ce88ec}{%
+           family={Bu},
+           familyi={B\bibinitperiod},
+           given={Fan},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4091d44b375ee609aab01f20fe3c432d}{%
+           family={Aiello},
+           familyi={A\bibinitperiod},
+           given={Allison\bibnamedelima E.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ee0185f7e9990a1e5d9009694d45df78}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=32f985746191d1b95ac58eccba2ab9d1}{%
+           family={Volfovsky},
+           familyi={V\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{54795d5955717a81aebd226663e56c2e}
+      \strng{fullhash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{fullhashraw}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{bibnamehash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authorbibnamehash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authornamehash}{54795d5955717a81aebd226663e56c2e}
+      \strng{authorfullhash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authorfullhashraw}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{2}
+      \field{issn}{0162-1459, 1537-274X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{537}
+      \field{shortjournal}{Journal of the American Statistical Association}
+      \field{title}{Likelihood-{{Based Inference}} for {{Partially Observed Epidemics}} on {{Dynamic Networks}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{117}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{510\bibrangedash 526}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1080/01621459.2020.1790376
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/7Q6237XJ/Bu et al. - 2022 - Likelihood-Based Inference for Partially Observed Epidemics on Dynamic Networks.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1790376
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1790376
+      \endverb
+    \endentry
+    \entry{guzman2025inferring}{article}{}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=ea27b0c8b51758cee12855ccd0cba5ef}{%
+           family={Guzmán},
+           familyi={G\bibinitperiod},
+           given={Andrés},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4b30ab0c3f8beba248b45dedd078bca4}{%
+           family={Malizia},
+           familyi={M\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8b430085168e796b09474fcc7503e085}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Gyeong\bibnamedelima Ho},
+           giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9fc9be225def2dd7f64f81ba0c956968}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={Boseung},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=80300363040b04cd99f8de4ca2261e83}{%
+           family={Cole},
+           familyi={C\bibinitperiod},
+           given={Diana},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=13f064189989fe4c2330181c275cfa44}{%
+           family={Kiss},
+           familyi={K\bibinitperiod},
+           given={István\bibnamedelima Z},
+           giveni={I\bibinitperiod\bibinitdelim Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ac7b08b8a54e4ab15c3ad372bf2bb83}
+      \strng{fullhash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{fullhashraw}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{bibnamehash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authorbibnamehash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authornamehash}{6ac7b08b8a54e4ab15c3ad372bf2bb83}
+      \strng{authorfullhash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authorfullhashraw}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Modelling epidemics using contact networks provides a significant improvement over classical compartmental models by explicitly incorporating the network of contacts. However, while network-based models describe disease spread on a given contact structure, their potential for inferring the underlying network from epidemic data remains largely unexplored. In this work, we consider the edge-based compartmental model, a compact and analytically tractable framework, and we integrate it within dynamical survival analysis to infer key network properties along with parameters of the epidemic itself. Despite correlations between structural and epidemic parameters, our framework demonstrates robustness in accurately inferring contact network properties from synthetic epidemic simulations. Additionally, we apply the framework to realworld outbreaks—the 2001 UK foot-and-mouth disease outbreak and the COVID-19 epidemic in Seoul—to estimate both disease parameters and network characteristics. Our results show that our framework achieves good fits to real-world epidemic data and reliable short-term forecasts. These findings highlight the potential of network-based inference approaches to uncover hidden contact structures, providing insights that can inform the design of targeted interventions and public health strategies.}
+      \field{day}{26}
+      \field{issn}{2051-1329}
+      \field{journaltitle}{Journal of Complex Networks}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{number}{4}
+      \field{title}{Inferring Contact Network Characteristics from Epidemic Data via Compact Mean-Field Models}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{13}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{cnaf018}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1093/comnet/cnaf018
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/LXQR3QI2/Guzmán et al. - 2025 - Inferring contact network characteristics from epidemic data via compact mean-field models.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/comnet/article/doi/10.1093/comnet/cnaf018/8202884
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/comnet/article/doi/10.1093/comnet/cnaf018/8202884
+      \endverb
+    \endentry
+    \entry{litvinova2019reactive}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=4439c73532c3d22e1d63082e1e29c08a}{%
+           family={Litvinova},
+           familyi={L\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a05cbe84139f49990b444ee59462e6d0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Quan-Hui},
+           giveni={Q\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=66fe35ac3f9c16d7df22fc8f097c2cee}{%
+           family={Kulikov},
+           familyi={K\bibinitperiod},
+           given={Evgeny\bibnamedelima S.},
+           giveni={E\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0fb18d2b202584a9dc25c3e8ffc43dcb}{%
+           family={Ajelli},
+           familyi={A\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{089158390fa4b54f741fdf243ebe90f5}
+      \strng{fullhash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{fullhashraw}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{bibnamehash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authorbibnamehash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authornamehash}{089158390fa4b54f741fdf243ebe90f5}
+      \strng{authorfullhash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authorfullhashraw}{11a5795d307927cf42d4ee3bf050f509}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{School-closure policies are considered one of the most promising nonpharmaceutical interventions for mitigating seasonal and pandemic influenza. However, their effectiveness is still debated, primarily due to the lack of empirical evidence about the behavior of the population during the implementation of the policy. Over the course of the 2015 to 2016 influenza season in Russia, we performed a diary-based contact survey to estimate the patterns of social interactions before and during the implementation of reactive school-closure strategies. We develop an innovative hybrid survey-modeling framework to estimate the time-varying network of human social interactions. By integrating this network with an infection transmission model, we reduce the uncertainty surrounding the impact of school-closure policies in mitigating the spread of influenza. When the school-closure policy is in place, we measure a significant reduction in the number of contacts made by students (14.2 vs. 6.5 contacts per day) and workers (11.2 vs. 8.7 contacts per day). This reduction is not offset by the measured increase in the number of contacts between students and nonhousehold relatives. Model simulations suggest that gradual reactive school-closure policies based on monitoring student absenteeism rates are capable of mitigating influenza spread. We estimate that without the implemented reactive strategies the attack rate of the 2015 to 2016 influenza season would have been 33\% larger. Our study sheds light on the social mixing patterns of the population during the implementation of reactive school closures and provides key instruments for future cost-effectiveness analyses of school-closure policies.}
+      \field{day}{2}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{27}
+      \field{shortjournal}{Proc. Natl. Acad. Sci. U.S.A.}
+      \field{title}{Reactive School Closure Weakens the Network of Social Interactions and Reduces the Spread of Influenza}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{116}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{13174\bibrangedash 13181}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1073/pnas.1821298116
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/NP25FR93/Litvinova et al. - 2019 - Reactive school closure weakens the network of social interactions and reduces the spread of influen.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1821298116
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1821298116
+      \endverb
+    \endentry
+    \entry{lloyd-smith2005superspreading}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=7ee471dd281ac10ba4acd21246d723f7}{%
+           family={Lloyd-Smith},
+           familyi={L\bibinithyphendelim S\bibinitperiod},
+           given={J.\bibnamedelimi O.},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5eef7024c53b3b8549ddcb4becdbb3f3}{%
+           family={Schreiber},
+           familyi={S\bibinitperiod},
+           given={S.\bibnamedelimi J.},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d9c7efa739f2c457d1f38853c7b994e5}{%
+           family={Kopp},
+           familyi={K\bibinitperiod},
+           given={P.\bibnamedelimi E.},
+           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8c796686aa6bdfdbe7c87e0b856889cd}{%
+           family={Getz},
+           familyi={G\bibinitperiod},
+           given={W.\bibnamedelimi M.},
+           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2fa0ad19836a9b29d48fdd667bc614c3}
+      \strng{fullhash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{fullhashraw}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{bibnamehash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authorbibnamehash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authornamehash}{2fa0ad19836a9b29d48fdd667bc614c3}
+      \strng{authorfullhash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authorfullhashraw}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{17}
+      \field{issn}{0028-0836, 1476-4687}
+      \field{journaltitle}{Nature}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{7066}
+      \field{shortjournal}{Nature}
+      \field{title}{Superspreading and the Effect of Individual Variation on Disease Emergence}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{438}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{355\bibrangedash 359}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/nature04153
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/2AMZBLUX/lloyd----Smith et al. - 2005 - Superspreading and the effect of individual variation on disease emergence.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/nature04153
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/nature04153
+      \endverb
+    \endentry
+    \entry{mckinley2009inference}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=92248bac9ad52a4e043d11fce5155d6a}{%
+           family={McKinley},
+           familyi={M\bibinitperiod},
+           given={Trevelyan},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34335f83bc567e96e1ff762f4c628ac5}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Alex\bibnamedelima R},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1694360ee2e06232585ee0e42156db2d}{%
+           family={Deardon},
+           familyi={D\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{332a06d5cc1dca0d033c62e12d97e599}
+      \strng{fullhash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{fullhashraw}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{bibnamehash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authorbibnamehash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authornamehash}{332a06d5cc1dca0d033c62e12d97e599}
+      \strng{authorfullhash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authorfullhashraw}{0ee9f1c870798e77f0ddf599f196cd90}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Likelihood-based inference for epidemic models can be challenging, in part due to difficulties in evaluating the likelihood. The problem is particularly acute in models of large-scale outbreaks, and unobserved or partially observed data further complicates this process. Here we investigate the performance of Markov Chain Monte Carlo and Sequential Monte Carlo algorithms for parameter inference, where the routines are based on approximate likelihoods generated from model simulations. We compare our results to a gold-standard data-augmented MCMC for both complete and incomplete data. We illustrate our techniques using simulated epidemics as well as data from a recent outbreak of Ebola Haemorrhagic Fever in the Democratic Republic of Congo and discuss situations in which we think simulation-based inference may be preferable to likelihood-based inference.}
+      \field{day}{20}
+      \field{issn}{1557-4679}
+      \field{journaltitle}{The International Journal of Biostatistics}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{1}
+      \field{title}{Inference in {{Epidemic Models}} without {{Likelihoods}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{5}
+      \field{year}{2009}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.2202/1557-4679.1171
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/YPIUT3TE/McKinley et al. - 2009 - Inference in Epidemic Models without Likelihoods.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.degruyterbrill.com/document/doi/10.2202/1557-4679.1171/html
+      \endverb
+      \verb{url}
+      \verb https://www.degruyterbrill.com/document/doi/10.2202/1557-4679.1171/html
+      \endverb
+    \endentry
+    \entry{mistry2021inferring}{article}{}{}
+      \name{author}{15}{}{%
+        {{un=0,uniquepart=base,hash=f48bdcee330812b35f45bca223223f83}{%
+           family={Mistry},
+           familyi={M\bibinitperiod},
+           given={Dina},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4439c73532c3d22e1d63082e1e29c08a}{%
+           family={Litvinova},
+           familyi={L\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f4331592075ceb3e6ffeca64159b427e}{%
+           family={Pastore\bibnamedelimb Y\bibnamedelima Piontti},
+           familyi={P\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={Ana},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4064f8e9a9eb3c622d3a2980b795a7b5}{%
+           family={Chinazzi},
+           familyi={C\bibinitperiod},
+           given={Matteo},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=60799c6c5101b553d53dbc8748a4de3a}{%
+           family={Fumanelli},
+           familyi={F\bibinitperiod},
+           given={Laura},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f22503bdaed4a9f5bbaac85e175dd8a8}{%
+           family={Gomes},
+           familyi={G\bibinitperiod},
+           given={Marcelo\bibnamedelimb F.\bibnamedelimi C.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a73235587362967b70ad3b21a4e688ec}{%
+           family={Haque},
+           familyi={H\bibinitperiod},
+           given={Syed\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a05cbe84139f49990b444ee59462e6d0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Quan-Hui},
+           giveni={Q\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=269703856543c8bf7dcca1c7e1d711cd}{%
+           family={Mu},
+           familyi={M\bibinitperiod},
+           given={Kunpeng},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=90349fbfdc6a763646afcacb5ea2cd2b}{%
+           family={Xiong},
+           familyi={X\bibinitperiod},
+           given={Xinyue},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6117faae164e31aa94ebb421c00480af}{%
+           family={Halloran},
+           familyi={H\bibinitperiod},
+           given={M.\bibnamedelimi Elizabeth},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6013d1318b3140fbe1cb1a793f3a0a90}{%
+           family={Longini},
+           familyi={L\bibinitperiod},
+           given={Ira\bibnamedelima M.},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d27534f680a6372aee75337fc11febe9}{%
+           family={Merler},
+           familyi={M\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0fb18d2b202584a9dc25c3e8ffc43dcb}{%
+           family={Ajelli},
+           familyi={A\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f9932ed1839be02bb53a62b258449a8}{%
+           family={Vespignani},
+           familyi={V\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{cc9716d13358ca7539b38ffa1d514efb}
+      \strng{fullhash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{fullhashraw}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{bibnamehash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authorbibnamehash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authornamehash}{cc9716d13358ca7539b38ffa1d514efb}
+      \strng{authorfullhash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authorfullhashraw}{b6f3e944412672c93120b4a26ac9f007}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract Mathematical and computational modeling approaches are increasingly used as quantitative tools in the analysis and forecasting of infectious disease epidemics. The growing need for realism in addressing complex public health questions is, however, calling for accurate models of the human contact patterns that govern the disease transmission processes. Here we present a data-driven approach to generate effective population-level contact matrices by using highly detailed macro (census) and micro (survey) data on key socio-demographic features. We produce age-stratified contact matrices for 35 countries, including 277 sub-national administratvie regions of 8 of those~countries, covering approximately 3.5 billion people and reflecting the high degree of cultural and societal diversity of the focus countries. We use the derived contact matrices to model the spread of airborne infectious diseases and show that sub-national heterogeneities in human mixing patterns have a marked impact on epidemic indicators such as the reproduction number and overall attack rate of epidemics of the same etiology. The contact patterns derived here are made publicly available as a modeling tool to study the impact of socio-economic differences and demographic heterogeneities across populations on the epidemiology of infectious diseases.}
+      \field{day}{12}
+      \field{issn}{2041-1723}
+      \field{journaltitle}{Nature Communications}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{Nat Commun}
+      \field{title}{Inferring High-Resolution Human Mixing Patterns for Disease Modeling}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{12}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{323}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41467-020-20544-y
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/6B695H22/Mistry et al. - 2021 - Inferring high-resolution human mixing patterns for disease modeling.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/s41467-020-20544-y
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/s41467-020-20544-y
+      \endverb
+    \endentry
+    \entry{mossong2008social}{article}{}{}
+      \name{author}{14}{}{%
+        {{un=0,uniquepart=base,hash=c86c9383a207bdeef570c48f3308584f}{%
+           family={Mossong},
+           familyi={M\bibinitperiod},
+           given={Joël},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=487a67f30be03f166cf202def585bf22}{%
+           family={Hens},
+           familyi={H\bibinitperiod},
+           given={Niel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=165185e1eeadecd573532952f87ce8bd}{%
+           family={Jit},
+           familyi={J\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d46d397ed756c1504752fd2c25da9e21}{%
+           family={Beutels},
+           familyi={B\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=de0031ab6fe37d29337f269802f8ecfa}{%
+           family={Auranen},
+           familyi={A\bibinitperiod},
+           given={Kari},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6d64fa03df57e80c4c10b1b8f20a9ffc}{%
+           family={Mikolajczyk},
+           familyi={M\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c4fde0b206e36df01c6158bea69499ed}{%
+           family={Massari},
+           familyi={M\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5f6cc5cf2a827d543ced1eae0b8845be}{%
+           family={Salmaso},
+           familyi={S\bibinitperiod},
+           given={Stefania},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fae962b5c1d367d24bf98af874345255}{%
+           family={Tomba},
+           familyi={T\bibinitperiod},
+           given={Gianpaolo\bibnamedelima Scalia},
+           giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7c6393cc64eb6f09cd4765ae4833ef61}{%
+           family={Wallinga},
+           familyi={W\bibinitperiod},
+           given={Jacco},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6ed6e819a97fdb2bd20f09a28388a9f1}{%
+           family={Heijne},
+           familyi={H\bibinitperiod},
+           given={Janneke},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fe92eee770dbd25fb84ea51a0da435d3}{%
+           family={Sadkowska-Todys},
+           familyi={S\bibinithyphendelim T\bibinitperiod},
+           given={Malgorzata},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=43083cc6cdc90f845c3286220571fc83}{%
+           family={Rosinska},
+           familyi={R\bibinitperiod},
+           given={Magdalena},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c1caa99906312db238b4bcd5056a17a}{%
+           family={Edmunds},
+           familyi={E\bibinitperiod},
+           given={W.\bibnamedelimi John},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=f18640e7acc9007a071df61bcd9f9874}{%
+           family={Riley},
+           familyi={R\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{2e8e729236f1409cd0b3b50b1022974f}
+      \strng{fullhash}{dbbd42c0103dcea47989513df361860f}
+      \strng{fullhashraw}{dbbd42c0103dcea47989513df361860f}
+      \strng{bibnamehash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authorbibnamehash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authornamehash}{2e8e729236f1409cd0b3b50b1022974f}
+      \strng{authorfullhash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authorfullhashraw}{dbbd42c0103dcea47989513df361860f}
+      \strng{editorbibnamehash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editornamehash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editorfullhash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editorfullhashraw}{f18640e7acc9007a071df61bcd9f9874}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Background Mathematical modelling of infectious diseases transmitted by the respiratory or close-contact route (e.g., pandemic influenza) is increasingly being used to determine the impact of possible interventions. Although mixing patterns are known to be crucial determinants for model outcome, researchers often rely on a priori contact assumptions with little or no empirical basis. We conducted a population-based prospective survey of mixing patterns in eight European countries using a common paper-diary methodology. Methods and Findings 7,290 participants recorded characteristics of 97,904 contacts with different individuals during one day, including age, sex, location, duration, frequency, and occurrence of physical contact. We found that mixing patterns and contact characteristics were remarkably similar across different European countries. Contact patterns were highly assortative with age: schoolchildren and young adults in particular tended to mix with people of the same age. Contacts lasting at least one hour or occurring on a daily basis mostly involved physical contact, while short duration and infrequent contacts tended to be nonphysical. Contacts at home, school, or leisure were more likely to be physical than contacts at the workplace or while travelling. Preliminary modelling indicates that 5- to 19-year-olds are expected to suffer the highest incidence during the initial epidemic phase of an emerging infection transmitted through social contacts measured here when the population is completely susceptible. Conclusions To our knowledge, our study provides the first large-scale quantitative approach to contact patterns relevant for infections transmitted by the respiratory or close-contact route, and the results should lead to improved parameterisation of mathematical models used to design control strategies.}
+      \field{day}{25}
+      \field{issn}{1549-1676}
+      \field{journaltitle}{PLoS Medicine}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{3}
+      \field{shortjournal}{PLoS Med}
+      \field{title}{Social {{Contacts}} and {{Mixing Patterns Relevant}} to the {{Spread}} of {{Infectious Diseases}}}
+      \field{urlday}{2}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{5}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e74}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pmed.0050074
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/S4Y8P4LY/Mossong et al. - 2008 - Social Contacts and Mixing Patterns Relevant to the Spread of Infectious Diseases.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pmed.0050074
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pmed.0050074
+      \endverb
+    \endentry
+    \entry{newman2003mixing}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4bf3b98e94373b42e6f6e6dfddaf4daa}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={M.\bibnamedelimi E.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{fullhash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{fullhashraw}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{bibnamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorbibnamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authornamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorfullhash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorfullhashraw}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We study assortative mixing in networks, the tendency for vertices in networks to be connected to other vertices that are like (or unlike) them in some way. We consider mixing according to discrete characteristics such as language or race in social networks and scalar characteristics such as age. As a special example of the latter we consider mixing according to vertex degree, i.e., according to the number of connections vertices have to other vertices: do gregarious people tend to associate with other gregarious people? We propose a number of measures of assortative mixing appropriate to the various mixing types, and apply them to a variety of real-world networks, showing that assortative mixing is a pervasive phenomenon found in many networks. We also propose several models of assortatively mixed networks, both analytic ones based on generating function methods, and numerical ones based on Monte Carlo graph generation techniques. We use these models to probe the properties of networks as their level of assortativity is varied. In the particular case of mixing by degree, we find strong variation with assortativity in the connectivity of the network and in the resilience of the network to the removal of vertices.}
+      \field{day}{27}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1063-651X, 1095-3787}
+      \field{journaltitle}{Physical Review E}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{2}
+      \field{shortjournal}{Phys. Rev. E}
+      \field{title}{Mixing Patterns in Networks}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{67}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{026126}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevE.67.026126
+      \endverb
+      \verb{eprint}
+      \verb cond-mat/0209450
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/S957N7QC/Newman - 2003 - Mixing patterns in networks.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/cond-mat/0209450
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/cond-mat/0209450
+      \endverb
+    \endentry
+    \entry{ong2018likelihoodfree}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=1892e16a6d351f55dd3e70254fcaf37d}{%
+           family={Ong},
+           familyi={O\bibinitperiod},
+           given={Victor\bibnamedelima M.-H.},
+           giveni={V\bibinitperiod\bibinitdelim M\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a8f56278a4ed00b84cddbbfa417aded8}{%
+           family={Nott},
+           familyi={N\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=48027d023678afb709bcc017b09e8c8b}{%
+           family={Tran},
+           familyi={T\bibinitperiod},
+           given={Minh-Ngoc},
+           giveni={M\bibinithyphendelim N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b66104e89893ec321a8549c3dd6e4e6e}{%
+           family={Sisson},
+           familyi={S\bibinitperiod},
+           given={Scott\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a74c0f4a7f45131147591bfce37dad56}{%
+           family={Drovandi},
+           familyi={D\bibinitperiod},
+           given={Christopher\bibnamedelima C.},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{555c3140bd9f6819fd277781930b5c67}
+      \strng{fullhash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{fullhashraw}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{bibnamehash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authorbibnamehash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authornamehash}{555c3140bd9f6819fd277781930b5c67}
+      \strng{authorfullhash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authorfullhashraw}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{One popular approach to likelihood-free inference is the synthetic likelihood method, which assumes that some data summary statistics which are informative about model parameters are approximately Gaussian for each value of the parameter. Based on this assumption, a Gaussian likelihood can be constructed, where the mean and covariance matrix of the summary statistics are estimated via Monte Carlo. The objective of the current work is to improve on a variational implementation of the Bayesian synthetic likelihood introduced recently in the literature, to enable the application of that approach to high-dimensional problems. Here high-dimensional can mean problems with more than one hundred parameters. The improvements introduced relate to shrinkage estimation of covariance matrices in estimation of the synthetic likelihood, improved implementation of control variate approaches to stochastic gradient variance reduction, and parsimonious but expressive parametrizations of variational normal posterior covariance matrices in terms of factor structures to reduce the dimension of the optimization problem. The shrinkage covariance estimation is particularly important for stability of stochastic gradient optimization with noisy likelihood estimates. However, as the dimension increases, the quality of the posterior approximation deteriorates unless the number of Monte Carlo samples used to estimate the synthetic likelihood also increases. We explore the properties of the method in some real examples in cases where either the number of summary statistics, the number of model parameters, or both, are large.}
+      \field{issn}{01679473}
+      \field{journaltitle}{Computational Statistics \& Data Analysis}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{shortjournal}{Computational Statistics \& Data Analysis}
+      \field{title}{Likelihood-Free Inference in High Dimensions with Synthetic Likelihood}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{128}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{271\bibrangedash 291}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1016/j.csda.2018.07.008
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/SCAR8GYR/Ong et al. - 2018 - Likelihood-free inference in high dimensions with synthetic likelihood.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0167947318301749
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0167947318301749
+      \endverb
+    \endentry
+    \entry{picchini2023sequentially}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=ac346e575a3021e11052993ab8f0f3be}{%
+           family={Picchini},
+           familyi={P\bibinitperiod},
+           given={Umberto},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=935cfe864955bd53dfdc315d4120af1f}{%
+           family={Simola},
+           familyi={S\bibinitperiod},
+           given={Umberto},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ccb8e56c9ea1e2e3c9ceb8dabc540e1c}{%
+           family={Corander},
+           familyi={C\bibinitperiod},
+           given={Jukka},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1a1e693a9d32bb142e0ffcab02a55c59}
+      \strng{fullhash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{fullhashraw}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{bibnamehash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authorbibnamehash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authornamehash}{1a1e693a9d32bb142e0ffcab02a55c59}
+      \strng{authorfullhash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authorfullhashraw}{cacfd9ef604061213dd63c0d3a0db978}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Synthetic likelihood (SL) is a strategy for parameter inference when the likelihood function is analytically or computationally intractable. In SL, the likelihood function of the data is replaced by a multivariate Gaussian density over summary statistics of the data. SL requires simulation of many replicate datasets at every parameter value considered by a sampling algorithm, such as Markov chain Monte Carlo (MCMC), making the method computationally-intensive. We propose two strategies to alleviate the computational burden. First, we introduce an algorithm producing a proposal distribution that is sequentially tuned and made conditional to data, thus it rapidly guides the proposed parameters towards high posterior density regions. In our experiments, a small number of iterations of our algorithm is enough to rapidly locate high density regions, which we use to initialize one or several chains that make use of off-the-shelf adaptive MCMC methods. Our “guided” approach can also be potentially used with MCMC samplers for approximate Bayesian computation (ABC). Second, we exploit strategies borrowed from the correlated pseudo-marginal MCMC literature, to improve the chains mixing in a SL framework. Moreover, our methods enable inference for challenging case studies, when the posterior is multimodal and when the chain is initialised in low posterior probability regions of the parameter space, where standard samplers failed. To illustrate the advantages stemming from our framework we consider five benchmark examples, including estimation of parameters for a cosmological model and a stochastic model with highly non-Gaussian summary statistics.}
+      \field{day}{1}
+      \field{eprintclass}{stat}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1936-0975}
+      \field{journaltitle}{Bayesian Analysis}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{4}
+      \field{shortjournal}{Bayesian Anal.}
+      \field{title}{Sequentially Guided {{MCMC}} Proposals for Synthetic Likelihoods and Correlated Synthetic Likelihoods}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{18}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1214/22-BA1305
+      \endverb
+      \verb{eprint}
+      \verb 2004.04558
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/AC563ER7/Picchini et al. - 2023 - Sequentially guided MCMC proposals for synthetic likelihoods and correlated synthetic likelihoods.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2004.04558
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2004.04558
+      \endverb
+    \endentry
+    \entry{prem2017projecting}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=c6548fa7bc0b058c35b218fcbe4cdf1e}{%
+           family={Prem},
+           familyi={P\bibinitperiod},
+           given={Kiesha},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34335f83bc567e96e1ff762f4c628ac5}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Alex\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=165185e1eeadecd573532952f87ce8bd}{%
+           family={Jit},
+           familyi={J\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=1cdddef6a0bedeaddbca1e56a294f744}{%
+           family={Halloran},
+           familyi={H\bibinitperiod},
+           given={Betz},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{5aba5f0c07126dfe963b1cb32562fa1e}
+      \strng{fullhash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{fullhashraw}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{bibnamehash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authorbibnamehash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authornamehash}{5aba5f0c07126dfe963b1cb32562fa1e}
+      \strng{authorfullhash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authorfullhashraw}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{editorbibnamehash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editornamehash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editorfullhash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editorfullhashraw}{1cdddef6a0bedeaddbca1e56a294f744}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Heterogeneities in contact networks have a major effect in determining whether a pathogen can become epidemic or persist at endemic levels. Epidemic models that determine which interventions can successfully prevent an outbreak need to account for social structure and mixing patterns. Contact patterns vary across age and locations (e.g. home, work, and school), and including them as predictors in transmission dynamic models of pathogens that spread socially will improve the models’ realism. Data from population-based contact diaries in eight European countries from the POLYMOD study were projected to 144 other countries using a Bayesian hierarchical model that estimated the proclivity of age-and-location-specific contact patterns for the countries, using Markov chain Monte Carlo simulation. Household level data from the Demographic and Health Surveys for nine lower-income countries and socio-demographic factors from several on-line databases for 152 countries were used to quantify similarity of countries to estimate contact patterns in the home, work, school and other locations for countries for which no contact data are available, accounting for demographic structure, household structure where known, and a variety of metrics including workforce participation and school enrolment. Contacts are highly assortative with age across all countries considered, but pronounced regional differences in the age-specific contacts at home were noticeable, with more inter-generational contacts in Asian countries than in other settings. Moreover, there were variations in contact patterns by location, with workplace contacts being least assortative. These variations led to differences in the effect of social distancing measures in an age structured epidemic model. Contacts have an important role in transmission dynamic models that use contact rates to characterize the spread of contact-transmissible diseases. This study provides estimates of mixing patterns for societies for which contact data such as POLYMOD are not yet available.}
+      \field{day}{12}
+      \field{issn}{1553-7358}
+      \field{journaltitle}{PLOS Computational Biology}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{9}
+      \field{shortjournal}{PLoS Comput Biol}
+      \field{title}{Projecting Social Contact Matrices in 152 Countries Using Contact Surveys and Demographic Data}
+      \field{urlday}{4}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{13}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e1005697}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pcbi.1005697
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/J8XKTTFR/Prem et al. - 2017 - Projecting social contact matrices in 152 countries using contact surveys and demographic data.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pcbi.1005697
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pcbi.1005697
+      \endverb
+    \endentry
+    \entry{salathe2010highresolution}{article}{}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=932172cbce9830fa1763c426c7088452}{%
+           family={Salathé},
+           familyi={S\bibinitperiod},
+           given={Marcel},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0ab6d68b031726e7e9d42dda3b60cd91}{%
+           family={Kazandjieva},
+           familyi={K\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d11aaef9b72b27377ef29b2751576d23}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Jung\bibnamedelima Woo},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=64657013bce77454fd72c592c7225abf}{%
+           family={Levis},
+           familyi={L\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c7b2526bf98373150f5d4398e70ec125}{%
+           family={Feldman},
+           familyi={F\bibinitperiod},
+           given={Marcus\bibnamedelima W.},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9e736aea8fcac153a2b6f8301805a227}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={James\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{64c584b163d3621b464785cb423e30ac}
+      \strng{fullhash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{fullhashraw}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{bibnamehash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authorbibnamehash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authornamehash}{64c584b163d3621b464785cb423e30ac}
+      \strng{authorfullhash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authorfullhashraw}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The most frequent infectious diseases in humans—and those with the highest potential for rapid pandemic spread—are usually transmitted via droplets during close proximity interactions (CPIs). Despite the importance of this transmission route, very little is known about the dynamic patterns of CPIs. Using wireless sensor network technology, we obtained high-resolution data of CPIs during a typical day at an American high school, permitting the reconstruction of the social network relevant for infectious disease transmission. At 94\% coverage, we collected 762,868 CPIs at a maximal distance of 3 m among 788 individuals. The data revealed a high-density network with typical small-world properties and a relatively homogeneous distribution of both interaction time and interaction partners among subjects. Computer simulations of the spread of an influenza-like disease on the weighted contact graph are in good agreement with absentee data during the most recent influenza season. Analysis of targeted immunization strategies suggested that contact network data are required to design strategies that are significantly more effective than random immunization. Immunization strategies based on contact network data were most effective at high vaccination coverage.}
+      \field{day}{21}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{51}
+      \field{shortjournal}{Proc. Natl. Acad. Sci. U.S.A.}
+      \field{title}{A High-Resolution Human Contact Network for Infectious Disease Transmission}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{107}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{22020\bibrangedash 22025}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1073/pnas.1009094108
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/PMGBV8WB/Salathé et al. - 2010 - A high-resolution human contact network for infectious disease transmission.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1009094108
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1009094108
+      \endverb
+    \endentry
+  \enddatalist
+  \datalist[entry]{apa/global//global/global/global}
+    \entry{alimohamadi2020estimate}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=86a81f15a49816e1406be7871db85d63}{%
+           family={Alimohamadi},
+           familyi={A\bibinitperiod},
+           given={Yousef},
+           giveni={Y\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ad985e9ade9e8c69db2c87c8fa2b13b6}{%
+           family={Taghdir},
+           familyi={T\bibinitperiod},
+           given={Maryam},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=38188bfa28210bf525135c20765850cd}{%
+           family={Sepandi},
+           familyi={S\bibinitperiod},
+           given={Mojtaba},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6218470833837593dc62a1ca7c900b23}
+      \strng{fullhash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{fullhashraw}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{bibnamehash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authorbibnamehash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authornamehash}{6218470833837593dc62a1ca7c900b23}
+      \strng{authorfullhash}{3d8185d98df3f3b0330a6e9a154c242f}
+      \strng{authorfullhashraw}{3d8185d98df3f3b0330a6e9a154c242f}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Objectives: The outbreak of coronavirus disease 2019 (COVID-19) is one of the main public health challenges currently facing the world. Because of its high transmissibility, COVID-19 has already caused extensive morbidity and mortality in many countries throughout the world. An accurate estimation of the basic reproduction number (R0) of COVID-19 would be beneficial for prevention programs. In light of discrepancies in original research on this issue, this systematic review and meta-analysis aimed to estimate the pooled R0 for COVID-19 in the current outbreak. Methods: International databases (including Google Scholar, Science Direct, PubMed, and Scopus) were searched to identify studies conducted regarding the R0 of COVID-19. Articles were searched using the following keywords: “COVID-19” and “basic reproduction number” or “R0.” The heterogeneity among studies was assessed using the I2 index, the Cochran Q test, and T2. A random-effects model was used to estimate R0 in this study. Results: The mean reported R0 in the identified articles was 3.38±1.40, with a range of 1.90 to 6.49. According to the results of the random-effects model, the pooled R0 for COVID-19 was estimated as 3.32 (95\% confidence interval, 2.81 to 3.82). According to the results of the meta-regression analysis, the type of model used to estimate R0 did not have a significant effect on heterogeneity among studies (p=0.81). Conclusions: Considering the estimated R0 for COVID-19, reducing the number of contacts within the population is a necessary step to control the epidemic. The estimated overall R0 was higher than the World Health Organization estimate.}
+      \field{day}{31}
+      \field{issn}{1975-8375, 2233-4521}
+      \field{journaltitle}{Journal of Preventive Medicine and Public Health}
+      \field{langid}{english}
+      \field{month}{5}
+      \field{number}{3}
+      \field{shortjournal}{J Prev Med Public Health}
+      \field{shorttitle}{Estimate of the {{Basic Reproduction Number}} for {{COVID-19}}}
+      \field{title}{Estimate of the {{Basic Reproduction Number}} for {{COVID-19}}: {{A Systematic Review}} and {{Meta-analysis}}}
+      \field{urlday}{6}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{53}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{151\bibrangedash 157}
+      \range{pages}{7}
+      \verb{doi}
+      \verb 10.3961/jpmph.20.076
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/HB2XLCXM/Alimohamadi et al. - 2020 - Estimate of the Basic Reproduction Number for COVID-19 A Systematic Review and Meta-analysis.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://jpmph.org/journal/view.php?doi=10.3961/jpmph.20.076
+      \endverb
+      \verb{url}
+      \verb http://jpmph.org/journal/view.php?doi=10.3961/jpmph.20.076
+      \endverb
+    \endentry
+    \entry{billah2020reproductive}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=dc0d76fa564b827c8d817b4b88a583a3}{%
+           family={Billah},
+           familyi={B\bibinitperiod},
+           given={Md.\bibnamedelimi Arif},
+           giveni={M\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=dd3c3d5ac09cf0649114e177f2297d7d}{%
+           family={Miah},
+           familyi={M\bibinitperiod},
+           given={Md.\bibnamedelimi Mamun},
+           giveni={M\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34254e3ec6317f939a1a279b60b9ac76}{%
+           family={Khan},
+           familyi={K\bibinitperiod},
+           given={Md.\bibnamedelimi Nuruzzaman},
+           giveni={M\bibinitperiod\bibinitdelim N\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=07eca8bc5448ef1965653ca765b1b331}{%
+           family={Flacco},
+           familyi={F\bibinitperiod},
+           given={Maria\bibnamedelima Elena},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \strng{namehash}{1646ee54d638edb2394a644ae2c3008b}
+      \strng{fullhash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{fullhashraw}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{bibnamehash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authorbibnamehash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authornamehash}{1646ee54d638edb2394a644ae2c3008b}
+      \strng{authorfullhash}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{authorfullhashraw}{9545e8c97dd6af1e3b3574362393d067}
+      \strng{editorbibnamehash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editornamehash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editorfullhash}{07eca8bc5448ef1965653ca765b1b331}
+      \strng{editorfullhashraw}{07eca8bc5448ef1965653ca765b1b331}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{shorttitle}
+      \field{abstract}{Background The coronavirus (SARS-COV-2) is now a global concern because of its higher transmission capacity and associated adverse consequences including death. The reproductive number of coronavirus provides an estimate of the possible extent of the transmission. This study aims to provide a summary reproductive number of coronavirus based on available global level evidence.}
+      \field{day}{11}
+      \field{issn}{1932-6203}
+      \field{journaltitle}{PLOS ONE}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{11}
+      \field{shortjournal}{PLoS ONE}
+      \field{shorttitle}{Reproductive Number of Coronavirus}
+      \field{title}{Reproductive Number of Coronavirus: {{A}} Systematic Review and Meta-Analysis Based on Global Level Evidence}
+      \field{urlday}{6}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{15}
+      \field{year}{2020}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e0242128}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pone.0242128
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/HNPKVUTY/Billah et al. - 2020 - Reproductive number of coronavirus A systematic review and meta-analysis based on global level evid.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pone.0242128
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pone.0242128
+      \endverb
+    \endentry
+    \entry{britton2025improving}{article}{}{}
+      \name{author}{2}{}{%
+        {{un=0,uniquepart=base,hash=31c1b2044c75ef0fb349df99eb15ed1a}{%
+           family={Britton},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1f8793596bcc73ac248234b6eb55d8a1}{%
+           family={Ball},
+           familyi={B\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4c5de871b2217184f740a994908ad356}
+      \strng{fullhash}{4c5de871b2217184f740a994908ad356}
+      \strng{fullhashraw}{4c5de871b2217184f740a994908ad356}
+      \strng{bibnamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorbibnamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authornamehash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorfullhash}{4c5de871b2217184f740a994908ad356}
+      \strng{authorfullhashraw}{4c5de871b2217184f740a994908ad356}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Social contact studies are used in infectious disease epidemiology to infer a contact matrix M , having the mean number of contacts between individuals of different age groups as elements. However, M does not capture the (often large) variation in the number of contacts within each age group, information is also available in social contact studies. Here, we include such variation by separating each age group into two halves: the socially active (having many contacts) and the socially less active (having fewer contacts). The extended contact matrix and its associated epidemic model show that acknowledging variation in social activity within age groups has a substantial impact on the basic reproduction number, R0, and the final fraction getting infected if the epidemic takes off, τ . In fact, variation in social activity is more important for data fitting than allowing for different age groups. A difficulty with variation in social activity, however, is that social contact studies typically lack information on whether mixing with respect to social activity is assortative (when socially active mainly have contact with other socially active individuals) or not. Our analysis shows that accounting for variation in social activity improves model predictability, yielding more accurate expressions for R0 and τ irrespective of whether such mixing is assortative, but different assumptions on assortativity give rather different outputs. Future social contact studies should, therefore, also try to infer the degree of assortativity (with respect to social activity) between peers and their contacts.}
+      \field{issn}{1044-3983, 1531-5487}
+      \field{journaltitle}{Epidemiology}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{5}
+      \field{title}{Improving the {{Use}} of {{Social Contact Studies}} in {{Epidemic Modeling}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{36}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{660\bibrangedash 667}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1097/EDE.0000000000001876
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/5896Y9BW/Britton と Ball - 2025 - Improving the Use of Social Contact Studies in Epidemic Modeling.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://journals.lww.com/10.1097/EDE.0000000000001876
+      \endverb
+      \verb{url}
+      \verb https://journals.lww.com/10.1097/EDE.0000000000001876
+      \endverb
+    \endentry
+    \entry{bu2022likelihoodbased}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=df6e5cbc360ee9a45ca25de571ce88ec}{%
+           family={Bu},
+           familyi={B\bibinitperiod},
+           given={Fan},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4091d44b375ee609aab01f20fe3c432d}{%
+           family={Aiello},
+           familyi={A\bibinitperiod},
+           given={Allison\bibnamedelima E.},
+           giveni={A\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ee0185f7e9990a1e5d9009694d45df78}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Jason},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=32f985746191d1b95ac58eccba2ab9d1}{%
+           family={Volfovsky},
+           familyi={V\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{54795d5955717a81aebd226663e56c2e}
+      \strng{fullhash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{fullhashraw}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{bibnamehash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authorbibnamehash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authornamehash}{54795d5955717a81aebd226663e56c2e}
+      \strng{authorfullhash}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \strng{authorfullhashraw}{e106254a8e5eea3d3d50cdf733dcf3d9}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{2}
+      \field{issn}{0162-1459, 1537-274X}
+      \field{journaltitle}{Journal of the American Statistical Association}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{537}
+      \field{shortjournal}{Journal of the American Statistical Association}
+      \field{title}{Likelihood-{{Based Inference}} for {{Partially Observed Epidemics}} on {{Dynamic Networks}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{117}
+      \field{year}{2022}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{510\bibrangedash 526}
+      \range{pages}{17}
+      \verb{doi}
+      \verb 10.1080/01621459.2020.1790376
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/7Q6237XJ/Bu et al. - 2022 - Likelihood-Based Inference for Partially Observed Epidemics on Dynamic Networks.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1790376
+      \endverb
+      \verb{url}
+      \verb https://www.tandfonline.com/doi/full/10.1080/01621459.2020.1790376
+      \endverb
+    \endentry
+    \entry{guzman2025inferring}{article}{}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=ea27b0c8b51758cee12855ccd0cba5ef}{%
+           family={Guzmán},
+           familyi={G\bibinitperiod},
+           given={Andrés},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4b30ab0c3f8beba248b45dedd078bca4}{%
+           family={Malizia},
+           familyi={M\bibinitperiod},
+           given={Federico},
+           giveni={F\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8b430085168e796b09474fcc7503e085}{%
+           family={Park},
+           familyi={P\bibinitperiod},
+           given={Gyeong\bibnamedelima Ho},
+           giveni={G\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9fc9be225def2dd7f64f81ba0c956968}{%
+           family={Choi},
+           familyi={C\bibinitperiod},
+           given={Boseung},
+           giveni={B\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=80300363040b04cd99f8de4ca2261e83}{%
+           family={Cole},
+           familyi={C\bibinitperiod},
+           given={Diana},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=13f064189989fe4c2330181c275cfa44}{%
+           family={Kiss},
+           familyi={K\bibinitperiod},
+           given={István\bibnamedelima Z},
+           giveni={I\bibinitperiod\bibinitdelim Z\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{6ac7b08b8a54e4ab15c3ad372bf2bb83}
+      \strng{fullhash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{fullhashraw}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{bibnamehash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authorbibnamehash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authornamehash}{6ac7b08b8a54e4ab15c3ad372bf2bb83}
+      \strng{authorfullhash}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \strng{authorfullhashraw}{bdcbfb36f1334f2d0f14b3fbcf93d12a}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Modelling epidemics using contact networks provides a significant improvement over classical compartmental models by explicitly incorporating the network of contacts. However, while network-based models describe disease spread on a given contact structure, their potential for inferring the underlying network from epidemic data remains largely unexplored. In this work, we consider the edge-based compartmental model, a compact and analytically tractable framework, and we integrate it within dynamical survival analysis to infer key network properties along with parameters of the epidemic itself. Despite correlations between structural and epidemic parameters, our framework demonstrates robustness in accurately inferring contact network properties from synthetic epidemic simulations. Additionally, we apply the framework to realworld outbreaks—the 2001 UK foot-and-mouth disease outbreak and the COVID-19 epidemic in Seoul—to estimate both disease parameters and network characteristics. Our results show that our framework achieves good fits to real-world epidemic data and reliable short-term forecasts. These findings highlight the potential of network-based inference approaches to uncover hidden contact structures, providing insights that can inform the design of targeted interventions and public health strategies.}
+      \field{day}{26}
+      \field{issn}{2051-1329}
+      \field{journaltitle}{Journal of Complex Networks}
+      \field{langid}{english}
+      \field{month}{6}
+      \field{number}{4}
+      \field{title}{Inferring Contact Network Characteristics from Epidemic Data via Compact Mean-Field Models}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{13}
+      \field{year}{2025}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{cnaf018}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1093/comnet/cnaf018
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/LXQR3QI2/Guzmán et al. - 2025 - Inferring contact network characteristics from epidemic data via compact mean-field models.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://academic.oup.com/comnet/article/doi/10.1093/comnet/cnaf018/8202884
+      \endverb
+      \verb{url}
+      \verb https://academic.oup.com/comnet/article/doi/10.1093/comnet/cnaf018/8202884
+      \endverb
+    \endentry
+    \entry{litvinova2019reactive}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=4439c73532c3d22e1d63082e1e29c08a}{%
+           family={Litvinova},
+           familyi={L\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a05cbe84139f49990b444ee59462e6d0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Quan-Hui},
+           giveni={Q\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=66fe35ac3f9c16d7df22fc8f097c2cee}{%
+           family={Kulikov},
+           familyi={K\bibinitperiod},
+           given={Evgeny\bibnamedelima S.},
+           giveni={E\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0fb18d2b202584a9dc25c3e8ffc43dcb}{%
+           family={Ajelli},
+           familyi={A\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{089158390fa4b54f741fdf243ebe90f5}
+      \strng{fullhash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{fullhashraw}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{bibnamehash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authorbibnamehash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authornamehash}{089158390fa4b54f741fdf243ebe90f5}
+      \strng{authorfullhash}{11a5795d307927cf42d4ee3bf050f509}
+      \strng{authorfullhashraw}{11a5795d307927cf42d4ee3bf050f509}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{School-closure policies are considered one of the most promising nonpharmaceutical interventions for mitigating seasonal and pandemic influenza. However, their effectiveness is still debated, primarily due to the lack of empirical evidence about the behavior of the population during the implementation of the policy. Over the course of the 2015 to 2016 influenza season in Russia, we performed a diary-based contact survey to estimate the patterns of social interactions before and during the implementation of reactive school-closure strategies. We develop an innovative hybrid survey-modeling framework to estimate the time-varying network of human social interactions. By integrating this network with an infection transmission model, we reduce the uncertainty surrounding the impact of school-closure policies in mitigating the spread of influenza. When the school-closure policy is in place, we measure a significant reduction in the number of contacts made by students (14.2 vs. 6.5 contacts per day) and workers (11.2 vs. 8.7 contacts per day). This reduction is not offset by the measured increase in the number of contacts between students and nonhousehold relatives. Model simulations suggest that gradual reactive school-closure policies based on monitoring student absenteeism rates are capable of mitigating influenza spread. We estimate that without the implemented reactive strategies the attack rate of the 2015 to 2016 influenza season would have been 33\% larger. Our study sheds light on the social mixing patterns of the population during the implementation of reactive school closures and provides key instruments for future cost-effectiveness analyses of school-closure policies.}
+      \field{day}{2}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{27}
+      \field{shortjournal}{Proc. Natl. Acad. Sci. U.S.A.}
+      \field{title}{Reactive School Closure Weakens the Network of Social Interactions and Reduces the Spread of Influenza}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{116}
+      \field{year}{2019}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{13174\bibrangedash 13181}
+      \range{pages}{8}
+      \verb{doi}
+      \verb 10.1073/pnas.1821298116
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/NP25FR93/Litvinova et al. - 2019 - Reactive school closure weakens the network of social interactions and reduces the spread of influen.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1821298116
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1821298116
+      \endverb
+    \endentry
+    \entry{lloyd-smith2005superspreading}{article}{}{}
+      \name{author}{4}{}{%
+        {{un=0,uniquepart=base,hash=7ee471dd281ac10ba4acd21246d723f7}{%
+           family={Lloyd-Smith},
+           familyi={L\bibinithyphendelim S\bibinitperiod},
+           given={J.\bibnamedelimi O.},
+           giveni={J\bibinitperiod\bibinitdelim O\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5eef7024c53b3b8549ddcb4becdbb3f3}{%
+           family={Schreiber},
+           familyi={S\bibinitperiod},
+           given={S.\bibnamedelimi J.},
+           giveni={S\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d9c7efa739f2c457d1f38853c7b994e5}{%
+           family={Kopp},
+           familyi={K\bibinitperiod},
+           given={P.\bibnamedelimi E.},
+           giveni={P\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8c796686aa6bdfdbe7c87e0b856889cd}{%
+           family={Getz},
+           familyi={G\bibinitperiod},
+           given={W.\bibnamedelimi M.},
+           giveni={W\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{2fa0ad19836a9b29d48fdd667bc614c3}
+      \strng{fullhash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{fullhashraw}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{bibnamehash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authorbibnamehash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authornamehash}{2fa0ad19836a9b29d48fdd667bc614c3}
+      \strng{authorfullhash}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \strng{authorfullhashraw}{a00c8fdcc9174ca38584d5e0b10d1579}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{day}{17}
+      \field{issn}{0028-0836, 1476-4687}
+      \field{journaltitle}{Nature}
+      \field{langid}{english}
+      \field{month}{11}
+      \field{number}{7066}
+      \field{shortjournal}{Nature}
+      \field{title}{Superspreading and the Effect of Individual Variation on Disease Emergence}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{438}
+      \field{year}{2005}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{355\bibrangedash 359}
+      \range{pages}{5}
+      \verb{doi}
+      \verb 10.1038/nature04153
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/2AMZBLUX/lloyd----Smith et al. - 2005 - Superspreading and the effect of individual variation on disease emergence.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/nature04153
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/nature04153
+      \endverb
+    \endentry
+    \entry{mckinley2009inference}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=92248bac9ad52a4e043d11fce5155d6a}{%
+           family={McKinley},
+           familyi={M\bibinitperiod},
+           given={Trevelyan},
+           giveni={T\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34335f83bc567e96e1ff762f4c628ac5}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Alex\bibnamedelima R},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=1694360ee2e06232585ee0e42156db2d}{%
+           family={Deardon},
+           familyi={D\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{332a06d5cc1dca0d033c62e12d97e599}
+      \strng{fullhash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{fullhashraw}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{bibnamehash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authorbibnamehash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authornamehash}{332a06d5cc1dca0d033c62e12d97e599}
+      \strng{authorfullhash}{0ee9f1c870798e77f0ddf599f196cd90}
+      \strng{authorfullhashraw}{0ee9f1c870798e77f0ddf599f196cd90}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Likelihood-based inference for epidemic models can be challenging, in part due to difficulties in evaluating the likelihood. The problem is particularly acute in models of large-scale outbreaks, and unobserved or partially observed data further complicates this process. Here we investigate the performance of Markov Chain Monte Carlo and Sequential Monte Carlo algorithms for parameter inference, where the routines are based on approximate likelihoods generated from model simulations. We compare our results to a gold-standard data-augmented MCMC for both complete and incomplete data. We illustrate our techniques using simulated epidemics as well as data from a recent outbreak of Ebola Haemorrhagic Fever in the Democratic Republic of Congo and discuss situations in which we think simulation-based inference may be preferable to likelihood-based inference.}
+      \field{day}{20}
+      \field{issn}{1557-4679}
+      \field{journaltitle}{The International Journal of Biostatistics}
+      \field{langid}{english}
+      \field{month}{7}
+      \field{number}{1}
+      \field{title}{Inference in {{Epidemic Models}} without {{Likelihoods}}}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{5}
+      \field{year}{2009}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.2202/1557-4679.1171
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/YPIUT3TE/McKinley et al. - 2009 - Inference in Epidemic Models without Likelihoods.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.degruyterbrill.com/document/doi/10.2202/1557-4679.1171/html
+      \endverb
+      \verb{url}
+      \verb https://www.degruyterbrill.com/document/doi/10.2202/1557-4679.1171/html
+      \endverb
+    \endentry
+    \entry{mistry2021inferring}{article}{}{}
+      \name{author}{15}{}{%
+        {{un=0,uniquepart=base,hash=f48bdcee330812b35f45bca223223f83}{%
+           family={Mistry},
+           familyi={M\bibinitperiod},
+           given={Dina},
+           giveni={D\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4439c73532c3d22e1d63082e1e29c08a}{%
+           family={Litvinova},
+           familyi={L\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f4331592075ceb3e6ffeca64159b427e}{%
+           family={Pastore\bibnamedelimb Y\bibnamedelima Piontti},
+           familyi={P\bibinitperiod\bibinitdelim Y\bibinitperiod\bibinitdelim P\bibinitperiod},
+           given={Ana},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=4064f8e9a9eb3c622d3a2980b795a7b5}{%
+           family={Chinazzi},
+           familyi={C\bibinitperiod},
+           given={Matteo},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=60799c6c5101b553d53dbc8748a4de3a}{%
+           family={Fumanelli},
+           familyi={F\bibinitperiod},
+           given={Laura},
+           giveni={L\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=f22503bdaed4a9f5bbaac85e175dd8a8}{%
+           family={Gomes},
+           familyi={G\bibinitperiod},
+           given={Marcelo\bibnamedelimb F.\bibnamedelimi C.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a73235587362967b70ad3b21a4e688ec}{%
+           family={Haque},
+           familyi={H\bibinitperiod},
+           given={Syed\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a05cbe84139f49990b444ee59462e6d0}{%
+           family={Liu},
+           familyi={L\bibinitperiod},
+           given={Quan-Hui},
+           giveni={Q\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=269703856543c8bf7dcca1c7e1d711cd}{%
+           family={Mu},
+           familyi={M\bibinitperiod},
+           given={Kunpeng},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=90349fbfdc6a763646afcacb5ea2cd2b}{%
+           family={Xiong},
+           familyi={X\bibinitperiod},
+           given={Xinyue},
+           giveni={X\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6117faae164e31aa94ebb421c00480af}{%
+           family={Halloran},
+           familyi={H\bibinitperiod},
+           given={M.\bibnamedelimi Elizabeth},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6013d1318b3140fbe1cb1a793f3a0a90}{%
+           family={Longini},
+           familyi={L\bibinitperiod},
+           given={Ira\bibnamedelima M.},
+           giveni={I\bibinitperiod\bibinitdelim M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d27534f680a6372aee75337fc11febe9}{%
+           family={Merler},
+           familyi={M\bibinitperiod},
+           given={Stefano},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0fb18d2b202584a9dc25c3e8ffc43dcb}{%
+           family={Ajelli},
+           familyi={A\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=8f9932ed1839be02bb53a62b258449a8}{%
+           family={Vespignani},
+           familyi={V\bibinitperiod},
+           given={Alessandro},
+           giveni={A\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{cc9716d13358ca7539b38ffa1d514efb}
+      \strng{fullhash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{fullhashraw}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{bibnamehash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authorbibnamehash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authornamehash}{cc9716d13358ca7539b38ffa1d514efb}
+      \strng{authorfullhash}{b6f3e944412672c93120b4a26ac9f007}
+      \strng{authorfullhashraw}{b6f3e944412672c93120b4a26ac9f007}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Abstract Mathematical and computational modeling approaches are increasingly used as quantitative tools in the analysis and forecasting of infectious disease epidemics. The growing need for realism in addressing complex public health questions is, however, calling for accurate models of the human contact patterns that govern the disease transmission processes. Here we present a data-driven approach to generate effective population-level contact matrices by using highly detailed macro (census) and micro (survey) data on key socio-demographic features. We produce age-stratified contact matrices for 35 countries, including 277 sub-national administratvie regions of 8 of those~countries, covering approximately 3.5 billion people and reflecting the high degree of cultural and societal diversity of the focus countries. We use the derived contact matrices to model the spread of airborne infectious diseases and show that sub-national heterogeneities in human mixing patterns have a marked impact on epidemic indicators such as the reproduction number and overall attack rate of epidemics of the same etiology. The contact patterns derived here are made publicly available as a modeling tool to study the impact of socio-economic differences and demographic heterogeneities across populations on the epidemiology of infectious diseases.}
+      \field{day}{12}
+      \field{issn}{2041-1723}
+      \field{journaltitle}{Nature Communications}
+      \field{langid}{english}
+      \field{month}{1}
+      \field{number}{1}
+      \field{shortjournal}{Nat Commun}
+      \field{title}{Inferring High-Resolution Human Mixing Patterns for Disease Modeling}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{12}
+      \field{year}{2021}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{323}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1038/s41467-020-20544-y
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/6B695H22/Mistry et al. - 2021 - Inferring high-resolution human mixing patterns for disease modeling.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://www.nature.com/articles/s41467-020-20544-y
+      \endverb
+      \verb{url}
+      \verb https://www.nature.com/articles/s41467-020-20544-y
+      \endverb
+    \endentry
+    \entry{mossong2008social}{article}{}{}
+      \name{author}{14}{}{%
+        {{un=0,uniquepart=base,hash=c86c9383a207bdeef570c48f3308584f}{%
+           family={Mossong},
+           familyi={M\bibinitperiod},
+           given={Joël},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=487a67f30be03f166cf202def585bf22}{%
+           family={Hens},
+           familyi={H\bibinitperiod},
+           given={Niel},
+           giveni={N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=165185e1eeadecd573532952f87ce8bd}{%
+           family={Jit},
+           familyi={J\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d46d397ed756c1504752fd2c25da9e21}{%
+           family={Beutels},
+           familyi={B\bibinitperiod},
+           given={Philippe},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=de0031ab6fe37d29337f269802f8ecfa}{%
+           family={Auranen},
+           familyi={A\bibinitperiod},
+           given={Kari},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6d64fa03df57e80c4c10b1b8f20a9ffc}{%
+           family={Mikolajczyk},
+           familyi={M\bibinitperiod},
+           given={Rafael},
+           giveni={R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c4fde0b206e36df01c6158bea69499ed}{%
+           family={Massari},
+           familyi={M\bibinitperiod},
+           given={Marco},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=5f6cc5cf2a827d543ced1eae0b8845be}{%
+           family={Salmaso},
+           familyi={S\bibinitperiod},
+           given={Stefania},
+           giveni={S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fae962b5c1d367d24bf98af874345255}{%
+           family={Tomba},
+           familyi={T\bibinitperiod},
+           given={Gianpaolo\bibnamedelima Scalia},
+           giveni={G\bibinitperiod\bibinitdelim S\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=7c6393cc64eb6f09cd4765ae4833ef61}{%
+           family={Wallinga},
+           familyi={W\bibinitperiod},
+           given={Jacco},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6ed6e819a97fdb2bd20f09a28388a9f1}{%
+           family={Heijne},
+           familyi={H\bibinitperiod},
+           given={Janneke},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=fe92eee770dbd25fb84ea51a0da435d3}{%
+           family={Sadkowska-Todys},
+           familyi={S\bibinithyphendelim T\bibinitperiod},
+           given={Malgorzata},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=43083cc6cdc90f845c3286220571fc83}{%
+           family={Rosinska},
+           familyi={R\bibinitperiod},
+           given={Magdalena},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=6c1caa99906312db238b4bcd5056a17a}{%
+           family={Edmunds},
+           familyi={E\bibinitperiod},
+           given={W.\bibnamedelimi John},
+           giveni={W\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=f18640e7acc9007a071df61bcd9f9874}{%
+           family={Riley},
+           familyi={R\bibinitperiod},
+           given={Steven},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{2e8e729236f1409cd0b3b50b1022974f}
+      \strng{fullhash}{dbbd42c0103dcea47989513df361860f}
+      \strng{fullhashraw}{dbbd42c0103dcea47989513df361860f}
+      \strng{bibnamehash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authorbibnamehash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authornamehash}{2e8e729236f1409cd0b3b50b1022974f}
+      \strng{authorfullhash}{dbbd42c0103dcea47989513df361860f}
+      \strng{authorfullhashraw}{dbbd42c0103dcea47989513df361860f}
+      \strng{editorbibnamehash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editornamehash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editorfullhash}{f18640e7acc9007a071df61bcd9f9874}
+      \strng{editorfullhashraw}{f18640e7acc9007a071df61bcd9f9874}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Background Mathematical modelling of infectious diseases transmitted by the respiratory or close-contact route (e.g., pandemic influenza) is increasingly being used to determine the impact of possible interventions. Although mixing patterns are known to be crucial determinants for model outcome, researchers often rely on a priori contact assumptions with little or no empirical basis. We conducted a population-based prospective survey of mixing patterns in eight European countries using a common paper-diary methodology. Methods and Findings 7,290 participants recorded characteristics of 97,904 contacts with different individuals during one day, including age, sex, location, duration, frequency, and occurrence of physical contact. We found that mixing patterns and contact characteristics were remarkably similar across different European countries. Contact patterns were highly assortative with age: schoolchildren and young adults in particular tended to mix with people of the same age. Contacts lasting at least one hour or occurring on a daily basis mostly involved physical contact, while short duration and infrequent contacts tended to be nonphysical. Contacts at home, school, or leisure were more likely to be physical than contacts at the workplace or while travelling. Preliminary modelling indicates that 5- to 19-year-olds are expected to suffer the highest incidence during the initial epidemic phase of an emerging infection transmitted through social contacts measured here when the population is completely susceptible. Conclusions To our knowledge, our study provides the first large-scale quantitative approach to contact patterns relevant for infections transmitted by the respiratory or close-contact route, and the results should lead to improved parameterisation of mathematical models used to design control strategies.}
+      \field{day}{25}
+      \field{issn}{1549-1676}
+      \field{journaltitle}{PLoS Medicine}
+      \field{langid}{english}
+      \field{month}{3}
+      \field{number}{3}
+      \field{shortjournal}{PLoS Med}
+      \field{title}{Social {{Contacts}} and {{Mixing Patterns Relevant}} to the {{Spread}} of {{Infectious Diseases}}}
+      \field{urlday}{2}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{5}
+      \field{year}{2008}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e74}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pmed.0050074
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/S4Y8P4LY/Mossong et al. - 2008 - Social Contacts and Mixing Patterns Relevant to the Spread of Infectious Diseases.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pmed.0050074
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pmed.0050074
+      \endverb
+    \endentry
+    \entry{newman2003mixing}{article}{}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=4bf3b98e94373b42e6f6e6dfddaf4daa}{%
+           family={Newman},
+           familyi={N\bibinitperiod},
+           given={M.\bibnamedelimi E.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim E\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{fullhash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{fullhashraw}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{bibnamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorbibnamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authornamehash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorfullhash}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \strng{authorfullhashraw}{4bf3b98e94373b42e6f6e6dfddaf4daa}
+      \field{sortinit}{N}
+      \field{sortinithash}{22369a73d5f88983a108b63f07f37084}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{We study assortative mixing in networks, the tendency for vertices in networks to be connected to other vertices that are like (or unlike) them in some way. We consider mixing according to discrete characteristics such as language or race in social networks and scalar characteristics such as age. As a special example of the latter we consider mixing according to vertex degree, i.e., according to the number of connections vertices have to other vertices: do gregarious people tend to associate with other gregarious people? We propose a number of measures of assortative mixing appropriate to the various mixing types, and apply them to a variety of real-world networks, showing that assortative mixing is a pervasive phenomenon found in many networks. We also propose several models of assortatively mixed networks, both analytic ones based on generating function methods, and numerical ones based on Monte Carlo graph generation techniques. We use these models to probe the properties of networks as their level of assortativity is varied. In the particular case of mixing by degree, we find strong variation with assortativity in the connectivity of the network and in the resilience of the network to the removal of vertices.}
+      \field{day}{27}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1063-651X, 1095-3787}
+      \field{journaltitle}{Physical Review E}
+      \field{langid}{english}
+      \field{month}{2}
+      \field{number}{2}
+      \field{shortjournal}{Phys. Rev. E}
+      \field{title}{Mixing Patterns in Networks}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{67}
+      \field{year}{2003}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{026126}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1103/PhysRevE.67.026126
+      \endverb
+      \verb{eprint}
+      \verb cond-mat/0209450
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/S957N7QC/Newman - 2003 - Mixing patterns in networks.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/cond-mat/0209450
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/cond-mat/0209450
+      \endverb
+    \endentry
+    \entry{ong2018likelihoodfree}{article}{}{}
+      \name{author}{5}{}{%
+        {{un=0,uniquepart=base,hash=1892e16a6d351f55dd3e70254fcaf37d}{%
+           family={Ong},
+           familyi={O\bibinitperiod},
+           given={Victor\bibnamedelima M.-H.},
+           giveni={V\bibinitperiod\bibinitdelim M\bibinithyphendelim H\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a8f56278a4ed00b84cddbbfa417aded8}{%
+           family={Nott},
+           familyi={N\bibinitperiod},
+           given={David\bibnamedelima J.},
+           giveni={D\bibinitperiod\bibinitdelim J\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=48027d023678afb709bcc017b09e8c8b}{%
+           family={Tran},
+           familyi={T\bibinitperiod},
+           given={Minh-Ngoc},
+           giveni={M\bibinithyphendelim N\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=b66104e89893ec321a8549c3dd6e4e6e}{%
+           family={Sisson},
+           familyi={S\bibinitperiod},
+           given={Scott\bibnamedelima A.},
+           giveni={S\bibinitperiod\bibinitdelim A\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=a74c0f4a7f45131147591bfce37dad56}{%
+           family={Drovandi},
+           familyi={D\bibinitperiod},
+           given={Christopher\bibnamedelima C.},
+           giveni={C\bibinitperiod\bibinitdelim C\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{555c3140bd9f6819fd277781930b5c67}
+      \strng{fullhash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{fullhashraw}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{bibnamehash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authorbibnamehash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authornamehash}{555c3140bd9f6819fd277781930b5c67}
+      \strng{authorfullhash}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \strng{authorfullhashraw}{27ce20d54dda2ebac7d9cea0c2a3c3c1}
+      \field{sortinit}{O}
+      \field{sortinithash}{2cd7140a07aea5341f9e2771efe90aae}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{One popular approach to likelihood-free inference is the synthetic likelihood method, which assumes that some data summary statistics which are informative about model parameters are approximately Gaussian for each value of the parameter. Based on this assumption, a Gaussian likelihood can be constructed, where the mean and covariance matrix of the summary statistics are estimated via Monte Carlo. The objective of the current work is to improve on a variational implementation of the Bayesian synthetic likelihood introduced recently in the literature, to enable the application of that approach to high-dimensional problems. Here high-dimensional can mean problems with more than one hundred parameters. The improvements introduced relate to shrinkage estimation of covariance matrices in estimation of the synthetic likelihood, improved implementation of control variate approaches to stochastic gradient variance reduction, and parsimonious but expressive parametrizations of variational normal posterior covariance matrices in terms of factor structures to reduce the dimension of the optimization problem. The shrinkage covariance estimation is particularly important for stability of stochastic gradient optimization with noisy likelihood estimates. However, as the dimension increases, the quality of the posterior approximation deteriorates unless the number of Monte Carlo samples used to estimate the synthetic likelihood also increases. We explore the properties of the method in some real examples in cases where either the number of summary statistics, the number of model parameters, or both, are large.}
+      \field{issn}{01679473}
+      \field{journaltitle}{Computational Statistics \& Data Analysis}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{shortjournal}{Computational Statistics \& Data Analysis}
+      \field{title}{Likelihood-Free Inference in High Dimensions with Synthetic Likelihood}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{128}
+      \field{year}{2018}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{271\bibrangedash 291}
+      \range{pages}{21}
+      \verb{doi}
+      \verb 10.1016/j.csda.2018.07.008
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/SCAR8GYR/Ong et al. - 2018 - Likelihood-free inference in high dimensions with synthetic likelihood.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0167947318301749
+      \endverb
+      \verb{url}
+      \verb https://linkinghub.elsevier.com/retrieve/pii/S0167947318301749
+      \endverb
+    \endentry
+    \entry{picchini2023sequentially}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=ac346e575a3021e11052993ab8f0f3be}{%
+           family={Picchini},
+           familyi={P\bibinitperiod},
+           given={Umberto},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=935cfe864955bd53dfdc315d4120af1f}{%
+           family={Simola},
+           familyi={S\bibinitperiod},
+           given={Umberto},
+           giveni={U\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=ccb8e56c9ea1e2e3c9ceb8dabc540e1c}{%
+           family={Corander},
+           familyi={C\bibinitperiod},
+           given={Jukka},
+           giveni={J\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{1a1e693a9d32bb142e0ffcab02a55c59}
+      \strng{fullhash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{fullhashraw}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{bibnamehash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authorbibnamehash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authornamehash}{1a1e693a9d32bb142e0ffcab02a55c59}
+      \strng{authorfullhash}{cacfd9ef604061213dd63c0d3a0db978}
+      \strng{authorfullhashraw}{cacfd9ef604061213dd63c0d3a0db978}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Synthetic likelihood (SL) is a strategy for parameter inference when the likelihood function is analytically or computationally intractable. In SL, the likelihood function of the data is replaced by a multivariate Gaussian density over summary statistics of the data. SL requires simulation of many replicate datasets at every parameter value considered by a sampling algorithm, such as Markov chain Monte Carlo (MCMC), making the method computationally-intensive. We propose two strategies to alleviate the computational burden. First, we introduce an algorithm producing a proposal distribution that is sequentially tuned and made conditional to data, thus it rapidly guides the proposed parameters towards high posterior density regions. In our experiments, a small number of iterations of our algorithm is enough to rapidly locate high density regions, which we use to initialize one or several chains that make use of off-the-shelf adaptive MCMC methods. Our “guided” approach can also be potentially used with MCMC samplers for approximate Bayesian computation (ABC). Second, we exploit strategies borrowed from the correlated pseudo-marginal MCMC literature, to improve the chains mixing in a SL framework. Moreover, our methods enable inference for challenging case studies, when the posterior is multimodal and when the chain is initialised in low posterior probability regions of the parameter space, where standard samplers failed. To illustrate the advantages stemming from our framework we consider five benchmark examples, including estimation of parameters for a cosmological model and a stochastic model with highly non-Gaussian summary statistics.}
+      \field{day}{1}
+      \field{eprintclass}{stat}
+      \field{eprinttype}{arXiv}
+      \field{issn}{1936-0975}
+      \field{journaltitle}{Bayesian Analysis}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{4}
+      \field{shortjournal}{Bayesian Anal.}
+      \field{title}{Sequentially Guided {{MCMC}} Proposals for Synthetic Likelihoods and Correlated Synthetic Likelihoods}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{18}
+      \field{year}{2023}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \verb{doi}
+      \verb 10.1214/22-BA1305
+      \endverb
+      \verb{eprint}
+      \verb 2004.04558
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/AC563ER7/Picchini et al. - 2023 - Sequentially guided MCMC proposals for synthetic likelihoods and correlated synthetic likelihoods.pdf
+      \endverb
+      \verb{urlraw}
+      \verb http://arxiv.org/abs/2004.04558
+      \endverb
+      \verb{url}
+      \verb http://arxiv.org/abs/2004.04558
+      \endverb
+    \endentry
+    \entry{prem2017projecting}{article}{}{}
+      \name{author}{3}{}{%
+        {{un=0,uniquepart=base,hash=c6548fa7bc0b058c35b218fcbe4cdf1e}{%
+           family={Prem},
+           familyi={P\bibinitperiod},
+           given={Kiesha},
+           giveni={K\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=34335f83bc567e96e1ff762f4c628ac5}{%
+           family={Cook},
+           familyi={C\bibinitperiod},
+           given={Alex\bibnamedelima R.},
+           giveni={A\bibinitperiod\bibinitdelim R\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=165185e1eeadecd573532952f87ce8bd}{%
+           family={Jit},
+           familyi={J\bibinitperiod},
+           given={Mark},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+      }
+      \name{editor}{1}{}{%
+        {{hash=1cdddef6a0bedeaddbca1e56a294f744}{%
+           family={Halloran},
+           familyi={H\bibinitperiod},
+           given={Betz},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{5aba5f0c07126dfe963b1cb32562fa1e}
+      \strng{fullhash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{fullhashraw}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{bibnamehash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authorbibnamehash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authornamehash}{5aba5f0c07126dfe963b1cb32562fa1e}
+      \strng{authorfullhash}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{authorfullhashraw}{f03772f46abb65bbfcea3d9c50d04415}
+      \strng{editorbibnamehash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editornamehash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editorfullhash}{1cdddef6a0bedeaddbca1e56a294f744}
+      \strng{editorfullhashraw}{1cdddef6a0bedeaddbca1e56a294f744}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{Heterogeneities in contact networks have a major effect in determining whether a pathogen can become epidemic or persist at endemic levels. Epidemic models that determine which interventions can successfully prevent an outbreak need to account for social structure and mixing patterns. Contact patterns vary across age and locations (e.g. home, work, and school), and including them as predictors in transmission dynamic models of pathogens that spread socially will improve the models’ realism. Data from population-based contact diaries in eight European countries from the POLYMOD study were projected to 144 other countries using a Bayesian hierarchical model that estimated the proclivity of age-and-location-specific contact patterns for the countries, using Markov chain Monte Carlo simulation. Household level data from the Demographic and Health Surveys for nine lower-income countries and socio-demographic factors from several on-line databases for 152 countries were used to quantify similarity of countries to estimate contact patterns in the home, work, school and other locations for countries for which no contact data are available, accounting for demographic structure, household structure where known, and a variety of metrics including workforce participation and school enrolment. Contacts are highly assortative with age across all countries considered, but pronounced regional differences in the age-specific contacts at home were noticeable, with more inter-generational contacts in Asian countries than in other settings. Moreover, there were variations in contact patterns by location, with workplace contacts being least assortative. These variations led to differences in the effect of social distancing measures in an age structured epidemic model. Contacts have an important role in transmission dynamic models that use contact rates to characterize the spread of contact-transmissible diseases. This study provides estimates of mixing patterns for societies for which contact data such as POLYMOD are not yet available.}
+      \field{day}{12}
+      \field{issn}{1553-7358}
+      \field{journaltitle}{PLOS Computational Biology}
+      \field{langid}{english}
+      \field{month}{9}
+      \field{number}{9}
+      \field{shortjournal}{PLoS Comput Biol}
+      \field{title}{Projecting Social Contact Matrices in 152 Countries Using Contact Surveys and Demographic Data}
+      \field{urlday}{4}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{13}
+      \field{year}{2017}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{e1005697}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1371/journal.pcbi.1005697
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/J8XKTTFR/Prem et al. - 2017 - Projecting social contact matrices in 152 countries using contact surveys and demographic data.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://dx.plos.org/10.1371/journal.pcbi.1005697
+      \endverb
+      \verb{url}
+      \verb https://dx.plos.org/10.1371/journal.pcbi.1005697
+      \endverb
+    \endentry
+    \entry{salathe2010highresolution}{article}{}{}
+      \name{author}{6}{}{%
+        {{un=0,uniquepart=base,hash=932172cbce9830fa1763c426c7088452}{%
+           family={Salathé},
+           familyi={S\bibinitperiod},
+           given={Marcel},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=0ab6d68b031726e7e9d42dda3b60cd91}{%
+           family={Kazandjieva},
+           familyi={K\bibinitperiod},
+           given={Maria},
+           giveni={M\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=d11aaef9b72b27377ef29b2751576d23}{%
+           family={Lee},
+           familyi={L\bibinitperiod},
+           given={Jung\bibnamedelima Woo},
+           giveni={J\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=64657013bce77454fd72c592c7225abf}{%
+           family={Levis},
+           familyi={L\bibinitperiod},
+           given={Philip},
+           giveni={P\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=c7b2526bf98373150f5d4398e70ec125}{%
+           family={Feldman},
+           familyi={F\bibinitperiod},
+           given={Marcus\bibnamedelima W.},
+           giveni={M\bibinitperiod\bibinitdelim W\bibinitperiod},
+           givenun=0}}%
+        {{un=0,uniquepart=base,hash=9e736aea8fcac153a2b6f8301805a227}{%
+           family={Jones},
+           familyi={J\bibinitperiod},
+           given={James\bibnamedelima H.},
+           giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+           givenun=0}}%
+      }
+      \strng{namehash}{64c584b163d3621b464785cb423e30ac}
+      \strng{fullhash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{fullhashraw}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{bibnamehash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authorbibnamehash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authornamehash}{64c584b163d3621b464785cb423e30ac}
+      \strng{authorfullhash}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \strng{authorfullhashraw}{8e3cce3dbb35969e0e71f004f3b0fd84}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{}
+      \true{uniqueprimaryauthor}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{abstract}{The most frequent infectious diseases in humans—and those with the highest potential for rapid pandemic spread—are usually transmitted via droplets during close proximity interactions (CPIs). Despite the importance of this transmission route, very little is known about the dynamic patterns of CPIs. Using wireless sensor network technology, we obtained high-resolution data of CPIs during a typical day at an American high school, permitting the reconstruction of the social network relevant for infectious disease transmission. At 94\% coverage, we collected 762,868 CPIs at a maximal distance of 3 m among 788 individuals. The data revealed a high-density network with typical small-world properties and a relatively homogeneous distribution of both interaction time and interaction partners among subjects. Computer simulations of the spread of an influenza-like disease on the weighted contact graph are in good agreement with absentee data during the most recent influenza season. Analysis of targeted immunization strategies suggested that contact network data are required to design strategies that are significantly more effective than random immunization. Immunization strategies based on contact network data were most effective at high vaccination coverage.}
+      \field{day}{21}
+      \field{issn}{0027-8424, 1091-6490}
+      \field{journaltitle}{Proceedings of the National Academy of Sciences}
+      \field{langid}{english}
+      \field{month}{12}
+      \field{number}{51}
+      \field{shortjournal}{Proc. Natl. Acad. Sci. U.S.A.}
+      \field{title}{A High-Resolution Human Contact Network for Infectious Disease Transmission}
+      \field{urlday}{10}
+      \field{urlmonth}{4}
+      \field{urlyear}{2026}
+      \field{volume}{107}
+      \field{year}{2010}
+      \field{dateera}{ce}
+      \field{urldateera}{ce}
+      \field{pages}{22020\bibrangedash 22025}
+      \range{pages}{6}
+      \verb{doi}
+      \verb 10.1073/pnas.1009094108
+      \endverb
+      \verb{file}
+      \verb /Users/yohei/Zotero/storage/PMGBV8WB/Salathé et al. - 2010 - A high-resolution human contact network for infectious disease transmission.pdf
+      \endverb
+      \verb{urlraw}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1009094108
+      \endverb
+      \verb{url}
+      \verb https://pnas.org/doi/full/10.1073/pnas.1009094108
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

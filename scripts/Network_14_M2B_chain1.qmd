@@ -1,0 +1,265 @@
+---
+title: "28_M2_adaptive_mcmc_matrix_v8"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# 28 Adaptive MCMC Matrix ver.8
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(here)
+library(tictoc)
+library(mvtnorm)
+library(parallel)
+
+# General functions
+source(here('R', 'adaptive_manager_matrix_M2.R'))
+source(here('R', 'log_utils.R'))
+source(here('R', 'traceplot.R'))
+# For this model
+source(here('R', 'model_matrix_M2.R'))
+source(here('R', 'mcmc_core_M2.R'))
+
+# Path Setting
+rds_path = here('analysis', '02_M2_Model2', 'results')
+plot_path = here('analysis', '02_M2_Model2', 'plots')
+cm = 1 / 2.54
+```
+
+```{r}
+# Necessary Data
+target_stats = readRDS(here('analysis', '02_M2_Model2', 'results', 'M2_target_stats_8.rds'))
+nodes = readRDS(here('analysis', '02_M2_Model2', 'results', 'simulation_nodes.rds'))
+
+# Previous model result
+file_name = 'BM_longrun1_20260303_064355'
+bm_res = readRDS(here('analysis', '01_BM_Basemodel', 'results', paste0(file_name, '.rds')))
+
+# Model Functions
+model_funcs = list(
+  generate = calc_prob_m2_3,
+  calc_stats = calc_expected_stats_matrix_m2_6,
+  loglik = calc_loglik_m2
+)
+```
+
+## 2. Hyper Parameters
+
+```{r}
+# --- MCMC Basic Settings ---
+n_iter        = 20000
+burn_in_ratio = 0.2
+safety_margin = 1.0
+n_school = c(1, 1, 3, 4)
+
+# --- Inflation & Scaling Schedule ---
+optimal_scale      = (2.38 ^ 2) / 12
+inflation_schedule = c(50, 20, 10, 5, 2, 1)
+# inflation_schedule = c(50)
+next_schedule      = c(inflation_schedule[-1], NA)
+shrinkage_ratios   = next_schedule / inflation_schedule
+
+scaling_factors    = optimal_scale * shrinkage_ratios
+scaling_factors[is.na(scaling_factors)] = 1.0
+```
+
+```{r}
+# --- Initial Params & Initial Covariance Matrix---
+
+burn_in_ind = floor(bm_res$config$n_iter * bm_res$config$burn_in)
+clean_chain = bm_res$chain[-(1 : burn_in_ind), ]
+
+bm_means = colMeans(clean_chain)
+
+init_params = c(
+  alpha     = -1.00,
+  gamma_pri_low  = 0.3, 
+  gamma_pri_high = 0.3,
+  gamma_sec = 0.3,
+  gamma_ter = 0.3,
+  w         = 0.5,                        
+  lambda    = 0.15,
+  sigma_hhd = 9.0,                        
+  mu        = 30.0,                       
+  phi_mm    = unname(bm_means["phi_mm"]),
+  phi_ff    = unname(bm_means["phi_ff"]),
+  sigma_re  = unname(bm_means["sigma"])   
+)
+
+bm_cov = cov(clean_chain)
+base_proposal_cov = bm_cov * optimal_scale * safety_margin
+
+n_m2_params = length(init_params)
+init_proposal_cov = matrix(0, nrow = n_m2_params, ncol = n_m2_params)
+rownames(init_proposal_cov) = names(init_params)
+colnames(init_proposal_cov) = names(init_params)
+
+# Copy the shared variance and covariance from BM
+shared_params = c("alpha", "phi_mm", "phi_ff")
+init_proposal_cov["sigma_re", "sigma_re"] = base_proposal_cov["sigma", "sigma"]
+
+for (p1 in shared_params) {
+  for (p2 in shared_params) {
+    init_proposal_cov[p1, p2] = base_proposal_cov[p1, p2]
+  }
+}
+
+for (p in shared_params) {
+  init_proposal_cov["sigma_re", p] = base_proposal_cov["sigma", p]
+  init_proposal_cov[p, "sigma_re"] = base_proposal_cov[p, "sigma"]
+}
+
+init_proposal_cov["lambda", "lambda"] = base_proposal_cov["theta", "theta"]
+
+for (p in shared_params) {
+  # ★ 符号を反転させるためにマイナスをつける
+  init_proposal_cov["lambda", p] = -base_proposal_cov["theta", p]
+  init_proposal_cov[p, "lambda"] = -base_proposal_cov[p, "theta"]
+}
+
+# ★ sigmaとの共分散もマイナスをつける
+init_proposal_cov["lambda", "sigma_re"] = -base_proposal_cov["theta", "sigma"]
+init_proposal_cov["sigma_re", "lambda"] = -base_proposal_cov["sigma", "theta"]
+
+init_proposal_cov["gamma_pri_low", "gamma_pri_low"]   = 0.1^2
+init_proposal_cov["gamma_pri_high", "gamma_pri_high"] = 0.1^2
+init_proposal_cov["gamma_sec", "gamma_sec"] = 0.1^2
+init_proposal_cov["gamma_ter", "gamma_ter"] = 0.1^2
+
+init_proposal_cov["w", "w"]                 = 0.01^2
+init_proposal_cov["sigma_hhd", "sigma_hhd"] = 0.5^2
+init_proposal_cov["mu", "mu"]               = 1.0^2
+
+init_proposal_cov = init_proposal_cov + diag(1e-6, n_m2_params)
+```
+
+```{r}
+# Static Data for Network Generation
+static_data = get_static_data_m2_5(nodes, n_school = n_school)
+```
+
+## 3. Config
+
+```{r}
+config = list(
+  name = 'Adaptive_Matrix_18',
+  theme = 'M2',
+  note = paste0('Adaptive / N_school = c(1, 1, 3, 4) : Ver.8 summary stats M2-matrix model; sm =', safety_margin,
+                '\nChanged the approach of Random Effect.'),
+  n_iter = n_iter,
+  burn_in = burn_in_ratio,
+  n_school = n_school,
+  safety_margin = safety_margin,
+  inflation_schedule = inflation_schedule,
+  scaling_factors = scaling_factors,
+  init_params = init_params,
+  init_cov = init_proposal_cov,
+  target_mu = target_stats$mu,
+  target_sigma = target_stats$sigma,
+  output_dir = here('analysis', '02_M2_Model2')
+)
+```
+
+## 4. Run Adaptive MCMC
+
+```{r}
+# ----------------------------------------------------
+# 【Check before Simulation】Initial Network
+# ----------------------------------------------------
+test_net = model_funcs$generate(init_params, static_data)
+test_stats = model_funcs$calc_stats(test_net, static_data)
+
+cat("=== Initial Stats vs Target ===\n")
+print(rbind(
+  "Simulation" = test_stats,
+  "Target"     = target_stats$mu
+))
+# ----------------------------------------------------
+```
+
+```{r}
+# Implementation
+
+tic("Total Adaptive MCMC Time")
+
+final_results = run_adaptive_mcmc(
+  config = config,
+  model_funcs = model_funcs,
+  static_data = static_data,
+  output_dir = config$output_dir
+)
+
+toc()
+
+print("All stages of Adaptive MCMC have successfully finished!")
+```
+
+```{r}
+sim_id = '20260327_191045'
+file_name = paste0('M2_', config$name, '_', sim_id)
+# file_name = 'M2_Adaptive_Matrix_4_20260322_123757'
+# file_name = 'M2_LongRun3_20260310_225034'
+res = readRDS(here(rds_path, paste0(file_name, '.rds')))
+
+plot_name = paste0(res$config$name, '_TracePlot')
+
+t_plot = traceplot(res)
+
+# ggsave(filename = here(plot_path, paste0(plot_name, '.pdf')), plot = t_plot, width = 16, height = 12, units = 'cm')
+```
+
+```{r}
+data_list = c(
+  'M2_Adaptive_Matrix_18_20260327_181509',
+  'M2_Adaptive_Matrix_18_20260327_182605',
+  'M2_Adaptive_Matrix_18_20260327_183709',
+  'M2_Adaptive_Matrix_18_20260327_184820',
+  'M2_Adaptive_Matrix_18_20260327_185930',
+  'M2_Adaptive_Matrix_18_20260327_191045'
+)
+
+for (i in seq_along(data_list)) {
+  file_name = data_list[i]
+  res = readRDS(here('analysis', '02_M2_Model2', 'results', paste0(file_name, '.rds')))
+  t_plot = traceplot(res)
+  plot_name = paste0(res$config$name, '_stage_', i)
+  ggsave(filename = here(plot_path, paste0(plot_name, '.pdf')), plot = t_plot, width = 16, height = 12, units = 'cm')
+}
+```
+
+```{r}
+file_name = 'M2_Adaptive_Matrix_18_20260327_191045'
+res_last = readRDS(here("analysis", "02_M2_Model2", "results", paste0(file_name, '.rds')))
+
+test_net = model_funcs$generate(res_last$final_params, static_data)
+test_stats = model_funcs$calc_stats(test_net, static_data)
+
+cat("=== Final Stats vs Target ===\n")
+print(rbind(
+  "Simulation" = test_stats,
+  "Target"     = target_stats$mu
+))
+```
+
+```{r}
+# data_list = c(
+#   'M2_Adaptive1_20260309_143653',
+#   'M2_Adaptive1_20260309_145130',
+#   'M2_Adaptive1_20260309_150551',
+#   'M2_Adaptive1_20260309_152055',
+#   'M2_Adaptive1_20260309_153517',
+#   'M2_Adaptive1_20260309_154935'
+# )
+
+data_dir = rds_path
+
+trace_plot = adaptive_traceplot(data_list = data_list, data_dir = rds_path)
+
+plot_name = paste0(res$config$name, '_TracePlot')
+
+ggsave(filename = here(plot_path, paste0(plot_name, '.pdf')), plot = trace_plot, width = 16, height = 15, units = 'cm')
+```

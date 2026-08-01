@@ -1,0 +1,335 @@
+---
+title: "model2b data prep"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup & Import
+
+```{r setup}
+library(tidyverse)
+library(here)
+
+source(here('scripts', 'src', 'model_M2.R')) 
+source(here('scripts', 'src', 'archive_model_matrix_M2.R'))
+
+rds_path = here('data', 'processed')
+rds_out_path = here('data', 'processed')
+
+poly_data = readRDS(here(rds_path, 'poly_cleaned.rds'))
+nodes = readRDS(here(rds_path, 'simulation_nodes.rds'))
+
+static_data = get_static_data_m2(nodes)
+
+file_name = 'm2a_mcmc' 
+m2a_mcmc = readRDS(here(rds_path, paste0(file_name, '.rds')))
+```
+
+## 2. Process MCMC Chain
+
+```{r}
+clean_chain = m2a_mcmc$mcmc_matrix
+
+cat("Number of valid posterior samples across all chains:", nrow(clean_chain), "\n")
+```
+
+## 3. Sampling & Network Simulation
+
+```{r}
+set.seed(100)
+n_sims = 700 # Depends on ESS
+
+sample_indices = sample(1:nrow(clean_chain), n_sims, replace = FALSE)
+
+edge_df_list = list()
+sim_degree_list = list()
+N = nrow(nodes)
+
+# Network Generation Loop
+for (i in 1:n_sims) {
+  sampled_params = clean_chain[sample_indices[i], ]
+  
+  sim_network = generate_network_m2(sampled_params, static_data) 
+  
+  if (sim_network$has_edge) {
+    
+    ego_ids = nodes$part_id[sim_network$rows]
+    alter_ids = nodes$part_id[sim_network$cols]
+    
+    tmp_edges = data.frame(
+      sim_id = i,
+      part_id = c(ego_ids, alter_ids),
+      cont_id = c(alter_ids, ego_ids)
+    )
+    edge_df_list[[i]] = tmp_edges
+    
+    node_degrees = tabulate(c(sim_network$rows, sim_network$cols), nbins = N)
+  } else {
+    node_degrees = rep(0, N)
+  }
+  
+  sim_degree_list[[i]] = data.frame(
+    sim_id = i,
+    part_id = nodes$part_id,
+    degree = node_degrees
+  )
+}
+
+all_sim_edges_df = bind_rows(edge_df_list)
+all_sim_degrees_df = bind_rows(sim_degree_list)
+```
+
+## 4. Calculate Indicators for Plots
+
+### 4-1. Degree Distribution Data
+
+```{r}
+# Simulation
+df_degree_sim = all_sim_degrees_df %>%
+  count(sim_id, degree) %>%
+  group_by(degree) %>%
+  summarise(
+    mean_count = mean(n), 
+    .groups = 'drop'
+  ) %>%
+  mutate(source = "Simulation")
+
+# POLYMOD
+df_degree_poly = poly_data %>%
+  count(part_id, name = "degree") %>%
+  right_join(nodes %>% select(part_id), by = "part_id") %>%
+  mutate(degree = replace_na(degree, 0)) %>%
+  count(degree) %>%
+  rename(mean_count = n) %>%
+  mutate(source = "POLYMOD")
+
+df_plot_degree = bind_rows(df_degree_sim, df_degree_poly)
+
+saveRDS(df_plot_degree, here(rds_out_path, 'm2a_plot_data_degree.rds'))
+```
+
+### 4-2. Age Difference Data
+
+```{r}
+# Simulation
+df_agediff_sim = all_sim_edges_df %>%
+  left_join(nodes %>% select(part_id, part_age), by = "part_id") %>%
+  rename(ego_age = part_age) %>%
+  left_join(nodes %>% select(part_id, part_age), by = c("cont_id" = "part_id")) %>%
+  rename(alter_age = part_age) %>%
+  mutate(
+    age_diff = alter_age - ego_age,
+    abs_age_diff = abs(age_diff),
+    source = "Simulation"
+  ) %>%
+  filter(!is.na(age_diff)) %>%
+  select(sim_id, age_diff, abs_age_diff, source)
+
+# POLYMOD
+df_agediff_poly = poly_data %>%
+  mutate(
+    age_diff = cnt_age - part_age,
+    abs_age_diff = abs(age_diff),
+    source = "POLYMOD"
+  ) %>%
+  filter(!is.na(age_diff)) %>%
+  select(age_diff, abs_age_diff, source)
+
+saveRDS(df_agediff_sim, here(rds_out_path, 'm2a_plot_data_agediff_sim.rds'))
+saveRDS(df_agediff_poly, here(rds_out_path, 'm2a_plot_data_agediff_poly.rds'))
+```
+
+### 4-3. 1-Year Resolution Diagonal Contacts
+
+```{r}
+nodes_clean = nodes %>%
+  ungroup() %>%
+  select(part_id, part_age) %>%
+  distinct(part_id, .keep_all = TRUE)
+
+# Simulation
+sim_diag_degrees = all_sim_edges_df %>%
+  left_join(nodes_clean, by = "part_id") %>%
+  rename(ego_age = part_age) %>%
+  left_join(nodes_clean, by = c("cont_id" = "part_id")) %>%
+  rename(alter_age = part_age) %>%
+  filter(ego_age == alter_age) %>%
+  count(sim_id, part_id, name = "diag_degree")
+  
+df_diag_sim = all_sim_degrees_df %>% 
+  select(sim_id, part_id) %>% 
+  left_join(sim_diag_degrees, by = c("sim_id", "part_id")) %>%
+  mutate(diag_degree = replace_na(diag_degree, 0)) %>%
+  left_join(nodes_clean, by = "part_id") %>%
+  group_by(sim_id, part_age) %>%
+  summarise(mean_contacts = mean(diag_degree), .groups = 'drop') %>%
+  group_by(part_age) %>%
+  summarise(mean_contacts = mean(mean_contacts), .groups = 'drop') %>%
+  rename(age = part_age) %>%
+  mutate(source = "Simulation")
+
+# POLYMOD
+df_diag_poly = poly_data %>%
+  inner_join(nodes_clean %>% select(part_id), by = "part_id") %>% 
+  filter(part_age == cnt_age) %>%
+  count(part_id, name = "diag_degree") %>%
+  right_join(nodes_clean, by = "part_id") %>% 
+  mutate(diag_degree = replace_na(diag_degree, 0)) %>%
+  group_by(part_age) %>%
+  summarise(mean_contacts = mean(diag_degree), .groups = 'drop') %>%
+  rename(age = part_age) %>%
+  mutate(source = "POLYMOD")
+
+df_plot_diag_1yr = bind_rows(df_diag_sim, df_diag_poly)
+
+saveRDS(df_plot_diag_1yr, here(rds_out_path, 'm2a_plot_data_diag_1yr.rds'))
+```
+
+### 4-4. Mean Degree by Age Group Data
+
+```{r}
+breaks_5yr = seq(0, 80, by = 5)
+labels_5yr = paste0(breaks_5yr[-length(breaks_5yr)], "-", breaks_5yr[-1] - 1)
+labels_5yr[length(labels_5yr)] = "75-80" 
+
+nodes_clean = nodes %>%
+  ungroup() %>%
+  distinct(part_id, .keep_all = TRUE)
+
+# Simulation
+df_mean_deg_sim = all_sim_degrees_df %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = "part_id") %>%
+  filter(part_age <= 80) %>%
+  mutate(age_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)) %>%
+  group_by(sim_id, age_group) %>%
+  summarise(mean_degree = mean(degree, na.rm = TRUE), .groups = 'drop') %>%
+  group_by(age_group) %>%
+  summarise(mean_degree = mean(mean_degree, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(source = "Simulation")
+
+# POLYMOD
+poly_degrees = poly_data %>%
+  count(part_id, name = "degree") %>%
+  right_join(nodes_clean %>% select(part_id, part_age), by = "part_id") %>%
+  mutate(degree = replace_na(degree, 0))
+
+df_mean_deg_poly = poly_degrees %>%
+  filter(part_age <= 80) %>% 
+  mutate(age_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)) %>%
+  group_by(age_group) %>%
+  summarise(mean_degree = mean(degree, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(source = "POLYMOD")
+
+df_plot_mean_degree = bind_rows(df_mean_deg_sim, df_mean_deg_poly)
+
+saveRDS(df_plot_mean_degree, here(rds_out_path, 'm2a_plot_data_mean_degree.rds'))
+```
+
+### 4-5. 5-Year Step Diagonal Contacts (binned)
+
+```{r}
+breaks_5yr = seq(0, 80, by = 5)
+labels_5yr = paste0(breaks_5yr[-length(breaks_5yr)], "-", breaks_5yr[-1] - 1)
+labels_5yr[length(labels_5yr)] = "75-80" 
+
+nodes_clean = nodes %>%
+  ungroup() %>%
+  distinct(part_id, .keep_all = TRUE)
+
+# --- Simulation ---
+sim_diag_step = all_sim_edges_df %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = "part_id") %>%
+  rename(ego_age = part_age) %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = c("cont_id" = "part_id")) %>%
+  rename(alter_age = part_age) %>%
+  mutate(
+    ego_group = cut(ego_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE),
+    alter_group = cut(alter_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)
+  ) %>%
+  filter(ego_group == alter_group) %>%
+  count(sim_id, part_id, name = "diag_count")
+
+df_diag_step_sim = all_sim_degrees_df %>%
+  select(sim_id, part_id) %>%
+  left_join(sim_diag_step, by = c("sim_id", "part_id")) %>%
+  mutate(diag_count = replace_na(diag_count, 0)) %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = "part_id") %>%
+  mutate(age_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)) %>%
+  group_by(sim_id, age_group) %>%
+  summarise(mean_contacts = mean(diag_count, na.rm = TRUE), .groups = 'drop') %>%
+  group_by(age_group) %>%
+  summarise(mean_contacts = mean(mean_contacts, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(source = "Simulation")
+
+# --- POLYMOD ---
+df_diag_step_poly = poly_data %>%
+  inner_join(nodes_clean %>% select(part_id), by = "part_id") %>%
+  mutate(
+    ego_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE),
+    alter_group = cut(cnt_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)
+  ) %>%
+  filter(ego_group == alter_group) %>%
+  count(part_id, name = "diag_count") %>%
+  right_join(nodes_clean, by = "part_id") %>%
+  mutate(diag_count = replace_na(diag_count, 0)) %>%
+  mutate(age_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)) %>%
+  group_by(age_group) %>%
+  summarise(mean_contacts = mean(diag_count, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(source = "POLYMOD")
+
+df_plot_diag_step = bind_rows(df_diag_step_sim, df_diag_step_poly)
+
+saveRDS(df_plot_diag_step, here(rds_out_path, 'm2a_plot_data_diag_step.rds'))
+```
+
+### 4-6. Contact Matrix Data (5-Year Binned)
+
+```{r}
+breaks_5yr = seq(0, 80, by = 5)
+labels_5yr = paste0(breaks_5yr[-length(breaks_5yr)], "-", breaks_5yr[-1] - 1)
+labels_5yr[length(labels_5yr)] = "75-80" 
+
+# --- Simulation ---
+df_matrix_sim = all_sim_edges_df %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = "part_id") %>%
+  rename(ego_age = part_age) %>%
+  left_join(nodes_clean %>% select(part_id, part_age), by = c("cont_id" = "part_id")) %>%
+  rename(alter_age = part_age) %>%
+  mutate(
+    ego_group = cut(ego_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE),
+    alter_group = cut(alter_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)
+  ) %>%
+  count(sim_id, ego_group, alter_group, name = "count")
+
+pop_by_group = nodes_clean %>%
+  mutate(ego_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)) %>%
+  count(ego_group, name = "pop")
+
+df_matrix_sim_final = expand.grid(
+  sim_id = 1:n_sims,
+  ego_group = labels_5yr,
+  alter_group = labels_5yr
+) %>%
+  left_join(df_matrix_sim, by = c("sim_id", "ego_group", "alter_group")) %>%
+  mutate(count = replace_na(count, 0)) %>%
+  left_join(pop_by_group, by = "ego_group") %>%
+  group_by(ego_group, alter_group) %>%
+  summarise(mean_contacts = mean(count / pop), .groups = 'drop') %>%
+  mutate(source = "Simulation")
+
+# --- POLYMOD ---
+df_matrix_poly_final = poly_data %>%
+  inner_join(nodes_clean %>% select(part_id), by = "part_id") %>%
+  mutate(
+    ego_group = cut(part_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE),
+    alter_group = cut(cnt_age, breaks = breaks_5yr, labels = labels_5yr, right = FALSE, include.lowest = TRUE)
+  ) %>%
+  count(ego_group, alter_group, name = "count") %>%
+  complete(ego_group = labels_5yr, alter_group = labels_5yr, fill = list(count = 0)) %>%
+  left_join(pop_by_group, by = "ego_group") %>%
+  mutate(mean_contacts = count / pop, source = "POLYMOD")
+
+df_plot_heatmap = bind_rows(df_matrix_sim_final, df_matrix_poly_final)
+saveRDS(df_plot_heatmap, here(rds_out_path, 'm2a_plot_data_heatmap.rds'))
+```

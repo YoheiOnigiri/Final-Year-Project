@@ -1,0 +1,571 @@
+---
+title: "01_Fig_Traceplots"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(grid)
+library(here)
+
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+plot_path = here('output')
+rds_path = here('data', 'processed')
+
+
+cm = 1 / 2.54
+```
+
+## 2. Model 1
+
+```{r read model 1 result}
+model1_list = c(
+  'BM_test3_20260218_124508',
+  'BM_test3_20260218_132156',
+  'BM_test3_20260218_135829',
+  'BM_test3_20260218_143534',
+  'BM_test3_20260218_151240',
+  'BM_test3_20260218_154935'
+)
+
+model1_res = model1_list %>%
+  map(~ {
+    filename = paste0(.x, '.rds')
+    readRDS(here(rds_path, filename))
+  })
+```
+
+### 2-1. Model 1 Multistage Traceplot
+
+```{r prepare model 1 for multi traceplot}
+model1_multi_df = prep_multi_chain(model1_res)
+```
+
+```{r model 1 multi-trace}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c("alpha", "phi_ff", "phi_mm", "theta", "sigma_re")
+
+model1_multi_1_plot_list = generate_trace_grobs(model1_multi_df, target_params)
+
+plot_name = 'model1_multistage_traceplot_1'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model1_multi_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+### 2-2. Stage 5 vs Stage 6 for alpha
+
+```{r model 1 stage 5 vs 6 comparison}
+
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+model1_stage5_res = model1_res[[5]]
+model1_stage6_res = model1_res[[6]]
+
+model1_s5_df = prep_single_chain(model1_stage5_res)
+model1_s6_df = prep_single_chain(model1_stage6_res)
+
+target_params = c("alpha")
+
+plot_s5_list = generate_trace_grobs(model1_s5_df, target_params, main_title = "Stage 5 (Inflation = 2)")
+plot_s6_list = generate_trace_grobs(model1_s6_df, target_params, main_title = "Stage 6 (Inflation = 1)")
+
+plot_name = 'model1_comparison_traceplot_alpha'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 8 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 1, ncol = 2)))
+  
+  # Stage 5
+  pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+    grid.draw(plot_s5_list[["alpha"]])
+  popViewport()
+
+  # Stage 6
+  pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+    grid.draw(plot_s6_list[["alpha"]])
+  popViewport()
+
+dev.off()
+```
+
+### 2-3. Model 1 Single Traceplot
+
+```{r model 1 prepare for single traceplot}
+model1_final_res = readRDS(here(rds_path, 'BM_longrun1_20260303_064355.rds'))
+model1_single_df = prep_single_chain(model1_final_res)
+```
+
+```{r model 1 single-trace full}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c("alpha", "phi_ff", "phi_mm", "theta", "sigma_re")
+
+model1_single_1_plot_list = generate_trace_grobs(model1_single_df, target_params)
+
+plot_name = 'model1_singlestage_traceplot_full'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model1_single_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+```{r model 1 single-trace for thesis}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c("alpha", "phi_ff", "theta", "sigma_re")
+
+model1_single_1_plot_list = generate_trace_grobs(model1_single_df, target_params)
+
+plot_name = 'model1_singlestage_traceplot'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model1_single_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+## 3. Model 2A
+
+```{r read model 2A result}
+model2a_list = c(
+  'M2_Adaptive_Matrix_11_20260323_100108',
+  'M2_Adaptive_Matrix_11_20260323_101022',
+  'M2_Adaptive_Matrix_11_20260323_101931',
+  'M2_Adaptive_Matrix_11_20260323_102837',
+  'M2_Adaptive_Matrix_11_20260323_103737',
+  'M2_Adaptive_Matrix_11_20260323_104644'
+)
+
+model2a_res = model2a_list %>%
+  map(~ {
+    filename = paste0(.x, '.rds')
+    readRDS(here(rds_path, filename))
+  })
+```
+
+### 3-1. Model 2A Multistage Traceplot
+
+```{r model 2A prepare for multi traceplot}
+model2a_multi_df = prep_multi_chain(model2a_res)
+```
+
+```{r model 2A multi-trace 1}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c("alpha", "gamma_school",  "phi_ff", "phi_mm", "sigma_re", "lambda")
+
+# target_params = c("alpha", "gamma_school",  "phi_ff", "phi_mm", "sigma_re")
+
+model2a_multi_1_plot_list = generate_trace_grobs(model2a_multi_df, target_params)
+
+plot_name = 'model2a_multistage_traceplot_1'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2a_multi_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+```{r model 2A multi-trace 2}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c('mu', 'sigma_hhd', 'w')
+
+model2a_multi_2_plot_list = generate_trace_grobs(model2a_multi_df, target_params)
+
+plot_name = 'model2a_multistage_traceplot_2'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2a_multi_2_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+### 3-2. Model 2A Single stage Traceplot
+
+```{r model 2A prepare for single traceplot}
+
+final_stage_idx = length(model2a_res)
+model2a_final_res = model2a_res[[final_stage_idx]]
+
+model2a_single_df = prep_single_chain(model2a_final_res)
+```
+
+```{r model 2A single stage traceplots 1}
+
+target_params = c("alpha", "gamma_school",  "phi_ff", "phi_mm", "sigma_re", "lambda")
+
+model2a_single_1_plot_list = generate_trace_grobs(model2a_single_df, target_params)
+
+plot_name = 'model2a_singlestage_traceplot_full_1'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    row_idx = ceiling(i / 2)
+    
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2a_single_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+```{r model 2A single stage traceplots 2}
+
+target_params = c('mu', 'sigma_hhd', 'w')
+
+model2a_single_2_plot_list = generate_trace_grobs(model2a_single_df, target_params)
+
+plot_name = 'model2a_singlestage_traceplot_full_2'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    row_idx = ceiling(i / 2)
+    
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2a_single_2_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+## 4. Model 2B
+
+```{r read model2B result}
+model2b_list = c(
+  # 'M2_Adaptive_Matrix_18_20260327_181509',
+  # 'M2_Adaptive_Matrix_18_20260327_182605',
+  # 'M2_Adaptive_Matrix_18_20260327_183709',
+  # 'M2_Adaptive_Matrix_18_20260327_184820',
+  # 'M2_Adaptive_Matrix_18_20260327_185930',
+  'M2_Adaptive_Matrix_18_20260327_191045'
+)
+
+model2b_res = model2b_list %>%
+  map(~ {
+    filename = paste0(.x, '.rds')
+    readRDS(here(rds_path, filename))
+  })
+```
+
+### 4-1. Model 2B Multistage Traceplot
+
+```{r model 2B prepare for multi traceplot }
+model2b_multi_df = prep_multi_chain(model2b_res)
+```
+
+```{r model 2B multi-trace 1}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c("alpha", "gamma_pri_low", "gamma_pri_high", "gamma_sec", "gamma_ter", "sigma_re")
+
+model2b_multi_1_plot_list = generate_trace_grobs(model2b_multi_df, target_params)
+
+plot_name = 'model2b_multistage_traceplot_1'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2b_multi_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+```{r model 2B multi-trace 2}
+source(here('scripts', 'src', 'Traceplot_func.R'))
+
+target_params = c('phi_ff', 'phi_mm', 'lambda', 'mu', 'sigma_hhd', 'w')
+
+model2b_multi_2_plot_list = generate_trace_grobs(model2b_multi_df, target_params)
+
+plot_name = 'model2b_multistage_traceplot_2'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    
+    row_idx = ceiling(i / 2)
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2b_multi_2_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+### 4-2. Model 2B Single stage Traceplot
+
+```{r model 2B prepare for single traceplot}
+
+final_stage_idx = length(model2b_res)
+model2b_final_res = model2b_res[[final_stage_idx]]
+
+model2b_single_df = prep_single_chain(model2b_final_res)
+```
+
+```{r model 2B single stage traceplots 1}
+
+target_params = c("alpha", "gamma_pri_low", "gamma_pri_high", "gamma_sec", "gamma_ter", "sigma_re")
+
+model2b_single_1_plot_list = generate_trace_grobs(model2b_single_df, target_params)
+
+plot_name = 'model2b_singlestage_traceplot_full_1'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    row_idx = ceiling(i / 2)
+    
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2b_single_1_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+```
+
+```{r model 2B single stage traceplots 2}
+
+target_params = c('phi_ff', 'phi_mm', 'lambda', 'mu', 'sigma_hhd', 'w')
+
+model2b_single_2_plot_list = generate_trace_grobs(model2b_single_df, target_params)
+
+plot_name = 'model2b_singlestage_traceplot_full_2'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 3, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    row_idx = ceiling(i / 2)
+    
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2b_single_2_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+
+```
+
+```{r model 2B single stage traceplots for thesis}
+
+target_params = c('alpha', 'gamma_pri_low', 'mu', 'sigma_hhd')
+
+model2b_single_2_plot_list = generate_trace_grobs(model2b_single_df, target_params)
+
+plot_name = 'model2b_singlestage_traceplot'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+  for (i in seq_along(target_params)) {
+    
+    p_name = target_params[i]
+    row_idx = ceiling(i / 2)
+    
+    col_idx = ifelse(i %% 2 == 0, 2, 1)
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    
+      grid.draw(model2b_single_2_plot_list[[p_name]])
+      
+    popViewport()
+  }
+
+  popViewport()
+
+dev.off()
+
+```

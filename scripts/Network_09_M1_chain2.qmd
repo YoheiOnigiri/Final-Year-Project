@@ -1,0 +1,142 @@
+---
+title: "11_BM_chain2"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# 11 chain 2
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(here)
+library(tictoc)
+library(mvtnorm)
+
+# General functions
+source(here('R', 'mcmc_test.R'))
+source(here('R', 'adaptive_manager.R'))
+source(here('R', 'log_utils.R'))
+# For this model
+source(here('R', 'model_BM.R'))
+# For Ploting
+source('traceplot.R')
+
+# Necessary Data
+target_stats = readRDS(here('analysis', '01_BM_Basemodel', 'results', 'BM_target_stats.rds'))
+nodes = readRDS(here('analysis', '01_BM_Basemodel', 'results', 'simulation_nodes.rds'))
+
+# Static Data for Network Generation
+static_data = get_static_data_bm(nodes)
+
+# For data
+plot_path = here('analysis', '01_BM_Basemodel', 'plots')
+rds_path = here('analysis', '01_BM_Basemodel', 'results')
+output_dir = here('analysis', '01_BM_Basemodel')
+cm = 1 / 2.54
+```
+
+## 2. Config
+
+Hyper Parameter
+
+```{r}
+# --- MCMC Basic Settings ---
+n_iter = 100000
+burn_in_ratio = 0.2
+n_sims = 60
+# optimal_scale = (2.38 ^ 2) / 5
+safety_margin = 0.50
+
+# --- Initial Covariance Matrix ---
+prev_chain_data = readRDS(here(rds_path, paste0('BM_test3_20260218_151240', '.rds')))
+prev_chain = as.data.frame(prev_chain_data$chain)
+burn_in_ind = floor(prev_chain_data$config$n_iter * prev_chain_data$config$burn_in)
+clean_chain = prev_chain[-(1 : burn_in_ind), ]
+
+init_proposal_cov = cov(clean_chain)
+init_proposal_cov = init_proposal_cov * safety_margin * prev_chain_data$config$scaling_factors[5]
+
+rownames(init_proposal_cov) = names(prev_chain_data$config$init_params)
+colnames(init_proposal_cov) = names(prev_chain_data$config$init_params)
+
+# --- Initial Params ---
+# 1本目の標準偏差を計算
+chain_sd = apply(clean_chain, 2, sd)
+
+# 平均から 2SD ほどマイナス側に振る
+init_params = colMeans(clean_chain) - 2 * chain_sd
+
+print(init_proposal_cov)
+print(init_params)
+```
+
+Config
+
+```{r}
+target_mu = target_stats$mu
+target_sigma = target_stats$sigma
+
+config = list(
+  theme = 'BM',
+  name = 'chain2',
+  note = 'Long Run of MCMC2; 1e5\n_sims = 60',
+  
+  n_iter = n_iter,
+  burn_in = burn_in_ratio,
+  n_sims = n_sims,
+  safety_margin = safety_margin,
+  
+  init_params = init_params,
+  init_cov = init_proposal_cov,
+  
+  target_mu = target_mu,
+  target_sigma = target_sigma
+)
+```
+
+Model Functions
+
+```{r}
+model_funcs = list(
+  generate = generate_network_bm,
+  calc_stats = calc_sim_stats_bm,
+  loglik = calc_loglik_bm
+)
+```
+
+## 3. Run MCMC
+
+```{r}
+tic()
+mcmc_result = run_mcmc(
+  n_iter = config$n_iter, 
+  current_params = config$init_params, 
+  proposal_cov = config$init_cov,
+  static_data = static_data,
+  target_mu = config$target_mu,
+  target_sigma = config$target_sigma,
+  generate_func = model_funcs$generate,
+  calc_stats_func = model_funcs$calc_stats,
+  loglik_func = model_funcs$loglik,
+  n_sims = config$n_sims
+  )
+log_time = toc()
+
+save_mcmc_result(
+  result = mcmc_result,
+  config = config,
+  time_log = log_time,
+  output_dir = output_dir
+)
+```
+
+```{r}
+mcmc_result$acceptance_rate
+```
+
+```{r}
+traceplot(mcmc_result)
+```

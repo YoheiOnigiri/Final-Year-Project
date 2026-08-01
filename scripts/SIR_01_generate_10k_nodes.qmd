@@ -1,0 +1,93 @@
+---
+title: "03_SIR_generate_10k_nodes"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# 03 Generate 10k nodes
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(here)
+library(Matrix)
+library(fs)
+
+func_path = here('scripts', 'src')
+rds_path = here('data', 'processed')
+plot_path = here('output')
+
+source(here(func_path, 'SIR_sim_func.R'))
+
+nodes = readRDS(here(rds_path, 'simulation_nodes.rds'))
+```
+
+```{r}
+csv_files = dir_ls(here('data', 'raw', 'eurostat'), glob = "*.csv") 
+df_raw = map_dfr(csv_files, read_csv)
+```
+
+## 2. Data Cleaning
+
+```{r}
+df_clean = df_raw %>%
+  filter(period == 2000) %>%
+  pivot_longer(cols = -period, names_to = "raw_col", values_to = "population") %>%
+  mutate(
+    eurostat_code = str_extract(raw_col, "(?<=demo_pjan/A\\.NR\\.)[^\\)]+"),
+    age_code = str_split_i(eurostat_code, "\\.", 1),
+    sex_code = str_split_i(eurostat_code, "\\.", 2),
+    geo_code = str_split_i(eurostat_code, "\\.", 3)
+  ) %>%
+  filter(geo_code %in% c("BE", "DE", "FI", "IT", "LU", "NL", "PL", "UK")) %>%
+  filter(sex_code %in% c("M", "F"), !age_code %in% c("TOTAL", "UNK")) %>%
+  mutate(
+    age_num = case_when(
+      age_code == "Y_LT1" ~ 0,
+      age_code == "Y_OPEN" ~ 100,
+      TRUE ~ as.numeric(str_remove(age_code, "Y"))
+    )
+  ) %>%
+  filter(!is.na(age_num)) %>%
+  filter(!is.na(population)) %>%
+  filter(age_code != "Y_OPEN") %>%
+  arrange(age_num)
+```
+
+## 3. Probability
+
+```{r}
+joint_probs_df = df_clean %>%
+  group_by(age_num, sex_code) %>%
+  summarise(total_pop = sum(population, na.rm = TRUE), .groups = 'drop') %>%
+  mutate(prob = total_pop / sum(total_pop))
+
+head(joint_probs_df)
+```
+
+## 4. Sample 10k people
+
+```{r}
+set.seed(100)
+N_10k = 10000
+
+# Sample 10k people based on the probability (weight)
+sampled_10k = joint_probs_df %>%
+  slice_sample(n = N_10k, weight_by = prob, replace = TRUE)
+
+# Create the nodes dataframe
+nodes_10k = data.frame(
+  part_id = 1:N_10k,
+  part_age = sampled_10k$age_num,
+  part_gender = sampled_10k$sex_code
+)
+
+# Check histogram
+hist(nodes_10k$part_age, seq(-0.5, 100.5, by = 1), main="1-Year Age Distribution (Year 2000 EU)", col="lightblue", xlab="Age")
+```
+
+```{r}
+saveRDS(nodes_10k, here(rds_path, 'nodes_10k.rds'))
+```

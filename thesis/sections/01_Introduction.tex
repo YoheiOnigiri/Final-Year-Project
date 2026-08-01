@@ -1,0 +1,28 @@
+\section{Introduction}
+
+Mathematical modeling of infectious diseases has become an indispensable tool for public health decision-making and outbreak forecasting.
+Traditional compartmental models, such as the Susceptible-Infected-Recovered (SIR) framework, have historically relied on the assumption of homogeneous mixing, where every individual in a population has an equal probability of contacting any other individual.
+However, recent empirical evidence and the global experience of the COVID-19 pandemic have clearly demonstrated that human interaction patterns are far from uniform.
+\textcite{britton2025improving} argue that neglecting the inherent heterogeneity in social contacts can lead to significant biases in estimating the basic reproduction number ($R_0$) and the final epidemic size.
+Therefore, incorporating realistic contact structures through network-based modeling is essential for accurately capturing the dynamics of disease transmission.
+
+The foundation for constructing such realistic models lies in the empirical study of social mixing patterns.
+The landmark POLYMOD study provided the first large-scale, population-based dataset on social contacts across eight European countries, revealing consistent patterns of age-dependent mixing and household clustering \parencite{mossong2008social}.
+Since then, these contact matrices have been widely used to project transmission dynamics in various global settings, including low- and middle-income countries \parencite{prem2017projecting}.
+Despite the richness of these survey-based data, a significant challenge remains in "reverse-engineering" these observed contact frequencies into a generative network model that can be used for high resolution stochastic simulations.
+
+From a statistical perspective, inferring the underlying parameters of a contact network from survey data presents a formidable challenge.
+Because the likelihood function for complex network-based epidemic models is often analytically intractable or computationally prohibitive, standard Maximum Likelihood Estimation (MLE) is frequently inapplicable \parencite{mckinley2009inference}.
+Recent advancements in computational statistics, particularly Likelihood-Free Inference (LFI) and Synthetic Likelihood methods, have opened new avenues for parameter estimation in high-dimensional settings \parencite{ong2018likelihoodfree}.
+By leveraging summary statistics that represent key network properties, these methods allow for the robust calibration of generative models without the need for an explicit likelihood function \parencite{picchini2023sequentially}.
+
+The primary objective of this thesis is to develop a robust inference framework that reproduces the contact patterns observed in the POLYMOD dataset.
+Specifically, we aim to estimate the "rules" or parameters that govern human connections and validate the resulting model through a synthetic population approach.
+By reconstructing a structured contact network that explicitly accounts for sociability variance and school-based cohorts, we evaluate the effectiveness of targeted public health interventions, such as school closures.
+This research bridges the gap between empirical contact surveys and generative network modeling, providing a scalable foundation for simulating realistic outbreak scenarios and evaluating the non-linear impacts of behavioral shifts.
+
+The remainder of this thesis is organized as follows.
+Section 2 describes the POLYMOD dataset and the data cleaning process.
+Section 3 details the formulation of the network model and the Synthetic Likelihood MCMC inference pipeline.
+Section 4 presents the results of the epidemic simulations and compares the effectiveness of different intervention strategies.
+Finally, Section 5 discusses the implications of our findings, acknowledges limitations such as contact substitution, and outlines directions for future work.

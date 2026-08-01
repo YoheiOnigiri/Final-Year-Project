@@ -1,0 +1,2 @@
+load("/Users/yohei/Documents/NUS/FYP/data/processed/BM_longrun1_20260303_064355.rds")
+load("/Users/yohei/Documents/NUS/FYP/data/processed/M2_Model2A_chain2_20260409_013729.rds")

@@ -1,0 +1,167 @@
+---
+title: "PoC_Sanity_check"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(mvtnorm)
+library(here)
+library(grid)
+library(tictoc)
+
+source(here('scripts', 'src', 'Traceplot_func.R'))
+source(here('scripts', 'src', 'model_BM.R'))
+source(here('scripts', 'src', 'model_matrix_M2.R'))
+source(here('scripts', 'src', 'sanity_check_func.R'))
+
+nodes = readRDS(here('data', 'processed', 'simulation_nodes.rds'))
+N_nodes = nrow(nodes)
+upper_tri_ind = which(upper.tri(matrix(0, N_nodes, N_nodes)), arr.ind = TRUE)
+
+static_er = list(
+  N = N_nodes,
+  rows = upper_tri_ind[, 1],
+  cols = upper_tri_ind[, 2]
+)
+
+target_mean_degree = 13.5
+true_p = target_mean_degree / (N_nodes - 1)
+true_alpha = qlogis(true_p)
+
+cat("True Probability p =", true_p, "\n")
+cat("True Alpha (logit) =", true_alpha, "\n")
+```
+
+```         
+True Probability p = 0.01351351 
+True Alpha (logit) = -4.290459 
+```
+
+```{r}
+sim_mean = function(p, static_data) {
+  n_pairs = length(static_data$rows)
+  edge_vec = rbinom(n_pairs, 1, p)
+  all_indices = c(static_data$rows[edge_vec == 1], static_data$cols[edge_vec == 1])
+  if(length(all_indices) == 0) return(0)
+  mean(tabulate(all_indices, nbins = static_data$N))
+}
+
+set.seed(100)
+mean_deg_vec = replicate(100, sim_mean(true_p, static_er))
+
+target_mu = mean(mean_deg_vec)
+target_sigma = var(mean_deg_vec)
+
+cat('Target Mu =', target_mu, '\n')
+cat('Target Sigma (Variance) =', target_sigma, '\n')
+```
+
+```         
+True Probability p = 0.01321321 
+True Alpha (logit) = -4.313237 
+```
+
+## 2. Model 1
+
+```{r}
+source(here('scripts', 'src', 'mcmc_core.R'))
+
+init_params_bm = c(alpha = -2.0, sigma_re = 1.0)
+proposal_cov_bm = diag(c(0.01, 0.00)) 
+colnames(proposal_cov_bm) = names(init_params_bm)
+rownames(proposal_cov_bm) = names(init_params_bm)
+
+tic("BM Core MCMC")
+mcmc_res_bm = run_mcmc(
+  n_iter = 2000,
+  current_params = init_params_bm,
+  proposal_cov = proposal_cov_bm,
+  static_data = static_er,
+  target_mu = target_mu,
+  target_sigma = target_sigma,
+  generate_func = generate_network_bm_er,
+  calc_stats_func = calc_sim_stats_bm_er,
+  loglik_func = calc_loglik_er
+)
+toc()
+
+cat("Acceptance Rate:", mcmc_res_bm$acceptance_rate, "\n")
+```
+
+```         
+BM Core MCMC: 8.364 sec elapsed
+Acceptance Rate: 0.1815 
+```
+
+## 3. Model 2
+
+```{r}
+source(here('scripts', 'src', 'mcmc_core_M2.R'))
+
+init_params_m2 = c(alpha = -2.0, sigma_re = 1, sigma_hhd = 1, lambda = 1, w = 0.5)
+
+proposal_cov_m2 = diag(c(0.01, 0, 0, 0, 0)) 
+colnames(proposal_cov_m2) = names(init_params_m2)
+rownames(proposal_cov_m2) = names(init_params_m2)
+
+tic("M2 Core MCMC")
+mcmc_res_m2 = run_mcmc(
+  n_iter = 2000,
+  current_params = init_params_m2,
+  proposal_cov = proposal_cov_m2,
+  static_data = static_er,
+  target_mu = target_mu,
+  target_sigma = target_sigma,
+  generate_func = calc_prob_m2_er,
+  calc_stats_func = calc_expected_stats_m2_er,
+  loglik_func = calc_loglik_er
+)
+toc()
+
+cat("Acceptance Rate:", mcmc_res_m2$acceptance_rate, "\n")
+```
+
+```         
+M2 Core MCMC: 1.345 sec elapsed
+Acceptance Rate: 0.1915 
+```
+
+## 4. Compare Traceplot
+
+```{r}
+plot_path = here('output')
+
+cm = 1 / 2.54
+
+df_bm = prep_single_chain(mcmc_res_bm)
+df_m2 = prep_single_chain(mcmc_res_m2)
+
+grobs_bm = generate_trace_grobs(df_bm, c("alpha"), main_title = "Model 1")
+grobs_m2 = generate_trace_grobs(df_m2, c("alpha"), main_title = "Model 2")
+
+plot_name = 'poc_traceplot_alpha'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+
+pdf(plot_loc, width = 16 * cm, height = 8 * cm, pointsize = 10)
+
+  grid.newpage()
+  
+  pushViewport(viewport(layout = grid.layout(nrow = 1, ncol = 2)))
+  
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grobs_bm[["alpha"]])
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grobs_m2[["alpha"]])
+    popViewport()
+  
+  popViewport()
+
+dev.off()
+```

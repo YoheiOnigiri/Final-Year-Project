@@ -1,0 +1,110 @@
+---
+title: "02_BM_bootstrap_visualization"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# Bootstrap Visualization
+
+## Basic Policy
+
+-   Density plot
+
+-   Normality check (QQ plot)
+
+## 1. Import libraries and data
+
+```{r}
+library(tidyverse)
+library(here)
+
+rds_path = here('data', 'processed')
+boot_result = readRDS(here(rds_path, 'bootstrap_result.rds'))
+```
+
+## 2. Density Plot
+
+```{r}
+boot_df = as.data.frame(boot_result$result) %>%
+  pivot_longer(everything(), names_to = "Statistic", values_to = "Value")
+
+density_plot = ggplot(boot_df, aes(x = Value)) +
+  geom_histogram(aes(y = after_stat(density)), bins = 30,
+                 fill = "steelblue", color = "white", alpha = 0.7) +
+  geom_density(color = "red", linewidth = 1) + 
+  facet_wrap(~Statistic, scales = "free", ncol = 3) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.05))) +
+  theme_bw() +                      
+  theme(
+    panel.grid = element_blank(),   
+    strip.background = element_blank(),
+    strip.text = element_text(size = 10)
+  ) +
+  labs(
+    x = "Value",
+    y = "Density"
+  )
+
+print(density_plot)
+
+cm = 1 / 2.54
+
+plot_loc = here('output', 'density_bootstrap_m1.pdf')
+ggsave(plot_loc, plot = density_plot, width = 16 * cm, height = 32 / 3 * cm)
+
+cat('Density Plot saved successfully!\n')
+```
+
+## 3. QQ Plot (Normality Check)
+
+```{r}
+boot_df = as.data.frame(boot_result$result) %>%
+  pivot_longer(everything(), names_to = "Statistic", values_to = "Value")
+
+qqplot = ggplot(boot_df, aes(sample = Value)) +
+  stat_qq(size = 0.8) +
+  stat_qq_line(color = "red") +
+  facet_wrap(~Statistic, scales = "free", ncol = 3) + 
+  theme_bw() +                      
+  theme(
+    panel.grid = element_blank(),   
+    strip.background = element_blank(),
+    strip.text = element_text(size = 10),
+    plot.title = element_text(hjust = 0.5)
+  ) +
+  labs(
+    x = "Theoretical Quantiles",
+    y = "Sample Quantiles"
+  )
+
+
+print(qqplot)
+
+cm = 1 / 2.54
+
+plot_loc = here('output', 'qqplot_bootstrap_m1.pdf')
+ggsave(plot_loc, plot = qqplot, width = 16 * cm, height = 32 / 3 * cm)
+
+cat('QQ Plot saved successfully!\n')
+```
+
+## 4. Check mean and covariance matrix
+
+```{r}
+mu = colMeans(boot_result$result)
+sigma = cov(boot_result$result)
+
+print('Mean')
+print(mu)
+print('Variance')
+print(diag(sigma))
+
+target_stats = list(
+  mu = mu,
+  sigma = sigma
+)
+
+saveRDS(target_stats, here(rds_path, 'BM_target_stats.rds'))
+```

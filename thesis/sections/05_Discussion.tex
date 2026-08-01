@@ -1,0 +1,40 @@
+\section{Discussion}
+
+\subsection{Key Insights}
+The simulation results from the epidemic models highlight the critical role of network structure in the early phase of disease transmission.
+Compared to homogeneous models such as the Erd\H{o}s-R\'enyi graph, our structured network (Model 2B), which explicitly incorporates educational cohorts and intergenerational mixing, demonstrated a substantially accelerated initial spread.
+This acceleration is driven by highly connected "hubs" within the network, emphasizing that assuming homogeneous mixing underestimates the rapid onset of an outbreak.
+Furthermore, our findings reveal the non-linear effects of targeted interventions.
+An approach that uniformly reduces contact probabilities across the entire network (Model 1) resulted in a modest peak reduction of 3.37\%.
+In contrast, targeting and disrupting specific cluster structures, such as school closures in Model 2B, yielded a disproportionately larger impact, achieving a 12.3\% reduction in the infection peak.
+This demonstrates that interventions aimed at specific highly connected sub-populations are significantly more effective than broad, uniform contact reductions.
+
+\subsection{Relationship to Existing Literature}
+The importance of incorporating heterogeneity in social activity has been increasingly recognized in epidemiological modeling.
+\textcite{britton2025improving} argue that accounting for the variation in the number of contacts within the same age group is essential for accurately predicting the basic reproduction number ($R_0$) and the final epidemic size.
+Our Baseline Model (Model 1) directly addresses this by introducing a random effect for individual sociability, successfully capturing the dynamics where a subset of highly active individuals (potential super-spreaders) drives the initial transmission.
+Moreover, while previous studies have underscored the significance of age homophily \parencite{mossong2008social} and location-specific micro-structures such as schools and workplaces \parencite{prem2017projecting}, constructing models that accurately reflect these features often requires complex demographic data.
+Our approach successfully reconstructs these crucial structural properties using "age" as a single, versatile parameter, effectively bridging the gap between detailed contact surveys and practical network generation.
+
+\subsection{Strengths and Limitations}
+A major strength of this study lies in its computational statistical contributions.
+Analytical likelihood calculation for infectious disease network models is notoriously difficult \parencite{mckinley2009inference}.
+We overcame this challenge by employing a Synthetic Likelihood approach.
+While high-dimensional inference often suffers from immense computational burden and the risk of getting trapped in local optima \parencite{ong2018likelihoodfree, picchini2023sequentially}, we engineered a robust inference pipeline.
+The hybrid two-stage approach for Model 1 and the deterministic reparameterization for Model 2 ensured stable and efficient Markov Chain Monte Carlo (MCMC) convergence, providing a scalable solution for complex network inference.
+However, the current study is not without limitations.
+The most significant constraint is the static nature of the school closure simulations, which fail to capture behavioral feedback loops, specifically contact substitution.
+Empirical evidence by \textcite{litvinova2019reactive} during reactive school closures in Russia showed that while contacts with classmates decreased significantly, contacts within the household increased by 40\% and with non-household relatives by 119\%.
+Our current model does not account for this dynamic where lost contacts in one setting are compensated by increased interactions in another, potentially overestimating the effectiveness of the intervention.
+
+\subsection{Remaining Gaps and Future Work}
+Addressing the lack of contact substitution remains a priority for future research.
+It is crucial to dynamically model behavioral shifts, such as the redistribution of surplus contact potential into the community and households when specific network layers (e.g., schools) are disrupted, as observed by \textcite{litvinova2019reactive}.
+Additionally, in real-world epidemiological scenarios, complete network data is rarely available.
+Future work should explore the extension of our inference framework to handle partially observed data.
+Applying data augmentation techniques \parencite{bu2022likelihoodbased} or integrating compact mean-field models like the Edge-Based Compartmental Model (EBCM) with dynamic survival analysis \parencite{guzman2025inferring} could enable the reverse-engineering of underlying contact structures and the degree of behavioral substitution from limited epidemic outbreak data.
+
+\subsection{Conclusion}
+Homogeneous models that ignore the variance in individual sociability and structured cohorts severely underestimate the explosive acceleration of early-stage infections, leading to misguided predictions of intervention efficacy.
+The integration of Synthetic Likelihood-based network inference with an epidemic model that explicitly represents social hubs provides a powerful and extensible foundation.
+This framework paves the way for simulating more realistic public health interventions, ensuring that protocols like school closures can be evaluated accurately by anticipating risks such as contact substitution.

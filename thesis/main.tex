@@ -1,0 +1,83 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathpazo} 
+\usepackage{amsmath, amssymb} 
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx} 
+\usepackage{booktabs} 
+\usepackage{float}
+
+
+\usepackage{setspace}
+\doublespacing
+
+\usepackage{geometry} 
+\geometry{margin=1in}
+
+\usepackage[american]{babel} 
+\usepackage{csquotes} 
+\usepackage[backend=biber, style=apa, natbib=true]{biblatex}
+\addbibresource{references.bib}
+
+\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue]{hyperref}
+
+% ---------------------------------------------------------
+% Note: The \title and \author commands have been removed 
+% as a designated title page will be attached separately.
+% ---------------------------------------------------------
+
+\begin{document}
+
+% --- Summary Page ---
+\begin{abstract}
+    \thispagestyle{plain}
+    This study developed an inference framework to realistically reproduce social contact networks—a critical element in infectious disease outbreak simulations—using the POLYMOD dataset.
+    To overcome the limitations of conventional SIR models, which assume a homogeneous population, we proposed “Model 1,” which accounts for heterogeneity in individual sociability, and “Model 2B,” which explicitly incorporates cohort structures within educational institutions and multigenerational mixing within households.
+    For statistical inference, to avoid the difficulty of likelihood calculation—a challenge in complex network models—we adopted an MCMC method using Synthetic Likelihood, thereby achieving stable inference in a high-dimensional parameter space.
+    Simulation results revealed that while the presence of educational cohorts and hub individuals dramatically accelerates initial transmission, targeted interventions such as school closures nonlinearly suppress the epidemic peak (a 12.3\% reduction in Model 2B).
+    This framework provides a powerful and extensible foundation for evaluating public health interventions with greater precision, taking into account future behavioral changes and the risk of contact substitution.
+\end{abstract}
+\newpage
+
+% --- Table of Contents ---
+\tableofcontents 
+\newpage
+
+% 1. Introduction
+\input{sections/01_Introduction.tex}
+
+% 2. Data
+\input{sections/02_Data.tex}
+
+% 3. Network Model
+\section{Network Model}
+\label{sec:network_model}
+\input{sections/03_NetworkModel/3_1_Model.tex}
+\input{sections/03_NetworkModel/3_2_Inference.tex}
+\input{sections/03_NetworkModel/3_3_Results.tex}
+
+% 4. Epidemic Model
+\section{Epidemic Model}
+\input{sections/04_EpidemicModel/4_1_Model.tex}
+\input{sections/04_EpidemicModel/4_2_Simulation.tex}
+\input{sections/04_EpidemicModel/4_3_Comparison.tex}
+\input{sections/04_EpidemicModel/4_4_DeepDive.tex}
+\input{sections/04_EpidemicModel/4_5_SchoolIntervention.tex}
+
+% 5. Discussion
+\input{sections/05_Discussion.tex}
+
+% References
+\newpage
+\printbibliography
+
+\newpage
+\input{sections/06_ChangeLog.tex}
+
+\newpage
+\appendix
+\input{sections/07_Appendix.tex}
+
+\end{document}

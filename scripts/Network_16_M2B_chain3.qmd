@@ -1,0 +1,159 @@
+---
+title: "33_M2B_chain3"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# 33 Model 2B chain 3
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(here)
+library(tictoc)
+library(mvtnorm)
+library(parallel)
+
+# General functions
+source(here('R', 'adaptive_manager_matrix_M2.R'))
+source(here('R', 'log_utils.R'))
+source(here('R', 'traceplot.R'))
+# For this model
+source(here('R', 'model_matrix_M2.R'))
+source(here('R', 'mcmc_core_M2.R'))
+
+# Path Setting
+rds_path = here('analysis', '02_M2_Model2', 'results')
+plot_path = here('analysis', '02_M2_Model2', 'plots')
+cm = 1 / 2.54
+```
+
+```{r}
+# Necessary Data
+target_stats = readRDS(here('analysis', '02_M2_Model2', 'results', 'M2_target_stats_8.rds'))
+nodes = readRDS(here('analysis', '02_M2_Model2', 'results', 'simulation_nodes.rds'))
+
+n_school = c(1, 1, 3, 4)
+
+# Static Data for Network Generation
+static_data = get_static_data_m2_5(nodes, n_school = n_school)
+
+# Model Functions
+model_funcs = list(
+  generate = calc_prob_m2_3,
+  calc_stats = calc_expected_stats_matrix_m2_6,
+  loglik = calc_loglik_m2
+)
+```
+
+```{r}
+# Stage 5 of Adaptive Matrix 18 (Pre-final stage)
+prev_chain_data = readRDS(here(rds_path, 'M2_Adaptive_Matrix_18_20260327_185930.rds'))
+prev_chain = as.data.frame(prev_chain_data$chain)
+burn_in_ind = floor(prev_chain_data$config$n_iter * prev_chain_data$config$burn_in)
+clean_chain = prev_chain[-(1 : burn_in_ind), ]
+```
+
+## 2. Hyper Parameters
+
+```{r}
+# --- MCMC Basic Settings ---
+n_iter        = 20000
+burn_in_ratio = 0.2
+safety_margin = 1.0
+n_school = c(1, 1, 3, 4)
+```
+
+```{r}
+# --- Initial Covariance Matrix ---
+n_params = ncol(clean_chain)
+optimal_scale = (2.38 ^ 2) / n_params
+shrinkage_factor = 1 / 2
+init_proposal_cov = cov(clean_chain) * optimal_scale * shrinkage_factor * safety_margin
+
+# --- Initial Params (Chain 3: +2SD) ---
+chain_sd = apply(clean_chain, 2, sd)
+init_params = colMeans(clean_chain) + 2 * chain_sd
+
+# Make sure init params won't exceed the constraint
+init_params["sigma_re"]  = max(init_params["sigma_re"], 0.01)
+init_params["sigma_hhd"] = max(init_params["sigma_hhd"], 0.01)
+init_params["lambda"]    = max(init_params["lambda"], 0.001)
+if("w" %in% names(init_params)) {
+  init_params["w"]       = max(min(init_params["w"], 0.99), 0.01)
+}
+
+print(init_proposal_cov)
+print(init_params)
+```
+
+```{r}
+# Static Data for Network Generation
+static_data = get_static_data_m2_5(nodes, n_school = n_school)
+```
+
+## 3. Config
+
+```{r}
+config = list(
+  name = 'Model2B_chain3',
+  theme = 'M2',
+  note = paste0('Chain 3 of model 2B (+2SD)'),
+  n_iter = n_iter,
+  burn_in = burn_in_ratio,
+  n_school = n_school,
+  safety_margin = safety_margin,
+  init_params = init_params,
+  init_cov = init_proposal_cov,
+  target_mu = target_stats$mu,
+  target_sigma = target_stats$sigma,
+  output_dir = here('analysis', '02_M2_Model2')
+)
+```
+
+## 4. Run Adaptive MCMC
+
+```{r}
+# ----------------------------------------------------
+# 【Check before Simulation】Initial Network
+# ----------------------------------------------------
+test_net = model_funcs$generate(init_params, static_data)
+test_stats = model_funcs$calc_stats(test_net, static_data)
+
+cat("=== Initial Stats vs Target ===\n")
+print(rbind(
+  "Simulation" = test_stats,
+  "Target"     = target_stats$mu
+))
+# ----------------------------------------------------
+```
+
+```{r}
+# Implementation
+
+# 3. Run MCMC
+tic()
+mcmc_result = run_mcmc(
+  n_iter = config$n_iter, 
+  current_params = config$init_params, 
+  proposal_cov = config$init_cov,
+  static_data = static_data,
+  target_mu = config$target_mu,
+  target_sigma = config$target_sigma,
+  generate_func = model_funcs$generate,
+  calc_stats_func = model_funcs$calc_stats,
+  loglik_func = model_funcs$loglik
+)
+log_time = toc()
+
+save_mcmc_result(
+  result = mcmc_result,
+  config = config,
+  time_log = log_time,
+  output_dir = config$output_dir
+)
+
+cat("MCMC have successfully finished!")
+```

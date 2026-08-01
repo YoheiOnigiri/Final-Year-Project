@@ -1,0 +1,634 @@
+---
+title: "02_Fig_Model_Assessment"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+library(grid)
+library(here)
+
+func_path = here('scripts', 'src')
+rds_path = here('data', 'processed')
+plot_path = here('output')
+
+source(here(func_path, 'assessment_plot_func.R'))
+
+cm = 1 / 2.54
+```
+
+## Mean Degree by Age Group
+
+```{r read data}
+data_m1  = readRDS(here('data', 'processed', 'm1_plot_data_mean_degree.rds'))
+data_m2a = readRDS(here('data', 'processed', 'm2a_plot_data_mean_degree.rds'))
+data_m2b = readRDS(here('data', 'processed', 'm2b_plot_data_mean_degree.rds'))
+```
+
+```{r}
+source(here(func_path, 'assessment_plot_func.R'))
+
+grob_poly   = create_mean_degree_grob_simple(data_m1, "POLYMOD", is_polymod_panel = TRUE)
+grob_m1     = create_mean_degree_grob_simple(data_m1, "Model 1")
+grob_m2a    = create_mean_degree_grob_simple(data_m2a, "Model 2A")
+grob_m2b    = create_mean_degree_grob_simple(data_m2b, "Model 2B")
+grob_legend = create_shared_legend_grob()
+
+plot_loc = here(plot_path, 'mean_degree_2x2.pdf')
+pdf(plot_loc, width = 16 * cm, height = 17 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly)
+    popViewport()
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) # 1. Layout
+      pushViewport(plotViewport(margins = c(5, 4, 1, 1)))        # 2. Margin
+        pushViewport(viewport(x = 0.25, 
+                              y = 7.5 / 24,
+                              width = 0.5, 
+                              height = 5 / 24,
+                              just = c('center', 'center')))
+          
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+          
+        popViewport() # Lengend VP
+      popViewport()     # Margin VP
+    popViewport()       # Layout VP
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m2a)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2b)
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+## Degree CDF
+
+```{r read data}
+data_m1  = readRDS(here('data', 'processed', 'm1_plot_data_degree.rds'))
+data_m2a = readRDS(here('data', 'processed', 'm2a_plot_data_degree.rds'))
+data_m2b = readRDS(here('data', 'processed', 'm2b_plot_data_degree.rds'))
+```
+
+```{r plot cdf}
+source(here(func_path, 'assessment_plot_func.R'))
+
+grob_poly_cdf = create_degree_cdf_grob_simple(data_m1, "POLYMOD", is_polymod_panel = TRUE)
+grob_m1_cdf   = create_degree_cdf_grob_simple(data_m1, "Model 1")
+grob_m2a_cdf  = create_degree_cdf_grob_simple(data_m2a, "Model 2A")
+grob_m2b_cdf  = create_degree_cdf_grob_simple(data_m2b, "Model 2B")
+grob_legend   = create_shared_legend_grob()
+
+plot_loc_cdf = here(plot_path, 'degree_cdf_2x2.pdf')
+pdf(plot_loc_cdf, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    panels = list(grob_poly_cdf, grob_m1_cdf, grob_m2a_cdf, grob_m2b_cdf)
+    positions = list(c(1,1), c(1,2), c(2,1), c(2,2))
+  
+    for(i in 1:4) {
+      pushViewport(viewport(layout.pos.row = positions[[i]][1],
+                            layout.pos.col = positions[[i]][2]))
+        grid.draw(panels[[i]])
+      popViewport()
+    }
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) # 1. Layout
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))        # 2. Margin
+        pushViewport(viewport(x = 0.75, 
+                              y = 5 / 12,
+                              width = 0.5, 
+                              height = 2.5 / 12,
+                              just = c('center', 'center')))
+          
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+          
+        popViewport() # Lengend VP
+      popViewport()     # Margin VP
+    popViewport()       # Layout VP
+
+  popViewport()
+    
+dev.off()
+```
+
+## \|Age Difference\| CDF
+
+```{r read data}
+data_poly_agediff = readRDS(here('data', 'processed', 'm1_plot_data_agediff_poly.rds'))
+
+data_m1_agediff  = readRDS(here('data', 'processed', 'm1_plot_data_agediff_sim.rds'))
+data_m2a_agediff = readRDS(here('data', 'processed', 'm2a_plot_data_agediff_sim.rds'))
+data_m2b_agediff = readRDS(here('data', 'processed', 'm2b_plot_data_agediff_sim.rds'))
+```
+
+```{r plot cdf}
+source(here(func_path, 'assessment_plot_func.R'))
+
+max_diff = 50
+
+grob_poly_diff = create_agediff_cdf_grob_simple(NULL, data_poly_agediff, "POLYMOD", is_polymod_panel = TRUE, max_diff = max_diff)
+grob_m1_diff   = create_agediff_cdf_grob_simple(data_m1_agediff, data_poly_agediff, "Model 1", max_diff = max_diff)
+grob_m2a_diff  = create_agediff_cdf_grob_simple(data_m2a_agediff, data_poly_agediff, "Model 2A", max_diff = max_diff)
+grob_m2b_diff  = create_agediff_cdf_grob_simple(data_m2b_agediff, data_poly_agediff, "Model 2B", max_diff = max_diff)
+
+grob_legend = create_shared_legend_grob()
+
+plot_loc_diff = here(plot_path, 'agediff_cdf_2x2.pdf')
+pdf(plot_loc_diff, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    panels = list(grob_poly_diff, grob_m1_diff, grob_m2a_diff, grob_m2b_diff)
+    positions = list(c(1,1), c(1,2), c(2,1), c(2,2))
+    
+    for(i in 1:4) {
+      pushViewport(viewport(layout.pos.row = positions[[i]][1], layout.pos.col = positions[[i]][2]))
+        grid.draw(panels[[i]])
+      popViewport()
+    }
+    
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) # 1. Layout
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))        # 2. Margin
+        pushViewport(viewport(x = 0.75, 
+                              y = 5 / 12,
+                              width = 0.5, 
+                              height = 2.5 / 12,
+                              just = c('center', 'center')))
+          
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+          
+        popViewport() # Lengend VP
+      popViewport()     # Margin VP
+    popViewport()       # Layout VP
+
+  popViewport()
+
+dev.off()
+```
+
+## Diagonal Entries
+
+### 1 year resolution 0-25 years
+
+```{r read data}
+data_m1_diag  = readRDS(here('data', 'processed', 'm1_plot_data_diag_1yr.rds'))
+data_m2a_diag = readRDS(here('data', 'processed', 'm2a_plot_data_diag_1yr.rds'))
+data_m2b_diag = readRDS(here('data', 'processed', 'm2b_plot_data_diag_1yr.rds'))
+```
+
+```{r plot 1yr resolution diagnonal}
+source(here(func_path, 'assessment_plot_func.R'))
+
+max_y_diag = 12 
+target_max_age = 25
+
+grob_poly_diag = create_diag_1yr_grob_simple(data_m1_diag, "POLYMOD", is_polymod_panel = TRUE, max_age = target_max_age, max_y = max_y_diag)
+grob_m1_diag   = create_diag_1yr_grob_simple(data_m1_diag, "Model 1", max_age = target_max_age, max_y = max_y_diag)
+grob_m2a_diag  = create_diag_1yr_grob_simple(data_m2a_diag, "Model 2A", max_age = target_max_age, max_y = max_y_diag)
+grob_m2b_diag  = create_diag_1yr_grob_simple(data_m2b_diag, "Model 2B", max_age = target_max_age, max_y = max_y_diag)
+grob_legend    = create_shared_legend_grob()
+
+plot_loc_diag = here(plot_path, 'diag_1yr_age0_25_2x2.pdf')
+pdf(plot_loc_diag, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    panels = list(grob_poly_diag, grob_m1_diag, grob_m2a_diag, grob_m2b_diag)
+    positions = list(c(1,1), c(1,2), c(2,1), c(2,2))
+  
+    for(i in 1:4) {
+      pushViewport(viewport(layout.pos.row = positions[[i]][1], layout.pos.col = positions[[i]][2]))
+        grid.draw(panels[[i]])
+      popViewport()
+    }
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) 
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))        
+        pushViewport(viewport(x = 0.75, y = 9 / 12, 
+                              width = 0.5, height = 2 / 12, just = "center"))
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+        popViewport() 
+      popViewport()     
+    popViewport()  
+
+  popViewport()
+    
+dev.off()
+```
+
+### 5-year Step Diagonal Contacts
+
+```{r read data}
+data_m1_step  = readRDS(here('data', 'processed', 'm1_plot_data_diag_step.rds'))
+data_m2a_step = readRDS(here('data', 'processed', 'm2a_plot_data_diag_step.rds'))
+data_m2b_step = readRDS(here('data', 'processed', 'm2b_plot_data_diag_step.rds'))
+```
+
+```{r plot}
+source(here(func_path, 'assessment_plot_func.R'))
+
+max_y_step = 11
+
+grob_poly_step = create_diag_step_grob_simple(data_m1_step, "POLYMOD", is_polymod_panel = TRUE, max_y = max_y_step)
+grob_m1_step   = create_diag_step_grob_simple(data_m1_step, "Model 1", max_y = max_y_step)
+grob_m2a_step  = create_diag_step_grob_simple(data_m2a_step, "Model 2A", max_y = max_y_step)
+grob_m2b_step  = create_diag_step_grob_simple(data_m2b_step, "Model 2B", max_y = max_y_step)
+grob_legend    = create_shared_legend_grob()
+
+plot_loc_step = here(plot_path, 'diag_step_2x2.pdf')
+pdf(plot_loc_step, width = 16 * cm, height = 17 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    panels = list(grob_poly_step, grob_m1_step, grob_m2a_step, grob_m2b_step)
+    positions = list(c(1,1), c(1,2), c(2,1), c(2,2))
+  
+    for(i in 1:4) {
+      pushViewport(viewport(layout.pos.row = positions[[i]][1], layout.pos.col = positions[[i]][2]))
+        grid.draw(panels[[i]])
+      popViewport()
+    }
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) 
+      pushViewport(plotViewport(margins = c(5, 4, 1, 1)))        
+        pushViewport(viewport(x = 0.75, y = 6 / 11, 
+                              width = 0.5, height = 2.5 / 11, just = "center"))
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+        popViewport() 
+      popViewport()     
+    popViewport()  
+
+  popViewport()
+    
+dev.off()
+```
+
+## \|Age Difference\| Distribution
+
+```{r plot data}
+source(here(func_path, 'assessment_plot_func.R'))
+
+max_diff = 50
+max_y_dist = 0.15
+
+grob_poly_dist = create_agediff_dist_grob_simple(NULL, data_poly_agediff, "POLYMOD", is_polymod_panel = TRUE, max_diff = max_diff, max_y = max_y_dist)
+grob_m1_dist   = create_agediff_dist_grob_simple(data_m1_agediff, data_poly_agediff, "Model 1", max_diff = max_diff, max_y = max_y_dist)
+grob_m2a_dist  = create_agediff_dist_grob_simple(data_m2a_agediff, data_poly_agediff, "Model 2A", max_diff = max_diff, max_y = max_y_dist)
+grob_m2b_dist  = create_agediff_dist_grob_simple(data_m2b_agediff, data_poly_agediff, "Model 2B", max_diff = max_diff, max_y = max_y_dist)
+
+grob_legend = create_shared_legend_grob()
+
+plot_loc_dist = here(plot_path, 'agediff_dist_2x2.pdf')
+pdf(plot_loc_dist, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 2)))
+  
+    panels = list(grob_poly_dist, grob_m1_dist, grob_m2a_dist, grob_m2b_dist)
+    positions = list(c(1,1), c(1,2), c(2,1), c(2,2))
+    
+    for(i in 1:4) {
+      pushViewport(viewport(layout.pos.row = positions[[i]][1], layout.pos.col = positions[[i]][2]))
+        grid.draw(panels[[i]])
+      popViewport()
+    }
+    
+        # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1)) 
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))        
+        pushViewport(viewport(x = 0.75, y = 8 / 15, 
+                              width = 0.5, height = 3 / 15, just = c('center', 'center')))
+          grid.draw(grob_legend)
+          grid.rect(gp = gpar(col = 'black')) 
+        popViewport() 
+      popViewport()     
+    popViewport() 
+    
+  popViewport()
+
+dev.off()
+```
+
+## Contact Matrix
+
+```{r read data}
+source(here(func_path, 'assessment_plot_func.R'))
+
+data_m1_hm  = readRDS(here('data', 'processed', 'm1_plot_data_heatmap.rds'))
+data_m2a_hm = readRDS(here('data', 'processed', 'm2a_plot_data_heatmap.rds'))
+data_m2b_hm = readRDS(here('data', 'processed', 'm2b_plot_data_heatmap.rds'))
+```
+
+```{r plot contact matrix}
+source(here(func_path, 'assessment_plot_func.R'))
+
+fixed_max = 10
+
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "POLYMOD", is_polymod_panel = TRUE, max_val = fixed_max)
+grob_m1_hm   = create_heatmap_grob_simple(data_m1_hm, "Model 1", max_val = fixed_max)
+grob_m2a_hm  = create_heatmap_grob_simple(data_m2a_hm, "Model 2A", max_val = fixed_max)
+grob_m2b_hm  = create_heatmap_grob_simple(data_m2b_hm, "Model 2B", max_val = fixed_max)
+
+plot_loc_hm = here(plot_path, 'contact_matrix_2x2.pdf')
+pdf(plot_loc_hm, width = 16 * cm, height = 16 * cm, pointsize = 10)
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(2, 2)))
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly_hm)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1_hm)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m2a_hm)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2b_hm)
+    popViewport()
+    
+  popViewport()
+dev.off()
+```
+
+```{r plot contact matrix}
+source(here(func_path, 'assessment_plot_func.R'))
+
+fixed_max = 10
+
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "POLYMOD", is_polymod_panel = TRUE, max_val = fixed_max)
+grob_m1_hm   = create_heatmap_grob_simple(data_m1_hm, "Model 1", max_val = fixed_max)
+grob_m2a_hm  = create_heatmap_grob_simple(data_m2a_hm, "Model 2A", max_val = fixed_max)
+grob_m2b_hm  = create_heatmap_grob_simple(data_m2b_hm, "Model 2B", max_val = fixed_max)
+
+# Create color bar Grob
+grob_legend_hm = create_heatmap_legend_grob(max_val = fixed_max)
+
+plot_loc_hm = here(plot_path, 'contact_matrix_2x2_legend.pdf')
+pdf(plot_loc_hm, width = 18 * cm, height = 16 * cm, pointsize = 10)
+  grid.newpage()
+  
+  # [Modification] Widen the 3rd column from 1.5cm to 2.0cm to allow space for text
+  # 2x3 layout. The 3rd column is for the color bar with a fixed width
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 3, widths = unit(c(1, 1, 2.0), c("null", "null", "cm")))))
+    
+    # Top-left
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly_hm)
+    popViewport()
+    
+    # Top-right
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1_hm)
+    popViewport()
+    
+    # Bottom-left
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m2a_hm)
+    popViewport()
+    
+    # Bottom-right
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2b_hm)
+    popViewport()
+    
+    # Color bar (placed in the rightmost column, spanning 2 rows)
+    pushViewport(viewport(layout.pos.row = 1:2, layout.pos.col = 3))
+      grid.draw(grob_legend_hm)
+    popViewport()
+    
+  popViewport()
+dev.off()
+```
+
+## Residual Matrix
+
+```{r}
+source(here(func_path, 'assessment_plot_func.R'))
+
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "POLYMOD", is_polymod_panel = TRUE, max_val = 10)
+
+max_res_val = 6 
+
+grob_m1_res  = create_residual_heatmap_grob_simple(data_m1_hm, "Model 1", max_res = max_res_val)
+grob_m2a_res = create_residual_heatmap_grob_simple(data_m2a_hm, "Model 2A", max_res = max_res_val)
+grob_m2b_res = create_residual_heatmap_grob_simple(data_m2b_hm, "Model 2B", max_res = max_res_val)
+
+plot_loc_res = here(plot_path, 'residual_matrix_2x2.pdf')
+pdf(plot_loc_res, width = 16 * cm, height = 16 * cm, pointsize = 10)
+  grid.newpage()
+  pushViewport(viewport(layout = grid.layout(2, 2)))
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly_hm)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1_res)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m2a_res)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2b_res)
+    popViewport()
+    
+  popViewport()
+dev.off()
+```
+
+```{r residul matrix with legend}
+source(here(func_path, 'assessment_plot_func.R'))
+
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "POLYMOD", is_polymod_panel = TRUE, max_val = 10)
+
+max_res_val = 6 
+
+grob_m1_res  = create_residual_heatmap_grob_simple(data_m1_hm, "Model 1", max_res = max_res_val)
+grob_m2a_res = create_residual_heatmap_grob_simple(data_m2a_hm, "Model 2A", max_res = max_res_val)
+grob_m2b_res = create_residual_heatmap_grob_simple(data_m2b_hm, "Model 2B", max_res = max_res_val)
+
+# Create color bar Grob for Residuals
+grob_legend_res = create_residual_legend_grob(max_res = max_res_val)
+
+plot_loc_res = here(plot_path, 'residual_matrix_2x2_legend.pdf')
+# Widen the plot to 18cm to accommodate the color bar
+pdf(plot_loc_res, width = 18 * cm, height = 16 * cm, pointsize = 10)
+  grid.newpage()
+  
+  # 2x3 layout. The 3rd column is for the color bar with a fixed width of 2.0cm
+  pushViewport(viewport(layout = grid.layout(nrow = 2, ncol = 3, widths = unit(c(1, 1, 2.0), c("null", "null", "cm")))))
+    
+    # Top-left
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly_hm)
+    popViewport()
+    
+    # Top-right
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1_res)
+    popViewport()
+    
+    # Bottom-left
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m2a_res)
+    popViewport()
+    
+    # Bottom-right
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2b_res)
+    popViewport()
+    
+    # Color bar (placed in the rightmost column, spanning 2 rows)
+    pushViewport(viewport(layout.pos.row = 1:2, layout.pos.col = 3))
+      grid.draw(grob_legend_res)
+    popViewport()
+    
+  popViewport()
+dev.off()
+```
+
+## Model Error Metrics
+
+### Contact Matrix
+
+```{r calculate matrix error}
+calculate_matrix_error = function(data, model_name) {
+  poly_df = data %>% filter(source == "POLYMOD") %>% select(ego_group, alter_group, poly_contacts = mean_contacts)
+  sim_df  = data %>% filter(source == "Simulation") %>% select(ego_group, alter_group, sim_contacts = mean_contacts)
+
+  merged_df = poly_df %>%
+    full_join(sim_df, by = c("ego_group", "alter_group")) %>%
+    mutate(
+      poly_contacts = replace_na(poly_contacts, 0),
+      sim_contacts = replace_na(sim_contacts, 0),
+      residual = poly_contacts - sim_contacts
+    )
+  
+  residuals = merged_df$residual
+  
+  # MAE (Mean Absolute Error)
+  mae = mean(abs(residuals))
+  
+  # RMSE (Root Mean Squared Error)
+  rmse = sqrt(mean(residuals ^ 2))
+  
+  return(data.frame(Model = model_name, MAE = mae, RMSE = rmse))
+}
+
+error_m1  = calculate_matrix_error(data_m1_hm, "Model 1")
+error_m2a = calculate_matrix_error(data_m2a_hm, "Model 2A")
+error_m2b = calculate_matrix_error(data_m2b_hm, "Model 2B")
+
+error_table = bind_rows(error_m1, error_m2a, error_m2b)
+
+cat("\n=== Contact Matrix Errors ===\n")
+print(error_table)
+```
+
+### Mean Degree & Diagonal
+
+```{r read data}
+data_m1  = readRDS(here('data', 'processed', 'm1_plot_data_mean_degree.rds'))
+data_m2a = readRDS(here('data', 'processed', 'm2a_plot_data_mean_degree.rds'))
+data_m2b = readRDS(here('data', 'processed', 'm2b_plot_data_mean_degree.rds'))
+
+data_m1_step  = readRDS(here('data', 'processed', 'm1_plot_data_diag_step.rds'))
+data_m2a_step = readRDS(here('data', 'processed', 'm2a_plot_data_diag_step.rds'))
+data_m2b_step = readRDS(here('data', 'processed', 'm2b_plot_data_diag_step.rds'))
+```
+
+```{r calculate errors}
+calculate_degree_error = function(data, model_name) {
+  poly_df = data %>% filter(source == "POLYMOD") %>% arrange(age_group) %>% pull(mean_degree)
+  sim_df  = data %>% filter(source == "Simulation") %>% arrange(age_group) %>% pull(mean_degree)
+  
+  residuals = poly_df - sim_df
+  return(data.frame(Model = model_name, MAE = mean(abs(residuals)), RMSE = sqrt(mean(residuals^2))))
+}
+
+error_deg_m1  = calculate_degree_error(data_m1, "Model 1")
+error_deg_m2a = calculate_degree_error(data_m2a, "Model 2A")
+error_deg_m2b = calculate_degree_error(data_m2b, "Model 2B")
+
+error_table_degree = bind_rows(error_deg_m1, error_deg_m2a, error_deg_m2b)
+
+cat("=== Mean Degree Errors ===\n")
+print(error_table_degree)
+
+calculate_diag_error = function(data, model_name) {
+  poly_df = data %>% filter(source == "POLYMOD") %>% arrange(age_group) %>% pull(mean_contacts)
+  sim_df  = data %>% filter(source == "Simulation") %>% arrange(age_group) %>% pull(mean_contacts)
+  
+  residuals = poly_df - sim_df
+  return(data.frame(Model = model_name, MAE = mean(abs(residuals)), RMSE = sqrt(mean(residuals^2))))
+}
+
+error_diag_m1  = calculate_diag_error(data_m1_step, "Model 1")
+error_diag_m2a = calculate_diag_error(data_m2a_step, "Model 2A")
+error_diag_m2b = calculate_diag_error(data_m2b_step, "Model 2B")
+
+error_table_diag = bind_rows(error_diag_m1, error_diag_m2a, error_diag_m2b)
+
+cat("\n=== Diagonal (Same Age Group) Errors ===\n")
+print(error_table_diag)
+```
+
+```         
+=== Contact Matrix Errors ===
+     Model       MAE      RMSE
+1  Model 1 0.3607648 0.6496964
+2 Model 2A 0.3338436 0.4800409
+3 Model 2B 0.3071918 0.4142924
+
+=== Mean Degree Errors ===
+     Model      MAE     RMSE
+1  Model 1 1.314641 1.455050
+2 Model 2A 1.102437 1.504815
+3 Model 2B 1.419941 1.789736
+
+=== Diagonal (Same Age Group) Errors ===
+     Model       MAE      RMSE
+1  Model 1 1.1439565 1.9511281
+2 Model 2A 0.6368941 0.8167958
+3 Model 2B 0.5685854 0.7314283
+```

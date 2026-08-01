@@ -1,0 +1,126 @@
+---
+title: "01_BM_bootstrap"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+# 01 Bootstrap
+
+## Basic Policy
+
+-   Bootstrap from the entire POLYMOD dataset
+
+-   Sample size of bootstrap $\to$ The full size POLYMOD data
+
+-   Mean and Covariance Matrix $\to$ All from this full-from-full-size bootstrap
+
+-   Variance might be too small $\to$ Deal with the adaptive approach
+
+-   number of iteration $\to$ 10,000 times
+
+## 1. Import libraries and necessary data
+
+```{r}
+library(tidyverse)
+library(here)
+
+poly_df = readRDS(here('data', 'processed', 'poly_cleaned.rds'))
+```
+
+## 2. Hyper Parameters
+
+```{r}
+seed_val = 100
+n_boot = 10000
+sample_num = length(unique(poly_df$part_id))
+```
+
+## 3. Bootstrap Algorithm
+
+### 3-1. Calculate Summary Statistics
+
+```{r}
+summary_stats = function(df) {
+  
+  degree_data = df %>%
+    group_by(part_id) %>%
+    summarise(degree = n_distinct(cont_id, na.rm = TRUE), .groups = "drop")
+  
+  mean_degree = mean(degree_data$degree)
+  var_degree = var(degree_data$degree)
+  
+  mean_age_diff = df %>%
+    summarise(diff = mean(abs(part_age - cnt_age), na.rm = TRUE)) %>%
+    pull(diff)
+  
+  prop_same_gender = df %>%
+    summarise(prop = mean(part_gender == cnt_gender, na.rm = TRUE)) %>%
+    pull(prop)
+  
+  prop_mm = mean(df$part_gender == 'M' & df$cnt_gender == 'M', na.rm = TRUE)
+  
+  prop_ff = mean(df$part_gender == 'F' & df$cnt_gender == 'F', na.rm = TRUE)
+  
+  return(c(
+    "Mean Degree" = mean_degree,
+    "Log Variance" = log(var_degree),
+    "Mean Age Diff" = mean_age_diff,
+    "Prop MM" = prop_mm,
+    "Prop FF" = prop_ff
+    )
+  )
+}
+```
+
+### 3-2. Bootstrap Implementation
+
+```{r}
+run_bootstrap = function(df, seed_val, n_boot, sample_num) {
+  
+  boot_results = matrix(NA, nrow = n_boot, ncol = 5)
+  colnames(boot_results) = c("Mean Degree", "Log Variance", "Mean Age Diff",
+                             "Prop MM", "Prop FF")
+  
+  set.seed(seed_val)
+  
+  part_ids = unique(df$part_id)
+  
+  for (i in 1 : n_boot) {
+    # 1. Resample IDs
+    sampled_ids = sample(part_ids, sample_num, replace = TRUE)
+    
+    # 2. Dataframe with only IDs
+    ids_df = tibble(part_id = sampled_ids)
+    
+    # 3. Join with original data
+    sampled_df = ids_df %>%
+      left_join(df, by = 'part_id', relationship = 'many-to-many')
+    
+    boot_results[i, ] = summary_stats(sampled_df)
+    
+    if(i %% 1000 == 0) cat(".")
+  }
+  cat('finished!\n')
+  
+  return(boot_results)
+}
+```
+
+## 4. Run Bootstrap
+
+```{r}
+boot_full_full = run_bootstrap(poly_df, seed_val, n_boot, sample_num)
+```
+
+## 5. Save the result
+
+```{r}
+boot_data = list()
+boot_data$result = boot_full_full
+boot_data$n_boot = n_boot
+boot_data$seed_val = seed_val
+boot_data$sample_num = sample_num
+
+saveRDS(boot_data, 'results/bootstrap_result.rds')
+```

@@ -1,0 +1,163 @@
+---
+title: "Data_01_cleaning"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(here)
+seed_val = 100
+```
+
+```{r}
+poly_cnt = read_csv(here('data', 'raw', '2008_Mossong_POLYMOD_contact_common.csv'))
+poly_part = read_csv(here('data', 'raw', '2008_Mossong_POLYMOD_participant_common.csv'))
+# poly_cnt = read_csv('../../data/2008_Mossong_POLYMOD_contact_common.csv')
+# poly_part = read_csv('../../data/2008_Mossong_POLYMOD_participant_common.csv')
+```
+
+```{r}
+data_clean = function(df) {
+  # cleaning datasets
+  
+  cleaned_df = df %>%
+    mutate(
+      cnt_age = case_when(
+      !is.na(cnt_age_exact) ~ cnt_age_exact,
+      
+      !is.na(cnt_age_est_min) & !is.na(cnt_age_est_max) ~ (cnt_age_est_min + cnt_age_est_max) / 2,
+      
+      !is.na(cnt_age_est_min) & is.na(cnt_age_est_max) ~ cnt_age_est_min,
+      
+      is.na(cnt_age_est_min) & !is.na(cnt_age_est_max) ~ cnt_age_est_max,
+      
+      TRUE ~ NA_real_
+      ) 
+    ) %>%
+    select(-cnt_age_exact, -cnt_age_est_min, -cnt_age_est_max, -hh_id) %>%
+    relocate(cnt_age, .after = cont_id) %>%
+    relocate(c(part_age, part_gender), .after = part_id) %>%
+    distinct(part_id, cont_id, .keep_all = TRUE) %>%
+    mutate(
+      phys_contact = coalesce(phys_contact, 2),       # if NA -> 0
+      frequency_multi = coalesce(frequency_multi, 5), # if NA -> 5
+      duration_multi = coalesce(duration_multi, 1)    # if NA -> 1
+    )
+  return(cleaned_df)
+}
+```
+
+```{r}
+poly_merged = poly_cnt %>%
+  left_join(poly_part, by = 'part_id')
+
+poly_df = data_clean(poly_merged)
+```
+
+```{r}
+poly_df %>%
+  summarize(
+    cnt_age_missing_pct = sum(is.na(cnt_age)) / n() * 100,
+    cnt_gender_missing_pct = sum(is.na(cnt_gender)) / n() * 100
+  )
+```
+
+```{r}
+poly_cnt %>%
+  summarize(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+poly_part %>%
+  summarize(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+poly_df %>%
+  summarize(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+poly_df = poly_df %>%
+  drop_na(part_age) %>%
+  drop_na(part_gender)
+```
+
+```{r}
+poly_df %>%
+  summarize(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+poly_df = poly_df %>%
+  mutate(
+    across(c(cnt_school, cnt_work, cnt_home, cnt_transport, cnt_leisure), ~replace_na(., FALSE))
+  ) %>%
+  mutate(
+    location_category = case_when(
+      cnt_school == TRUE ~ "School", 
+      cnt_work == TRUE   ~ "Work",   
+      cnt_home == TRUE   ~ "Home",   
+      cnt_transport == TRUE ~ "Transport",
+      cnt_leisure == TRUE  ~ "Leisure",
+      TRUE               ~ "Other"   
+    )
+  )
+```
+
+```{r}
+reference_pool = poly_df %>%
+  filter(!is.na(cnt_age)) %>% 
+  group_by(part_age, location_category) %>% 
+  summarise(
+    age_pool = list(cnt_age),
+    .groups = "drop"
+  )
+```
+
+```{r}
+set.seed(seed_val)
+
+gender_probs = prop.table(table(poly_df$cnt_gender))
+
+poly_imputed = poly_df %>%
+  left_join(reference_pool, by = c('part_age', 'location_category')) %>%
+  rowwise() %>%
+  mutate(
+    cnt_age = if_else(
+      is.na(cnt_age),
+      if (is.null(age_pool) || length(age_pool) == 0) {
+        part_age
+      }
+      else {
+        sample(age_pool, 1)
+      },
+      cnt_age
+    )
+  ) %>%
+  ungroup() %>%
+  select(-age_pool) %>%
+  mutate(
+    cnt_gender = if_else(
+      is.na(cnt_gender),
+      sample(
+        names(gender_probs),
+        size = n(),
+        replace = TRUE,
+        prob = gender_probs
+      ),
+      cnt_gender
+    )
+  )
+```
+
+```{r}
+poly_imputed %>%
+  summarize(across(everything(), ~ sum(is.na(.))))
+```
+
+```{r}
+# saveRDS(poly_imputed, here('data', 'processed', 'poly_cleaned.rds'))
+```

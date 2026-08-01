@@ -1,0 +1,222 @@
+---
+title: "Network_23_Summary_Stats_Comparison"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(here)
+
+func_path = here('scripts', 'src')
+rds_path = here('data', 'processed')
+
+source(here(func_path, 'model_BM.R'))
+source(here(func_path, 'model_M2.R'))
+source(here(func_path, 'model_matrix_M2.R'))
+source(here(func_path, 'archive_model_matrix_M2.R'))
+
+nodes = readRDS(here(rds_path, 'simulation_nodes.rds'))
+
+m1_mcmc  = readRDS(here(rds_path, 'm1_mcmc.rds'))
+m2a_mcmc = readRDS(here(rds_path, 'm2a_mcmc.rds'))
+m2b_mcmc = readRDS(here(rds_path, 'm2b_mcmc.rds'))
+
+target_stats_m1  = readRDS(here(rds_path, 'BM_target_stats.rds'))
+target_stats_m2a = readRDS(here(rds_path, 'M2_target_stats_4_2.rds'))
+target_stats_m2b = readRDS(here(rds_path, 'M2_target_stats_8.rds'))
+```
+
+```{r}
+calculate_zscore_table = function(mcmc_chain, target_stats, static_data, generate_func, calc_stats_func, n_samples = 200, seed = 100) {
+  
+  set.seed(seed)
+  sample_idx = sample(1:nrow(mcmc_chain), n_samples, replace = FALSE)
+  sim_stats_list = list()
+  
+  for(i in 1:n_samples) {
+    params = mcmc_chain[sample_idx[i], ]
+    
+    gen_out = generate_func(params, static_data)
+    
+    # Branching: M1 (Network Generation) vs M2 (Probability Matrix)
+    if (is.list(gen_out) && "has_edge" %in% names(gen_out)) {
+      if (gen_out$has_edge) {
+        stats = calc_stats_func(gen_out, static_data)
+        if (is.null(names(stats))) names(stats) = names(target_stats$mu)
+        sim_stats_list[[i]] = stats
+      }
+    } else {
+      stats = calc_stats_func(gen_out, static_data)
+      if (is.null(names(stats))) names(stats) = names(target_stats$mu)
+      sim_stats_list[[i]] = stats
+    }
+  }
+  
+  sim_stats_mat = do.call(rbind, sim_stats_list)
+  
+  sim_mean = colMeans(sim_stats_mat, na.rm = TRUE)
+  sim_sd   = apply(sim_stats_mat, 2, sd, na.rm = TRUE)
+  sim_q025 = apply(sim_stats_mat, 2, quantile, probs = 0.025, na.rm = TRUE)
+  sim_q975 = apply(sim_stats_mat, 2, quantile, probs = 0.975, na.rm = TRUE)
+  
+  target_mu = target_stats$mu
+  target_sd = sqrt(diag(target_stats$sigma))
+  
+  common_names = intersect(names(target_mu), names(sim_mean))
+  
+  if (length(common_names) == 0) {
+    min_len = min(length(target_mu), length(sim_mean))
+    target_mu = target_mu[1:min_len]
+    target_sd = target_sd[1:min_len]
+    sim_mean  = sim_mean[1:min_len]
+    sim_sd    = sim_sd[1:min_len]
+    sim_q025  = sim_q025[1:min_len]
+    sim_q975  = sim_q975[1:min_len]
+    stat_names = paste0("Stat_", 1:min_len)
+  } else {
+    target_mu = target_mu[common_names]
+    target_sd = target_sd[common_names]
+    sim_mean  = sim_mean[common_names]
+    sim_sd    = sim_sd[common_names]
+    sim_q025  = sim_q025[common_names]
+    sim_q975  = sim_q975[common_names]
+    stat_names = common_names
+  }
+  
+  df = data.frame(
+    Statistic    = stat_names,
+    Target_Mean  = target_mu,
+    Target_SD    = target_sd,
+    Sim_Mean     = sim_mean,
+    Sim_SD       = sim_sd,
+    Sim_95_Lower = sim_q025,
+    Sim_95_Upper = sim_q975,
+    Z_Score      = (target_mu - sim_mean) / sim_sd
+  )
+  
+  rownames(df) = NULL
+  return(df)
+}
+```
+
+```{r}
+static_data_m1 = get_static_data_bm(nodes)
+
+df_zscore_m1 = calculate_zscore_table(
+  mcmc_chain = m1_mcmc$mcmc_matrix,
+  target_stats = target_stats_m1,
+  static_data = static_data_m1,
+  generate_func = generate_network_bm,
+  calc_stats_func = calc_sim_stats_bm,
+  n_samples = 700
+)
+
+print(df_zscore_m1)
+write_csv(df_zscore_m1, here(rds_path, 'zscore_table_m1.csv'))
+```
+
+```         
+      Statistic Target_Mean   Target_SD   Sim_Mean     Sim_SD Sim_95_Lower
+1   Mean Degree  13.5349727 0.095680209 13.6673257 1.02814439   11.9047500
+2  Log Variance   4.7212336 0.018749291  4.7464959 0.19841066    4.3980352
+3 Mean Age Diff  15.1688019 0.116702795 15.1600499 0.28711502   14.6328627
+4       Prop MM   0.2606553 0.004469144  0.2595384 0.01878944    0.2224007
+5       Prop FF   0.3037589 0.004559312  0.3057407 0.02024127    0.2674126
+  Sim_95_Upper     Z_Score
+1   16.0045000 -0.12873000
+2    5.1568553 -0.12732334
+3   15.7090198  0.03048249
+4    0.2964945  0.05944228
+5    0.3481788 -0.09790981
+```
+
+```{r}
+static_data_m2a = get_static_data_m2(nodes)
+
+df_zscore_m2a = calculate_zscore_table(
+  mcmc_chain = m2a_mcmc$mcmc_matrix,
+  target_stats = target_stats_m2a,
+  static_data = static_data_m2a,
+  generate_func = calc_prob_m2,
+  calc_stats_func = calc_expected_stats_matrix_m2_4_2,
+  n_samples = 700
+)
+
+print(df_zscore_m2a)
+write_csv(df_zscore_m2a, here(rds_path, 'zscore_table_m2a.csv'))
+```
+
+```         
+ Statistic Target_Mean   Target_SD   Sim_Mean      Sim_SD Sim_95_Lower
+1    Log Mean Degree  2.60525192 0.007068960 2.58683839 0.007082981   2.57358168
+2   Prop Degree <= 2  0.05081263 0.001993822 0.05997864 0.001725684   0.05653826
+3  Prop Degree >= 25  0.14783347 0.003207478 0.11702672 0.002266630   0.11292535
+4            Prop MM  0.26065525 0.004469144 0.26464835 0.004666929   0.25608547
+5            Prop FF  0.30375887 0.004559312 0.30147629 0.004578292   0.29256931
+6       Prop Age 0-5  0.40967773 0.003967356 0.40987794 0.003998279   0.40264582
+7      Prop Age 6-15  0.18574721 0.002534686 0.18530199 0.002452849   0.18074516
+8     Prop Age 20-35  0.24452730 0.002467483 0.23541853 0.002266392   0.23081520
+9      Prop Age > 40  0.07188897 0.001814117 0.06658649 0.001784507   0.06310842
+10       Prop School  0.22299846 0.005264303 0.22311559 0.005373287   0.21282888
+   Sim_95_Upper     Z_Score
+1    2.60016682  2.59968654
+2    0.06370252 -5.31152382
+3    0.12118789 13.59143631
+4    0.27344901 -0.85561490
+5    0.31004295  0.49856714
+6    0.41738614 -0.05007276
+7    0.19011871  0.18151233
+8    0.23986790  4.01906389
+9    0.06999913  2.97139280
+10   0.23326508 -0.02179905
+```
+
+```{r}
+n_school = c(1, 1, 3, 4)
+static_data_m2b = get_static_data_m2_5(nodes, n_school = n_school)
+
+df_zscore_m2b = calculate_zscore_table(
+  mcmc_chain = m2b_mcmc$mcmc_matrix,
+  target_stats = target_stats_m2b,
+  static_data = static_data_m2b,
+  generate_func = calc_prob_m2_3,
+  calc_stats_func = calc_expected_stats_matrix_m2_6, 
+  n_samples = 700
+)
+
+print(df_zscore_m2b)
+write_csv(df_zscore_m2b, here(rds_path, 'zscore_table_m2b.csv'))
+```
+
+```         
+ Statistic Target_Mean   Target_SD   Sim_Mean      Sim_SD Sim_95_Lower
+1    Log Mean Degree  2.60525192 0.007068960 2.59231196 0.006817047   2.57734472
+2   Prop Degree <= 2  0.05081263 0.001993822 0.05855013 0.001783531   0.05487843
+3  Prop Degree >= 25  0.14783347 0.003207478 0.12254709 0.002245233   0.11782462
+4            Prop MM  0.26065525 0.004469144 0.25935731 0.004575897   0.25034900
+5            Prop FF  0.30375887 0.004559312 0.30730452 0.004632131   0.29809436
+6       Prop Age 0-5  0.40967773 0.003967356 0.41174332 0.003731239   0.40480655
+7      Prop Age 6-15  0.18574721 0.002534686 0.18376489 0.002437866   0.17895558
+8     Prop Age 20-35  0.24452730 0.002467483 0.23174500 0.002309888   0.22740856
+9      Prop Age > 40  0.07188897 0.001814117 0.06544338 0.001802794   0.06208148
+10  Prop Primary Low  0.02836782 0.001973459 0.02516823 0.001935202   0.02141971
+11 Prop Primary High  0.04458874 0.002567336 0.04245421 0.002696009   0.03733600
+12    Prop Secondary  0.09685772 0.003914294 0.10215824 0.003637688   0.09536330
+13     Prop Tertiary  0.03123886 0.001821855 0.03188573 0.001729592   0.02850670
+   Sim_95_Upper    Z_Score
+1    2.60575175  1.8981776
+2    0.06195132 -4.3383046
+3    0.12724085 11.2622535
+4    0.26853904  0.2836471
+5    0.31622501 -0.7654470
+6    0.41947172 -0.5535937
+7    0.18847123  0.8131351
+8    0.23646623  5.5337336
+9    0.06872166  3.5753340
+10   0.02922510  1.6533614
+11   0.04779201  0.7917366
+12   0.10945340 -1.4571115
+13   0.03534095 -0.3740051
+```

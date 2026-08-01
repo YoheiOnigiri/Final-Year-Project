@@ -1,0 +1,239 @@
+---
+title: "03_Fig_SIR_simulation.qmd"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r setup}
+library(tidyverse)
+library(Matrix)
+library(grid)
+library(here)
+
+source(here('scripts', 'src', 'SIR_sim_func.R'))
+source(here('scripts', 'src', 'SIR_sim_plot_func.R'))
+
+plot_path = here('output')
+rds_path = here('data', 'processed')
+
+cm = 1 / 2.54
+```
+
+## 2. Parameters
+
+```{r parameters}
+N = 10000
+R0 = 2.5
+I0 = 5
+d = 7
+sim_period = 150
+```
+
+## 3. Deterministic SIR
+
+```{r deterministic SIR}
+det_df = sir_deterministic(N = N, I0 = I0, R0 = R0, d = d, period = sim_period)
+```
+
+## 4. Import SIR Result Data
+
+```{r import SIR data}
+res_mean_field_r0_25 = readRDS(here(rds_path, 'res_mean_field_r0_25.rds'))
+res_er_r0_25 = readRDS(here(rds_path, 'res_er_r0_25.rds'))
+res_m1_r0_25= readRDS(here(rds_path, 'res_m1_r0_25.rds'))
+res_m2_r0_25 = readRDS(here(rds_path, 'res_m2_r0_25.rds'))
+res_er_interv_r0_25 = readRDS(here(rds_path, 'res_er_interv_r0_25.rds'))
+res_m1_interv_r0_25= readRDS(here(rds_path, 'res_m1_interv_r0_25.rds'))
+res_m2_interv_r0_25 = readRDS(here(rds_path, 'res_m2_interv_r0_25.rds'))
+```
+
+## 5. Prepare for Plotting
+
+```{r generate grob objects for each SIR}
+grob_mf = create_sir_grob(res_mean_field_r0_25, det_df, "Mean Field", R0, d, sim_period)
+grob_er = create_sir_grob(res_er_r0_25, det_df, "Erdos-Renyi", R0, d, sim_period)
+grob_m1 = create_sir_grob(res_m1_r0_25, det_df, "Model 1", R0, d, sim_period)
+grob_m2 = create_sir_grob(res_m2_r0_25, det_df, "Model 2", R0, d, sim_period)
+
+grob_er_interv = create_sir_grob(res_er_interv_r0_25, det_df, "Erdos-Renyi (Intervention)", R0, d, sim_period)
+grob_m1_interv = create_sir_grob(res_m1_interv_r0_25, det_df, "Model 1 (Intervention)", R0, d, sim_period)
+grob_m2_interv = create_sir_grob(res_m2_interv_r0_25, det_df, "Model 2 (Intervention)", R0, d, sim_period)
+```
+
+## 6. Plot
+
+### 6-1. Baseline Comparison
+
+```{r plot name and plot location}
+plot_name = 'baseline_r0_25'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+```
+
+```{r save the plot}
+pdf(plot_loc, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  lo = grid.layout(nrow = 2, ncol = 2, 
+                   heights = unit(c(1, 1), c("null", "null")),
+                   widths = unit(c(1, 1), c("null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    # Mean Field
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_mf)
+    popViewport()
+      
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 0.75, y = 0.5, just = c('center', 'center'),
+                          width = 0.5, height = 0.2))
+            grid.draw(create_sir_legend_grob())
+            grid.rect(gp = gpar(col = 'black'))
+          popViewport()
+      popViewport()
+    popViewport()
+    
+    # Erdos-Renyi
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_er)
+    popViewport()
+  
+    # Model 1
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m1)
+    popViewport()
+  
+    # Model 2
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m2)
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+### 6-2. Baseline-Intervention Comparison
+
+```{r plot name and location}
+plot_name = 'comparison_r0_25'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+```
+
+```{r plot baseline-intervention comparison}
+
+pdf(plot_loc, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  lo = grid.layout(nrow = 3, ncol = 2, 
+                   heights = unit(c(1, 1, 1), c("null", "null", "null")),
+                   widths = unit(c(1, 1), c("null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_er)
+    popViewport()
+    
+    # Adding a Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 0.775, y = 0.5, just = c('center', 'center'),
+                          width = 0.45, height = 0.2))
+            grid.draw(create_sir_legend_grob())
+            grid.rect(gp = gpar(col = 'black'))
+          popViewport()
+      popViewport()
+    popViewport()
+
+    
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_er_interv)
+    popViewport()
+  
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_m1)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m1_interv)
+    popViewport()
+  
+    pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 1))
+      grid.draw(grob_m2)
+    popViewport()
+    
+    pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 2))
+      grid.draw(grob_m2_interv)
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+```{r plot name and location}
+plot_name = 'comparison_r0_25_horizontal'
+plot_loc = here(plot_path, paste0(plot_name, '.pdf'))
+```
+
+```{r plot}
+pdf(plot_loc, width = 24 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+
+  lo = grid.layout(nrow = 2, ncol = 3, 
+                   heights = unit(c(1, 1), c("null", "null")),
+                   widths = unit(c(1, 1, 1), c("null", "null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    # Erdos-Renyi (Baseline)
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_er)
+    popViewport()
+    
+    # Adding a Legend (Erdos-Renyi Baselineに重ねる)
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 0.775, y = 0.5, just = c('center', 'center'),
+                          width = 0.45, height = 0.2))
+            grid.draw(create_sir_legend_grob())
+            grid.rect(gp = gpar(col = 'black'))
+          popViewport()
+      popViewport()
+    popViewport()
+
+    # Erdos-Renyi (Intervention)
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_er_interv)
+    popViewport()
+  
+    # Model 1 (Baseline)
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_m1)
+    popViewport()
+    
+    # Model 1 (Intervention)
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_m1_interv)
+    popViewport()
+  
+    # Model 2 (Baseline)
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 3))
+      grid.draw(grob_m2)
+    popViewport()
+    
+    # Model 2 (Intervention)
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 3))
+      grid.draw(grob_m2_interv)
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```

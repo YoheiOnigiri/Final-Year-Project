@@ -1,0 +1,46 @@
+\section*{Change Log}
+\addcontentsline{toc}{section}{Change Log}
+
+\subsection*{1. Expansion and Clarification of Data Descriptions (Section 2)}
+\begin{itemize}
+    \item \textbf{Refinement of Prem et al. (2017) Description (Section 2.1):} Updated the methodology description regarding previous large-scale modeling efforts from "project and validate contact structures" to the more precise "construct and project synthetic contact matrices".
+    \item \textbf{POLYMOD Data Utility (Section 2.1):} Clarified the conditions for the global applicability of the POLYMOD dataset. Added the nuance that "while macroscopic mixing patterns vary across countries", the setting-specific contact probabilities remain a gold standard for projecting transmission dynamics "when combined with local demographic data".
+    \item \textbf{Specific Missing Value Ratios (Section 2.2):} Added the exact percentages of missing values in the data preprocessing section (approximately 0.12\% for contact age and 1.39\% for contact gender).
+    \item \textbf{Wording Refinement (Section 2.3.1):} Removed the phrase "exhibits a realistic demographic profile" from the age distribution description for a more concise expression.
+\end{itemize}
+
+\subsection*{2. Enhancement of the Inference Engine Explanation (Section 3)}
+\begin{itemize}
+    \item \textbf{Removal of Unresolved Citation (Section 3.2.5.3):} Deleted the unresolved citation placeholder regarding the mean degree of the Erd\H{o}s-R\'{e}nyi graph.
+    \item \textbf{Detailed Explanation of MCMC Stagnation (Section 3.2.7.1):} Fixed the MCMC diagnostics explanation for Model 1 to explicitly justify the algorithmic design of the Two-Stage approach.
+    Added the exact failure mechanism in Phase 1: "with nsim = 1, the stochastic noise of the likelihood estimator is too large relative to the strict target distribution, leading to a near-zero acceptance rate" and severe stagnation where the trace plot becomes rigidly flat.
+    Furthermore, explicitly stated that transitioning to Phase 2 utilizes "LogSumExp stabilization" to effectively smooth this noise, allowing the chain to immediately escape stagnation.
+    \item \textbf{Figure 5 Caption Update:} Updated the caption for Figure 5 to reflect the newly added explanation, highlighting the "severe stagnation" and how the chain completely stalls due to stochastic noise exceeding the strict target tolerance.
+\end{itemize}
+
+\subsection*{3. Correction of Epidemic Model Definitions (Section 4)}
+\begin{itemize}
+    \item \textbf{Fixing Duplicated Baseline Models (Section 4.1):} Corrected an error in the baseline model list where "Model 1" was listed twice. The first model was properly replaced with the "Mean Field (MF) Model," and a description of its assumption of perfect homogeneous mixing was added.
+\end{itemize}
+
+\subsection*{4. Improvements in Figures, Formatting, and Typography}
+\begin{itemize}
+    \item \textbf{Addition of Legends to Matrix Heatmaps:} Added color bars (legends) to a total of three figures displaying contact and residual matrices (Figure 2, Figure 13, and Figure 14) to clearly indicate the numerical contact volume ("Mean Contacts") and error scale ("Residual") corresponding to each color intensity.
+    \item \textbf{Proper Noun Correction:} Corrected the spelling of "Erdos-Renyi" to "Erd\H{o}s-R\'{e}nyi" with the proper accent marks throughout the document.
+    \item \textbf{Typo Correction (Section 1):} Fixed the typo "highresolution" to "high resolution".
+\end{itemize}
+
+\subsection*{5. Major Additions to the Appendix}
+Added a comprehensive Appendix section at the end of the final draft, which includes:
+\begin{itemize}
+    \item \textbf{Appendix A:} Density plots and QQ plots of the bootstrapped summary statistics to verify normality.
+    \item \textbf{Appendix B:} Comprehensive MCMC trace plots for Model 1, Model 2A, and Model 2B.
+    \item \textbf{Appendix C:} Detailed comparison tables of summary statistics (target mean, simulation mean, Z-score, and 95\% confidence intervals).
+\end{itemize}
+
+\subsection*{6. Change in Source Codes}
+\begin{itemize}
+    \item \texttt{src/assessment\_plot\_func.R:} Added a new function to generate the legend for the contact matrix heatmaps, which was missing in the original codebase.
+    This function creates a color bar that maps the intensity of the blue color to the average number of contacts, allowing for clearer interpretation of the heatmaps in Figures 2, 13, and 14. 
+    \item \texttt{Network\_22\_model\_assessment.qmd:} Updated the code to include the newly created legend function for the contact matrix heatmaps, ensuring that all relevant figures now contain the appropriate legends for better clarity and presentation.
+\end{itemize}

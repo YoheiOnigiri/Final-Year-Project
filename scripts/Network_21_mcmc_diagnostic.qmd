@@ -1,0 +1,208 @@
+---
+title: "01_MCMC_Diagnostic"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r}
+library(here)
+library(coda)
+library(tidyverse)
+
+rds_path = here('data', 'processed')
+```
+
+## 2. Helper Functions
+
+```{r helper functions}
+# 1.
+clean_chain = function(res, burn_in = 0.1) {
+  
+  chain = res$chain
+  
+  burn_in_ind = floor(res$config$n_iter * burn_in)
+  clean_chain = chain[-(1 : burn_in_ind), ]
+  
+  return(clean_chain)
+}
+
+# 2.
+to_mcmc = function(res, burn_in = 0.1) {
+  return(as.mcmc(clean_chain(res, burn_in)))
+}
+
+# 3.
+create_mcmc_list = function(rds_paths, burn_in = 0.1) {
+  
+  mcmc_objects = purrr::map(rds_paths, ~ {
+    res = readRDS(.x)
+    to_mcmc(res, burn_in)
+  })
+  
+  return(as.mcmc.list(mcmc_objects))
+}
+
+# 4.
+get_diagnostics = function(mcmc_list) {
+  
+  rhat_res = gelman.diag(mcmc_list, autoburnin = FALSE)
+  rhat_vals = rhat_res$psrf[, "Point est."] 
+
+  ess_vals = effectiveSize(mcmc_list)
+
+  tibble(
+    Parameter = names(rhat_vals),
+    Rhat = rhat_vals,
+    ESS = ess_vals
+  )
+}
+```
+
+## 3. Model 1
+
+```{r Model 1 diagnostic}
+# m1 = readRDS(here(rds_path, 'BM_longrun1_20260303_064355.rds'))
+# m2a = readRDS(here(rds_path, 'M2_Adaptive_Matrix_11_20260323_104644.rds'))
+# m2b = readRDS(here(rds_path, 'M2_Adaptive_Matrix_18_20260327_191045.rds'))
+# m1b = readRDS(here(rds_path, 'BM_longrun2_20260308_174506.rds'))
+
+model1_files = c(
+  here(rds_path, 'BM_longrun1_20260303_064355.rds'),
+  here(rds_path, 'BM_chain2_20260408_205107.rds'),
+  here(rds_path, 'BM_chain3_20260408_210640.rds')
+)
+
+m1_mcmc_list = create_mcmc_list(model1_files)
+
+m1_diagnostics = get_diagnostics(m1_mcmc_list)
+
+print(m1_diagnostics)
+```
+
+```         
+# A tibble: 5 × 3
+  Parameter  Rhat   ESS
+  <chr>     <dbl> <dbl>
+1 alpha      1.00 1028.
+2 theta      1.00 1014.
+3 phi_mm     1.01  797.
+4 phi_ff     1.02  888.
+5 sigma_re   1.01  907.
+```
+
+```{r save the mcmc list data for further analysis}
+
+m1_combined = as.matrix(m1_mcmc_list)
+
+m1_mcmc = list(
+  mcmc_list = m1_mcmc_list,
+  mcmc_matrix = m1_combined,
+  diagnostics = m1_diagnostics
+)
+
+saveRDS(m1_mcmc, here(rds_path, 'm1_mcmc.rds'))
+```
+
+## 4. Model 2A
+
+```{r Model 2B diagnostic}
+# m1 = readRDS(here(rds_path, 'BM_longrun1_20260303_064355.rds'))
+# m2a = readRDS(here(rds_path, 'M2_Adaptive_Matrix_11_20260323_104644.rds'))
+# m2b = readRDS(here(rds_path, 'M2_Adaptive_Matrix_18_20260327_191045.rds'))
+# m1b = readRDS(here(rds_path, 'BM_longrun2_20260308_174506.rds'))
+
+model2a_files = c(
+  here(rds_path, 'M2_Adaptive_Matrix_11_20260323_104644.rds'),
+  here(rds_path, 'M2_Model2A_chain2_20260409_013729.rds'),
+  here(rds_path, 'M2_Model2A_chain3_20260409_015221.rds')
+)
+
+m2a_mcmc_list = create_mcmc_list(model2a_files)
+
+m2a_diagnostics = get_diagnostics(m2a_mcmc_list)
+
+print(m2a_diagnostics)
+```
+
+```         
+# A tibble: 9 × 3
+  Parameter     Rhat   ESS
+  <chr>        <dbl> <dbl>
+1 alpha         1.00 1725.
+2 gamma_school  1.00 1735.
+3 w             1.00 1885.
+4 lambda        1.00 2075.
+5 sigma_hhd     1.00 1908.
+6 mu            1.00 2072.
+7 phi_mm        1.00 1978.
+8 phi_ff        1.00 1872.
+9 sigma_re      1.00 1994.
+```
+
+```{r save the mcmc list data for further analysis}
+
+m2a_combined = as.matrix(m2a_mcmc_list)
+
+m2a_mcmc = list(
+  mcmc_list = m2a_mcmc_list,
+  mcmc_matrix = m2a_combined,
+  diagnostics = m2a_diagnostics
+)
+
+saveRDS(m2a_mcmc, here(rds_path, 'm2a_mcmc.rds'))
+```
+
+## 5. Model 2B
+
+```{r Model 2A diagnostic}
+# m1 = readRDS(here(rds_path, 'BM_longrun1_20260303_064355.rds'))
+# m2a = readRDS(here(rds_path, 'M2_Adaptive_Matrix_11_20260323_104644.rds'))
+# m2b = readRDS(here(rds_path, 'M2_Adaptive_Matrix_18_20260327_191045.rds'))
+# m1b = readRDS(here(rds_path, 'BM_longrun2_20260308_174506.rds'))
+
+model2b_files = c(
+  here(rds_path, 'M2_Adaptive_Matrix_18_20260327_191045.rds'),
+  here(rds_path, 'M2_Model2B_chain2_20260409_020644.rds'),
+  here(rds_path, 'M2_Model2B_chain3_20260409_022140.rds')
+)
+
+m2b_mcmc_list = create_mcmc_list(model2b_files)
+
+m2b_diagnostics = get_diagnostics(m2b_mcmc_list)
+
+print(m2b_diagnostics)
+```
+
+```         
+# A tibble: 12 × 3
+   Parameter       Rhat   ESS
+   <chr>          <dbl> <dbl>
+ 1 alpha           1.00 1299.
+ 2 gamma_pri_low   1.00 1350.
+ 3 gamma_pri_high  1.01 1305.
+ 4 gamma_sec       1.00 1488.
+ 5 gamma_ter       1.00 1632.
+ 6 w               1.00 1610.
+ 7 lambda          1.00 1523.
+ 8 sigma_hhd       1.00 1499.
+ 9 mu              1.00 1549.
+10 phi_mm          1.00 1433.
+11 phi_ff          1.00 1389.
+12 sigma_re        1.00 1364.
+```
+
+```{r save the mcmc list data for further analysis}
+
+m2b_combined = as.matrix(m2b_mcmc_list)
+
+m2b_mcmc = list(
+  mcmc_list = m2b_mcmc_list,
+  mcmc_matrix = m2b_combined,
+  diagnostics = m2b_diagnostics
+)
+
+saveRDS(m2b_mcmc, here(rds_path, 'm2b_mcmc.rds'))
+```

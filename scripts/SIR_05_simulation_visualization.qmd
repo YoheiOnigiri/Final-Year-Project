@@ -1,0 +1,450 @@
+---
+title: "04_Fig_SIR_dive.qmd"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+## 1. Setup
+
+```{r setup}
+library(tidyverse)
+library(Matrix)
+library(grid)
+library(here)
+
+source(here('scripts', 'src', 'SIR_sim_func.R'))
+source(here('scripts', 'src', 'SIR_sim_plot_func.R'))
+
+plot_path = here('output')
+rds_path = here('data', 'processed')
+
+cm = 1 / 2.54
+```
+
+## 2. Import SIR Result Data
+
+```{r import SIR data}
+# Baseline (R0=2.5)
+res_er_b = readRDS(here(rds_path, 'res_er_r0_25.rds'))
+res_m1_b = readRDS(here(rds_path, 'res_m1_r0_25.rds'))
+res_m2_b = readRDS(here(rds_path, 'res_m2_r0_25.rds'))
+
+# Intervention (School Closure)
+res_er_i = readRDS(here(rds_path, 'res_er_interv_r0_25.rds'))
+res_m1_i = readRDS(here(rds_path, 'res_m1_interv_r0_25.rds'))
+res_m2_i = readRDS(here(rds_path, 'res_m2_interv_r0_25.rds'))
+```
+
+## 3. Core Grob Function for Network Metrics
+
+```{r core function}
+create_network_metric_grob = function(sim_results_list, metric_col, title, y_max, y_label, period = 150, I_threshold = 5) {
+  
+  num_simulations = length(sim_results_list)
+  
+  main_vp = plotViewport(margins = c(4, 4, 1, 1), name = "main_vp")
+  
+  title_grob = textGrob(title, y = unit(1, 'npc') - unit(0.75, 'lines'))
+  xlab_grob  = textGrob('Time (days)', y = unit(-2.5, 'lines'))
+  ylab_grob  = textGrob(y_label, x = unit(-3, 'lines'), rot = 90)
+  
+  data_vp_off = dataViewport(xData = c(0, period), yData = c(0, y_max), extension = 0, name = "data_vp_off", clip = "off")
+  
+  bg = rectGrob(gp = gpar(fill = NA, col = "black"))
+  x_axis = xaxisGrob(at = seq(0, period, by = 30))
+  
+  if (y_max > 10) {
+    
+    y_ticks_only = yaxisGrob(at = seq(0, y_max, by = 5), label = FALSE)
+    
+    y_labels     = yaxisGrob(at = seq(0, y_max, by = 10), label = TRUE)
+
+    y_axis = gTree(children = gList(y_ticks_only, y_labels))
+  } else {
+    y_breaks = seq(0, y_max, by = 0.2)
+    y_axis = yaxisGrob(at = y_breaks)
+  }
+  
+  axis_tree = gTree(children = gList(x_axis, y_axis), vp = data_vp_off)
+  border_tree = gTree(children = gList(bg), vp = data_vp_off) 
+  
+  data_vp_on = dataViewport(xData = c(0, period), yData = c(0, y_max), extension = 0, name = "data_vp_on", clip = "on")
+  
+  line_grobs = list()
+  for (i in 1:num_simulations) {
+    res = sim_results_list[[i]]
+    valid_idx = !is.na(res[[metric_col]])
+    
+    if (any(valid_idx)) {
+      line_grobs[[i]] = linesGrob(
+        x = res$time[valid_idx], 
+        y = res[[metric_col]][valid_idx], 
+        default.units = "native", 
+        gp = gpar(col = "gray80", alpha = 0.2, lwd = 1.0) 
+      )
+    }
+  }
+  
+  all_res_df = bind_rows(sim_results_list)
+  mean_df = all_res_df %>%
+    group_by(time) %>%
+    summarise(
+      mean_val = mean(.data[[metric_col]], na.rm = TRUE),
+      mean_I   = mean(I, na.rm = TRUE), 
+      .groups = 'drop'
+    ) %>%
+    filter(!is.na(mean_val))
+    
+  if (any(mean_df$mean_I < I_threshold)) {
+    cutoff_time = min(mean_df$time[mean_df$mean_I < I_threshold])
+    mean_df = mean_df %>% filter(time < cutoff_time)
+  }
+    
+  mean_line = linesGrob(
+    x = mean_df$time,
+    y = mean_df$mean_val,
+    default.units = "native",
+    gp = gpar(col = "steelblue", lwd = 2.5) 
+  )
+  
+  clipped_lines_tree = gTree(children = do.call(gList, c(line_grobs, list(mean_line))), vp = data_vp_on)
+  
+  data_components = gList(axis_tree, clipped_lines_tree, border_tree)
+  
+  final_grob = gTree(children = gList(title_grob, xlab_grob, ylab_grob, data_components), vp = main_vp)
+  return(final_grob)
+}
+
+create_network_legend_grob = function() {
+  
+
+  leg_bg = rectGrob(gp = gpar(fill = "white", col = "black", lwd = 1))
+  
+
+  leg_sim_line = linesGrob(x = c(0.1, 0.25), y = 0.7, gp = gpar(col = "gray50", lwd = 2.5))
+  leg_sim_text = textGrob("Simulation", x = 0.35, y = 0.7, just = "left", gp = gpar(fontsize = 9))
+  
+  leg_mean_line = linesGrob(x = c(0.1, 0.25), y = 0.3, gp = gpar(col = "steelblue", lwd = 2.5))
+  leg_mean_text = textGrob("Mean", x = 0.35, y = 0.3, just = "left", gp = gpar(fontsize = 9))
+  
+  legend_tree = gTree(
+    children = gList(leg_bg, leg_sim_line, leg_sim_text, leg_mean_line, leg_mean_text),
+    name = "network_legend_grob"
+  )
+  
+  return(legend_tree)
+}
+
+save_3x2_comparison = function(filename, baseline_list, intervention_list, metric_col = "avg_contacts_per_new_case", y_max, y_label) {
+  pdf(filename, width = 16 * cm, height = 24 * cm, pointsize = 10)
+    grid.newpage()
+    lo = grid.layout(nrow = 3, ncol = 2, heights = unit(c(1, 1, 1), "null"), widths = unit(c(1, 1), "null"))
+    pushViewport(viewport(layout = lo))
+    
+    model_names = c("Erdos-Renyi", "Model 1", "Model 2")
+    
+    for(i in 1:3) {
+      # Baseline (Left)
+      pushViewport(viewport(layout.pos.row = i, layout.pos.col = 1))
+        g = create_network_metric_grob(baseline_list[[i]], metric_col, paste0(model_names[i], " (Baseline)"), y_max, y_label)
+        grid.draw(g)
+      popViewport()
+      
+      # Intervention (Right)
+      pushViewport(viewport(layout.pos.row = i, layout.pos.col = 2))
+        g_i = create_network_metric_grob(intervention_list[[i]], metric_col, paste0(model_names[i], " (Intervention)"), y_max, y_label)
+        grid.draw(g_i)
+      popViewport()
+    }
+    
+    # Add Lengend
+    if (metric_col == "avg_contacts_per_new_case") {
+      pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+        pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 11.5 / 15, y = 0.75,
+                                just = c("center", "center"),
+                                width = 7 / 15, height = 0.15))
+            grid.draw(create_network_legend_grob())
+          popViewport()
+        popViewport()
+      popViewport()
+    } else {
+      pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+        pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 11.5 / 15, y = 5 / 12,
+                                just = c("center", "center"),
+                                width = 7 / 15, height = 0.15))
+            grid.draw(create_network_legend_grob())
+          popViewport()
+        popViewport()
+      popViewport()
+    }
+
+    
+    popViewport()
+  dev.off()
+}
+```
+
+## 4. Generate Grobs
+
+```{r generate grob}
+zoom_y_max = 40
+pct_y_max  = 1.2
+
+# --- 1. Mean Contacts per New Infection ---
+grob_avg_er   = create_network_metric_grob(res_er_r0_25, "avg_contacts_per_new_case", "Erdos-Renyi", zoom_y_max, "Mean Contacts per New I")
+grob_avg_m1   = create_network_metric_grob(res_m1_r0_25, "avg_contacts_per_new_case", "Model 1", zoom_y_max, "Mean Contacts per New I")
+grob_avg_m2   = create_network_metric_grob(res_m2_r0_25, "avg_contacts_per_new_case", "Model 2", zoom_y_max, "Mean Contacts per New I")
+grob_avg_m2_i = create_network_metric_grob(res_m2_interv_r0_25, "avg_contacts_per_new_case", "Model 2 (Intervention)", zoom_y_max, "Mean Contacts per New I")
+
+# --- 2. Local Saturation ---
+grob_pct_er   = create_network_metric_grob(res_er_r0_25, "pct_contacts_infected", "Erdos-Renyi", pct_y_max, "Proportion of Contacts Infected")
+grob_pct_m1   = create_network_metric_grob(res_m1_r0_25, "pct_contacts_infected", "Model 1", pct_y_max, "Proportion of Contacts Infected")
+grob_pct_m2   = create_network_metric_grob(res_m2_r0_25, "pct_contacts_infected", "Model 2", pct_y_max, "Proportion of Contacts Infected")
+grob_pct_m2_i = create_network_metric_grob(res_m2_interv_r0_25, "pct_contacts_infected", "Model 2 (Intervention)", pct_y_max, "Proportion of Contacts Infected")
+```
+
+## 5. 3x2 Baseline Comparison
+
+```{r save the plot}
+plot_loc_3x2 = here(plot_path, 'network_metrics_baseline_3x2.pdf')
+
+pdf(plot_loc_3x2, width = 16 * cm, height = 24 * cm, pointsize = 10)
+
+  grid.newpage()
+  lo = grid.layout(nrow = 3, ncol = 2, 
+                   heights = unit(c(1, 1, 1), c("null", "null", "null")),
+                   widths = unit(c(1, 1), c("null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    # Row 1: ER
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_avg_er)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_pct_er)
+    popViewport()
+    
+    # Row 2: Model 1
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_avg_m1)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_pct_m1)
+    popViewport()
+
+    # Row 3: Model 2
+    pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 1))
+      grid.draw(grob_avg_m2)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 3, layout.pos.col = 2))
+      grid.draw(grob_pct_m2)
+    popViewport()
+    
+    # Add Lengend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+        pushViewport(viewport(x = 11.5 / 15, y = 0.75, just = c("center", "center"),
+                              width = 7 / 15, height = 0.15))
+          grid.draw(create_network_legend_grob())
+        popViewport()
+      popViewport()
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+## 6. Baseline Intervention Comparison
+
+```{r save plot}
+plot_loc_2x2 = here(plot_path, 'network_metrics_m2_intervention_2x2.pdf')
+
+pdf(plot_loc_2x2, width = 16 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  lo = grid.layout(nrow = 2, ncol = 2, 
+                   heights = unit(c(1, 1), c("null", "null")),
+                   widths = unit(c(1, 1), c("null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    # Row 1: Model 2 Baseline
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_avg_m2)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_avg_m2_i)
+    popViewport()
+    
+    # Row 2: Model 2 Intervention
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_pct_m2)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_pct_m2_i)
+    popViewport()
+    
+    # Add Lengend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+        pushViewport(viewport(x = 11.5 / 15, y = 0.75, just = c("center", "center"),
+                              width = 7 / 15, height = 0.15))
+          grid.draw(create_network_legend_grob())
+        popViewport()
+      popViewport()
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+```{r}
+# Figure 1: Mean Contacts Comparison
+save_3x2_comparison(
+  filename = here(plot_path, 'mean_contacts_comparison_3x2.pdf'),
+  baseline_list = list(res_er_b, res_m1_b, res_m2_b),
+  intervention_list = list(res_er_i, res_m1_i, res_m2_i),
+  metric_col = "avg_contacts_per_new_case",
+  y_max = 40,
+  y_label = "Mean Contacts per New I"
+)
+
+# Figure 2: Local Saturation Comparison
+save_3x2_comparison(
+  filename = here(plot_path, 'local_saturation_comparison_3x2.pdf'),
+  baseline_list = list(res_er_b, res_m1_b, res_m2_b),
+  intervention_list = list(res_er_i, res_m1_i, res_m2_i),
+  metric_col = "pct_contacts_infected",
+  y_max = 1.2,
+  y_label = "Proportion of Contacts Infected"
+)
+```
+
+## 7. Horizontal Plot
+
+```{r}
+save_2x3_comparison = function(filename, baseline_list, intervention_list, metric_col = "avg_contacts_per_new_case", y_max, y_label) {
+  pdf(filename, width = 24 * cm, height = 16 * cm, pointsize = 10)
+    grid.newpage()
+    lo = grid.layout(nrow = 2, ncol = 3, heights = unit(c(1, 1), "null"), widths = unit(c(1, 1, 1), "null"))
+    pushViewport(viewport(layout = lo))
+    
+    model_names = c("Erdos-Renyi", "Model 1", "Model 2")
+    
+    for(i in 1:3) {
+      # Baseline (Top: row=1)
+      pushViewport(viewport(layout.pos.row = 1, layout.pos.col = i))
+        g = create_network_metric_grob(baseline_list[[i]], metric_col, paste0(model_names[i], " (Baseline)"), y_max, y_label)
+        grid.draw(g)
+      popViewport()
+      
+      # Intervention (Bottom: row=2)
+      pushViewport(viewport(layout.pos.row = 2, layout.pos.col = i))
+        g_i = create_network_metric_grob(intervention_list[[i]], metric_col, paste0(model_names[i], " (Intervention)"), y_max, y_label)
+        grid.draw(g_i)
+      popViewport()
+    }
+    
+    # Add Legend (Erdos-Renyi Baselineに重ねる)
+    if (metric_col == "avg_contacts_per_new_case") {
+      pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+        pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 11.5 / 15, y = 0.75,
+                                just = c("center", "center"),
+                                width = 7 / 15, height = 0.15))
+            grid.draw(create_network_legend_grob())
+          popViewport()
+        popViewport()
+      popViewport()
+    } else {
+      pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+        pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+          pushViewport(viewport(x = 11.5 / 15, y = 5 / 12,
+                                just = c("center", "center"),
+                                width = 7 / 15, height = 0.15))
+            grid.draw(create_network_legend_grob())
+          popViewport()
+        popViewport()
+      popViewport()
+    }
+
+    popViewport()
+  dev.off()
+}
+```
+
+```{r}
+plot_loc_2x3 = here(plot_path, 'network_metrics_baseline_2x3.pdf')
+
+pdf(plot_loc_2x3, width = 24 * cm, height = 16 * cm, pointsize = 10)
+
+  grid.newpage()
+  lo = grid.layout(nrow = 2, ncol = 3, 
+                   heights = unit(c(1, 1), c("null", "null")),
+                   widths = unit(c(1, 1, 1), c("null", "null", "null")))
+  pushViewport(viewport(layout = lo))
+  
+    # Column 1: ER
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_avg_er)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 1))
+      grid.draw(grob_pct_er)
+    popViewport()
+    
+    # Column 2: Model 1
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_avg_m1)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 2))
+      grid.draw(grob_pct_m1)
+    popViewport()
+
+    # Column 3: Model 2
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 3))
+      grid.draw(grob_avg_m2)
+    popViewport()
+    pushViewport(viewport(layout.pos.row = 2, layout.pos.col = 3))
+      grid.draw(grob_pct_m2)
+    popViewport()
+    
+    # Add Legend
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+        pushViewport(viewport(x = 11.5 / 15, y = 0.75, just = c("center", "center"),
+                              width = 7 / 15, height = 0.15))
+          grid.draw(create_network_legend_grob())
+        popViewport()
+      popViewport()
+    popViewport()
+
+  popViewport()
+
+dev.off()
+```
+
+```{r}
+# Figure 1: Mean Contacts Comparison
+save_2x3_comparison(
+  filename = here(plot_path, 'mean_contacts_comparison_2x3.pdf'),
+  baseline_list = list(res_er_b, res_m1_b, res_m2_b),
+  intervention_list = list(res_er_i, res_m1_i, res_m2_i),
+  metric_col = "avg_contacts_per_new_case",
+  y_max = 40,
+  y_label = "Mean Contacts per New I"
+)
+
+# Figure 2: Local Saturation Comparison
+save_2x3_comparison(
+  filename = here(plot_path, 'local_saturation_comparison_2x3.pdf'),
+  baseline_list = list(res_er_b, res_m1_b, res_m2_b),
+  intervention_list = list(res_er_i, res_m1_i, res_m2_i),
+  metric_col = "pct_contacts_infected",
+  y_max = 1.2,
+  y_label = "Proportion of Contacts Infected"
+)
+```

@@ -1,0 +1,82 @@
+% ==========================================
+% file: sections/03_Methods/3_1_NetworkModel.tex
+% ==========================================
+To simulate the transmission dynamics of infectious diseases, we formalize the synthetic population as an undirected random graph $G = (V, E)$. Here, $V = \{v_1, v_2, \dots, v_n\}$ denotes the set of individuals (nodes), and $E$ represents the set of social contacts (edges) capable of facilitating disease transmission.
+Let $N = |V|$ be the total population size.
+Each node $v_i \in V$ is associated with a vector of demographic attributes $X_i = \{A_i, G_i\}$, where $A_i$ represents the continuous age of the individual and $G_i \in \{\text{Male}, \text{Female}\}$ represents their gender, derived directly from the empirical distributions of the POLYMOD dataset.
+The formation of an edge between any two individuals $i$ and $j$ is treated as an independent conditional Bernoulli trial with probability $P_{ij} = P(A_{ij}=1 | X_i, X_j)$, where $A$ is the adjacency matrix of the network.
+The functional form of $P_{ij}$ defines the structural complexity of the following proposed models.
+
+\subsection{Model}
+
+\subsubsection{Model 1: Baseline Demographic Model}
+As a foundational structure, Model 1 incorporates basic demographic homophily alongside individual-level heterogeneity in sociability.
+Rather than relying on complex, context-dependent attributes such as specific contact locations, this baseline model strictly limits its parameters to fundamental age-mixing and a random effect for sociability.
+Specifically, we introduce a node-specific random effect $\epsilon_i \sim \mathcal{N}(0, \sigma_{re}^2)$ to account for the inherent variance in human activity levels.
+The importance of capturing such individual-level heterogeneity in social activity has been emphasized by \textcite{britton2025improving}, who demonstrate that the variance in contact rates, even within the same age group, significantly alters the epidemic threshold and final size.
+By incorporating this random effect, Model 1 provides a statistically robust baseline that accounts for "super-spreaders" driven by high sociability rather than just demographic attributes.
+The contact probability $P_{ij}$ is defined using a logit link function (logistic regression framework) to ensure that the probabilities are mathematically bounded within $(0, 1)$:
+\begin{equation} \label{eq:m1_logit}
+    \text{logit}(P_{ij}) = \alpha + \theta |A_i - A_j| + \phi_{MM} \mathbb{I}_{MM}(i, j) + \phi_{FF} \mathbb{I}_{FF}(i, j) + (\epsilon_i + \epsilon_j).
+\end{equation}
+
+The components of Equation \ref{eq:m1_logit} are defined as follows:
+\begin{itemize}
+    \item $\alpha$: The global baseline intercept, determining the fundamental density of the network.
+    \item $\theta$: The coefficient for the absolute age difference $|A_i - A_j|$. In sociological contexts, individuals are significantly more likely to interact with peers of similar ages (age homophily), typically yielding $\theta < 0$.
+    \item $\phi_{MM}, \phi_{FF}$: Coefficients capturing gender homophily.
+    The indicator functions $\mathbb{I}_{MM}(i, j)$ and $\mathbb{I}_{FF}(i, j)$ evaluate to $1$ if both nodes are male or both are female, respectively, and $0$ otherwise.
+    \item $\epsilon_i, \epsilon_j$: Node-specific random effects capturing unobserved heterogeneity in individual sociability. Empirical contact networks frequently exhibit overdispersion in their degree distributions, often driven by the presence of highly sociable individuals.
+    To mathematically account for this variance, we assign a random effect drawn from a normal distribution $\epsilon_k \sim \mathcal{N}(0, \sigma_{RE}^2)$ to each node, where $\sigma_{RE}^2$ is a variance parameter to be estimated during the inference phase.
+\end{itemize}
+
+\subsubsection{Advanced Societal Model (Model 2): Progressive Structural Complexity}
+While Model 1 effectively captures fundamental homophily, it inherently assumes a monotonic decay in contact probability as the age difference increases.
+However, Exploratory Data Analysis (EDA) of the POLYMOD dataset \textcite{mossong2008social} reveals highly localized and complex topological features, most notably: (1) a sharp, exponential-like spike in dense peer-to-peer contacts among youths and individuals of the same age (e.g., school and workplace environments), and (2) a distinct secondary peak following a normal distribution centered around an age difference of approximately 30 years, signifying intergenerational household interactions.
+
+A conventional approach to capturing these specific sociological structures is to introduce location-specific covariates (e.g., home, school, work).
+However, incorporating such context-dependent attributes introduces excessive dimensionality, severely compromises the generalizability of the model, and hinders the tractability of statistical inference.
+To circumvent these limitations, we propose the Advanced Societal Model (Model 2). This framework strictly utilizes a universally accessible demographic attribute---age---to systematically reconstruct these location-driven phenomena. 
+
+Mathematically, the contact probability is decomposed into two distinct components: a baseline sociodemographic affinity and a localized age-difference distribution. The model introduces a mixture density function $f(\Delta A)$, where $\Delta A = |A_i - A_j|$, designed to simultaneously simulate the dual mechanisms of peer and household contacts:
+\begin{equation} \label{eq:m2_mixture}
+    f(\Delta A) = w \left( \lambda e^{-\lambda \Delta A} \right) + (1-w) \left( \frac{1}{\sqrt{2\pi}\sigma_{hhd}} \exp \left( -\frac{(\Delta A-\mu)^2}{2\sigma_{hhd}^2} \right) \right).
+\end{equation}
+The components of this mixture distribution represent:
+\begin{itemize}
+    \item \textbf{Peer-to-Peer Contacts:} Modeled by an exponential distribution with rate parameter $\lambda$, mathematically capturing the sharp decline in interactions among individuals of identical or similar ages.
+    \item \textbf{Intergenerational Contacts:} Modeled by a normal distribution $\mathcal{N}(\mu, \sigma_{hhd}^2)$. The mean $\mu$ specifically targets the generational gap between parents and children (typically near 30 years), while $\sigma_{hhd}^2$ represents the variance of this household structure.
+    \item \textbf{Mixing Weight ($w$):} A parameter $w \in [0, 1]$ that dictates the relative probability mass between peer and intergenerational interactions.
+\end{itemize}
+
+\paragraph*{Model 2A: Homogeneous Educational Environment}\mbox{}\\
+To evaluate the baseline structural impact of educational environments, Model 2A introduces a homogeneous school indicator $\mathbb{I}_{\text{school}}(i, j)$.
+This indicator evaluates to 1 if both interacting nodes fall within a broad, standard school-attending age bracket ($5 \le A_i, A_j \le 20$).
+By integrating the mixture distribution $f(\Delta A)$ into a logit-linear framework, the probability is formalized as:
+\begin{equation} \label{eq:m2a_logit}
+\begin{aligned}
+    \text{logit}(P_{ij}) = \alpha &+ \gamma_{\text{school}} \mathbb{I}_{\text{school}}(i, j) + \phi_{MM} \mathbb{I}_{MM}(i, j) \\
+    &+ \phi_{FF} \mathbb{I}_{FF}(i, j) + (\epsilon_i + \epsilon_j) + \log(f(\Delta A)).
+\end{aligned}
+\end{equation}
+While Model 2A provides a baseline enhancement, treating the entire student population as a single homogeneous group fails to capture the strict, grade-based segregation inherent in real-world educational systems. For instance, a 6-year-old primary student rarely interacts with a 20-year-old university student within a campus context, despite both satisfying the $\mathbb{I}_{\text{school}}$ condition.
+
+\paragraph*{Model 2B: Stratified Educational Cohorts (Full Model)}\mbox{}\\
+To resolve the structural oversimplification of Model 2A, we propose the fully stratified Model 2B. This model dissects the educational environment into four distinct, realistic strata: Lower Primary, Upper Primary, Secondary, and Tertiary. Based on empirical schooling structures, contacts within these strata are strictly bounded not only by age brackets but also by maximum allowable age differences ($\Delta A_{max}$). Let $A_{max} = \max(A_i, A_j)$.
+The highly localized cohort indicators are defined as follows:
+\begin{itemize}
+    \item \textbf{Lower Primary} ($\mathbb{I}_{pri\_low}$): $5 \le A_{max} \le 8$ conditional on $\Delta A \le 1$
+    \item \textbf{Upper Primary} ($\mathbb{I}_{pri\_high}$): $9 \le A_{max} \le 12$ conditional on $\Delta A \le 1$
+    \item \textbf{Secondary} ($\mathbb{I}_{sec}$): $13 \le A_{max} \le 18$ conditional on $\Delta A \le 3$
+    \item \textbf{Tertiary} ($\mathbb{I}_{ter}$): $19 \le A_{max} \le 22$ conditional on $\Delta A \le 4$
+\end{itemize}
+
+Incorporating these strict homophilous boundaries alongside the generalized random effect for sociability ($\epsilon_k \sim \mathcal{N}(0, \sigma_{re}^2)$), the full generative equation for the Advanced Societal Model is expressed as:
+\begin{equation} \label{eq:m2b_full}
+\begin{aligned}
+    \text{logit}(P_{ij}) = \alpha &+ \gamma_{pri\_low} \mathbb{I}_{pri\_low} + \gamma_{pri\_high} \mathbb{I}_{pri\_high} + \gamma_{sec} \mathbb{I}_{sec} + \gamma_{ter} \mathbb{I}_{ter} \\
+    &+ \phi_{MM} \mathbb{I}_{MM} + \phi_{FF} \mathbb{I}_{FF} + (\epsilon_i + \epsilon_j) + \log(f(\Delta A)).
+\end{aligned}
+\end{equation}
+
+By establishing Model 2A as a comparative baseline, subsequent inferential evaluations systematically quantify the necessity of the highly stratified, parameter-rich boundaries introduced in Model 2B to accurately replicate empirical societal structures.

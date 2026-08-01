@@ -1,0 +1,243 @@
+---
+title: "Data_02_EDA"
+author: "Yohei Kiguchi"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+library(grid)
+library(here)
+
+# Load existing plotting functions
+source(here('scripts', 'src', 'assessment_plot_func.R'))
+
+# Path settings
+rds_path = here('data', 'processed')
+plot_path = here('output')
+if (!dir.exists(plot_path)) dir.create(plot_path, recursive = TRUE)
+
+# Load data
+poly_df = readRDS(here(rds_path, 'poly_cleaned.rds'))
+
+# Constants
+cm = 1 / 2.54
+age_breaks = seq(0, 80, by = 5) 
+age_labels = paste0(age_breaks[-length(age_breaks)], "-", age_breaks[-1] - 1)
+
+# Filter data to exclude age 80 and above
+poly_df_eda = poly_df %>% 
+  filter(part_age < 80, cnt_age < 80)
+```
+
+## Contact Matrix
+
+```{r}
+source(here(func_path, 'assessment_plot_func.R'))
+data_m1_hm  = readRDS(here('data', 'processed', 'm1_plot_data_heatmap.rds'))
+fixed_max = 10
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "Contact Matrix", is_polymod_panel = TRUE, max_val = fixed_max)
+
+plot_loc_hm = here(plot_path, 'polymod_contact_matrix.pdf')
+pdf(plot_loc_hm, width = 8 * cm, height = 8 * cm, pointsize = 10)
+  grid.newpage()
+  pushViewport(viewport())
+    grid.draw(grob_poly_hm)
+  popViewport()
+dev.off()
+```
+
+```{r}
+# Load plotting functions
+source(here('scripts', 'src', 'assessment_plot_func.R'))
+
+data_m1_hm  = readRDS(here('data', 'processed', 'm1_plot_data_heatmap.rds'))
+fixed_max = 10
+
+# Create the main heatmap Grob
+grob_poly_hm = create_heatmap_grob_simple(data_m1_hm, "Contact Matrix", is_polymod_panel = TRUE, max_val = fixed_max)
+
+# Create the color bar Grob
+grob_legend_hm = create_heatmap_legend_grob(max_val = fixed_max)
+
+plot_loc_hm = here(plot_path, 'polymod_contact_matrix_legend.pdf')
+
+# Widen the plot from 8cm to 10.5cm to accommodate the color bar
+pdf(plot_loc_hm, width = 10.5 * cm, height = 8 * cm, pointsize = 10)
+  grid.newpage()
+  
+  # 1x2 layout. The 2nd column is for the color bar with a fixed width of 2.0cm
+  pushViewport(viewport(layout = grid.layout(nrow = 1, ncol = 2, widths = unit(c(1, 2.0), c("null", "cm")))))
+    
+    # Left: Heatmap
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 1))
+      grid.draw(grob_poly_hm)
+    popViewport()
+    
+    # Right: Color bar
+    pushViewport(viewport(layout.pos.row = 1, layout.pos.col = 2))
+      grid.draw(grob_legend_hm)
+    popViewport()
+    
+  popViewport()
+dev.off()
+```
+
+## Age Distribution
+
+```{r}
+part_data = poly_df_eda %>% distinct(part_id, part_age)
+age_counts = table(factor(floor(part_data$part_age / 5) * 5, levels = seq(0, 75, by = 5)))
+df_age_dist = data.frame(age = as.numeric(names(age_counts)), count = as.numeric(age_counts))
+
+create_age_dist_grob_v2 = function(df) {
+  x_scale = c(0, 80)
+  y_scale = c(0, max(df$count) * 1.1)
+  
+  main_vp = plotViewport(margins = c(4, 4, 1, 1))
+  data_vp = dataViewport(xData = x_scale, yData = y_scale, extension = 0)
+  
+  bars = rectGrob(
+    x = unit(df$age + 2.5, "native"),
+    y = unit(0, "native"),
+    width = unit(5, "native"), 
+    height = unit(df$count, "native"),
+    just = "bottom",
+    gp = gpar(fill = "steelblue", alpha = 0.6, col = "black")
+  )
+  
+  major_at = seq(0, 80, by = 10)
+  minor_at = seq(5, 75, by = 10)
+  
+  ticks_major = segmentsGrob(
+    x0 = unit(major_at, "native"), y0 = unit(0, "npc"),
+    x1 = unit(major_at, "native"), y1 = unit(-2.0, "mm"), gp = gpar(col = "black")
+  )
+  ticks_minor = segmentsGrob(
+    x0 = unit(minor_at, "native"), y0 = unit(0, "npc"),
+    x1 = unit(minor_at, "native"), y1 = unit(-1.0, "mm"), gp = gpar(col = "black")
+  )
+  labels_x = textGrob(
+    label = as.character(major_at),
+    x = unit(major_at, "native"), y = unit(-3.5, "mm"),
+    just = "top", gp = gpar(fontsize = 10)
+  )
+  
+  ax_y = yaxisGrob(gp = gpar(fontsize = 10))
+  
+  xlab = textGrob("Age", y = unit(-2.5, "lines"))
+  ylab = textGrob("Count", x = unit(-3, "lines"), rot = 90)
+  
+  gTree(children = gList(
+    rectGrob(gp = gpar(fill = "white")),
+    ticks_major, ticks_minor, labels_x, ax_y, 
+    linesGrob(x = unit(c(0, 1), "npc"), y = unit(c(0, 0), "npc")),
+    bars, xlab, ylab
+  ), vp = vpStack(main_vp, data_vp))
+}
+
+pdf(here(plot_path, 'polymod_age_distribution.pdf'), width = 8 * cm, height = 8 * cm, pointsize = 10)
+  grid.newpage()
+  grid.draw(create_age_dist_grob_v2(df_age_dist))
+dev.off()
+```
+
+## Age Difference by Location
+
+```{r}
+locs = c("Home", "School", "Work", "Leisure")
+age_diff_list = lapply(locs, function(l) {
+  vals = abs(poly_df_eda$part_age[poly_df_eda$location_category == l] - poly_df_eda$cnt_age[poly_df_eda$location_category == l])
+  density(vals[!is.na(vals)], from = 0, to = 60)
+})
+
+pdf(here(plot_path, 'polymod_agediff_location.pdf'), width = 16 * cm, height = 16 * cm, pointsize = 10)
+  grid.newpage()
+  main_layout = grid.layout(2, 2)
+  pushViewport(viewport(layout = main_layout))
+  
+  for (i in 1:4) {
+    row_idx = (i - 1) %/% 2 + 1
+    col_idx = (i - 1) %% 2 + 1
+    
+    pushViewport(viewport(layout.pos.row = row_idx, layout.pos.col = col_idx))
+    pushViewport(plotViewport(margins = c(4, 4, 1, 1)))
+    
+    d = age_diff_list[[i]]
+    title_str = locs[i]
+    
+    y_max = ifelse(title_str == "School", 0.4, 0.1)
+    y_ticks = if (title_str == "School") c(0, 0.2, 0.4) else c(0, 0.05, 0.1)
+    
+    data_vp = dataViewport(xData = c(0, 60), yData = c(0, y_max), extension = 0)
+    pushViewport(data_vp)
+    
+      grid.rect(gp = gpar(fill = "white", col = "black"))
+      
+      poly_x = c(d$x[1], d$x, d$x[length(d$x)])
+      poly_y = c(0, d$y, 0)
+      grid.polygon(poly_x, poly_y, default.units = "native", gp = gpar(fill = "steelblue", alpha = 0.3, col = NA))
+      
+      grid.lines(d$x, d$y, default.units = "native", gp = gpar(col = "steelblue", lwd = 2))
+      
+      grid.xaxis(at = c(0, 10, 20, 30, 40, 50, 60), gp = gpar(fontsize = 10))
+      grid.yaxis(at = y_ticks, gp = gpar(fontsize = 10))
+      
+      grid.text("Age Difference", y = unit(-2.5, "lines"), gp = gpar(fontsize = 10))
+      grid.text("Density", x = unit(-3.5, "lines"), rot = 90,
+                gp = gpar(fontsize = 10))
+      grid.text(title_str, x = unit(0.5, "npc"), y = unit(1, "npc") - unit(1, 'lines'))
+      
+    popViewport(3)
+  }
+  
+  popViewport()
+dev.off()
+```
+
+## Gender Ratio
+
+```{r}
+gender_counts = table(poly_df %>% distinct(part_id, part_gender) %>% pull(part_gender))
+df_gender = data.frame(gender = names(gender_counts), count = as.numeric(gender_counts))
+df_gender$pct = df_gender$count / sum(df_gender$count) * 100
+
+df_gender$label = ifelse(df_gender$gender == "F", "Female", "Male")
+
+create_gender_grob = function(df) {
+  y_max = max(df$count) * 1.2
+  main_vp = plotViewport(margins = c(4, 4, 1, 1))
+  data_vp = dataViewport(xData = c(0.5, 2.5), yData = c(0, y_max), extension = 0)
+  
+  bars = rectGrob(
+    x = unit(1:2, "native"),
+    y = unit(0, "native"),
+    width = unit(0.6, "native"),
+    height = unit(df$count, "native"),
+    just = "bottom",
+    gp = gpar(fill = c("salmon", "skyblue"), col = "black")
+  )
+  
+  pct_labels = textGrob(
+    paste0(round(df$pct, 1), "%"),
+    x = unit(1:2, "native"),
+    y = unit(df$count, "native") + unit(0.5, "lines"),
+    just = "bottom",
+    gp = gpar(fontsize = 10)
+  )
+  
+  ax_x = xaxisGrob(at = 1:2, label = df$label)
+  ax_y = yaxisGrob()
+  
+  gTree(children = gList(
+    rectGrob(gp = gpar(fill = "white")),
+    bars, pct_labels, ax_x, ax_y
+  ), vp = vpStack(main_vp, data_vp))
+}
+
+pdf(here(plot_path, 'polymod_gender_ratio.pdf'), width = 8 * cm, height = 8 * cm, pointsize = 10)
+  grid.newpage()
+  grid.draw(create_gender_grob(df_gender))
+dev.off()
+```
