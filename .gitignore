@@ -20,7 +20,5 @@ data/processed/*
 thesis/out/*
 !thesis/out/.gitkeep
 
-*.pdf
-
 .DS_Store
 *.DS_Store
