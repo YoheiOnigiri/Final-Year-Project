@@ -20,5 +20,8 @@ data/processed/*
 thesis/out/*
 !thesis/out/.gitkeep
 
+*.pdf
+!Yohei_Kiguchi_Final_Thesis.pdf
+
 .DS_Store
 *.DS_Store
