@@ -1,4 +1,5 @@
-# Final Year Project: Inference of Contact Networks for Outbreak Simulation
+# Final Year Project:
+# Inference of Contact Networks for Outbreak Simulation
 
 This repository contains the codebase, analytical pipelines, simulation models, and LaTeX thesis source for a Final Year Project (FYP) in **Data Science and Analytics (DSA)** at the **National University of Singapore (NUS)**.
 
