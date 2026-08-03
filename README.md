@@ -6,7 +6,7 @@ The project was conducted at the **NUS Saw Swee Hock School of Public Health** u
 
 ---
 
-## 📌 Repository Overview
+## - Repository Overview
 
 ```
 .
@@ -33,7 +33,7 @@ The project was conducted at the **NUS Saw Swee Hock School of Public Health** u
 
 ---
 
-## ⚙️ Analytical Pipeline & Workflow
+## - Analytical Pipeline & Workflow
 
 The workflow is structured into three main phases:
 
@@ -55,7 +55,7 @@ The workflow is structured into three main phases:
 
 ---
 
-## 🚀 Getting Started & Reproducibility
+## - Getting Started & Reproducibility
 
 ### Prerequisites
 - **R** (>= 4.2.0)
@@ -81,7 +81,7 @@ This project uses [`renv`](https://rstudio.github.io/renv/) to manage package de
 
 ---
 
-## 📝 Author & Acknowledgments
+## - Author & Acknowledgments
 
 - **Author**: Yohei Kiguchi (NUS College, Data Science and Analytics)
 - **Supervisor**: Prof. Alex R Cook (NUS Saw Swee Hock School of Public Health)
